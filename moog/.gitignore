@@ -1,0 +1,6 @@
+﻿!/unpackage/dist/build/h5
+泰脉/unpackage/build/*
+泰脉/unpackage/dist/dev/*
+泰脉/unpackage/dist/build/app-plus/*
+
+node_modules

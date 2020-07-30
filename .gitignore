@@ -1,0 +1,6 @@
+!/unpackage/dist/build/h5
+moog/unpackage/build/*
+moog/unpackage/dist/dev/*
+moog/unpackage/dist/build/app-plus/*
+
+moog/node_modules
