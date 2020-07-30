@@ -15,6 +15,7 @@
 <style>
 	@import "colorui/main.css";
 	@import "colorui/icon.css";
+	@import "static/css/iconfont.css";
 	/*每个页面公共css */
 	.icon {
 	  width: 1em;
