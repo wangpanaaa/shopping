@@ -57,7 +57,32 @@
 			</button>
 		</view>
 		<view style="font-size: 24rpx;color: #A8A8A8;padding-top: 73rpx;padding-left: 28rpx;">Three-level proxy model </view>
-		<view>Member News </view>
+		<view style="font-size: 40rpx;color: #333;padding-top: 18rpx;padding-left: 32rpx;">Member News </view>
+		<image src="../../static/images/banner.png" class="banner-image"></image>
+		<view class="cu-list menu-avatar" style="padding: 10rpx 30rpx;">
+			<view class="cu-item" style="border-radius: 10rpx;margin-bottom: 10rpx;">
+				<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"></view>
+				<view class="content flex-sub">
+					<view class="text-grey">Francis</view>
+					<view class="text-gray text-sm flex justify-between">Get agent commission today </view>
+				</view>
+				<view class="text-grey">₹ 375</view>
+			</view>
+			<view class="cu-item" style="border-radius: 10rpx;margin-bottom: 10rpx;">
+				<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"></view>
+				<view class="content flex-sub">
+					<view class="text-grey">Francis</view>
+					<view class="text-gray text-sm flex justify-between">Get agent commission today </view>
+				</view>
+				<view class="text-grey">₹ 375</view>
+			</view>
+		</view>
+		<image src="../../static/images/banner.png" class="advertisement"></image>
+		<view style="font-size: 24rpx;color: #A8A8A8;padding-top: 73rpx;padding-left: 28rpx;">Professional grab order platform  </view>
+		<view style="font-size: 40rpx;color: #333;padding-top: 18rpx;padding-left: 32rpx;">ABOUT US  </view>
+		<view>
+			
+		</view>
 	</view>
 </template>
 
@@ -132,6 +157,19 @@
 	.icon-che{
 		font-size: 46rpx;
 		margin-right: 26rpx;
+	}
+	.banner-image{
+		height: 200rpx;
+		padding: 40rpx 30rpx 0 30rpx;
+		width: 100%;
+	}
+	.cu-item{
+		height: 150rpx;
+	}
+	.advertisement{
+		height: 375rpx;
+		width: 100%;
+		padding: 34rpx 30rpx 0 30rpx;
 	}
 	
 </style>
