@@ -2,7 +2,7 @@
 	<view class="login">
 		<view class="show">
 			<view class="top">
-				<image src="../../static/images/advertisement.png" />
+				<image src="../../static/images/britain.png" />
 				<view class="language">{{language}}</view>
 			</view>
 			<view class="content">

@@ -1,5 +1,5 @@
 @font-face {font-family: "iconfont";
-  src: url('~@/static/css/iconfont.ttf')
+ src: url('~@/static/css/iconfont.ttf');
 }
 
 .iconfont {
@@ -8,6 +8,14 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-licai1:before {
+  content: "\e7cf";
+}
+
+.icon-chongzhi1:before {
+  content: "\e7d0";
 }
 
 .icon-guanbi:before {
@@ -28,10 +36,6 @@
 
 .icon-chenggong:before {
   content: "\e879";
-}
-
-.icon-licai:before {
-  content: "\e665";
 }
 
 .icon-yuyan:before {
@@ -176,10 +180,6 @@
 
 .icon-icon:before {
   content: "\e60a";
-}
-
-.icon-chongzhi:before {
-  content: "\e603";
 }
 
 .icon-kefu:before {
