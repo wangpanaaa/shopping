@@ -4,6 +4,10 @@
 		{
 			"path": "pages/index/index",
 			"style": {}
+		},
+		{
+			"path": "pages/record/index",
+			"style": {}
 		}
 		
 	],

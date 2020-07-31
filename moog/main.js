@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import App from './App'
-import './static/iconfont.js'
-
+import cuCustom from './colorui/components/cu-custom.vue'
+// import './static/iconfont.js'
+Vue.component('cu-custom',cuCustom)
 // import basics from './pages/basics/home.vue'
 // Vue.component('basics',basics)
 
