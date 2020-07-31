@@ -1,6 +1,6 @@
 {
-    "name" : "moog",
-    "appid" : "",
+    "name" : "test_moog",
+    "appid" : "__UNI__5F6EC61",
     "description" : "",
     "versionName" : "ColorUi for UniApp 2.1.4",
     "versionCode" : 214,
@@ -40,7 +40,9 @@
             },
             "ios" : {},
             /* ios打包配置 */
-            "sdkConfigs" : {}
+            "sdkConfigs" : {
+                "ad" : {}
+            }
         }
     },
     /* SDK配置 */
