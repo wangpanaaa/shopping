@@ -14,6 +14,7 @@ Vue.component('cu-custom',cuCustom)
 
 // import cuCustom from './colorui/components/cu-custom.vue'
 // Vue.component('cu-custom',cuCustom)
+// import './static/iconfont.js'
 
 Vue.config.productionTip = false
 

@@ -8,6 +8,14 @@
 		{
 			"path": "pages/record/index",
 			"style": {}
+		},
+		{
+			"path": "pages/order/orderGrabbing",
+			"style":{}
+		},
+		{
+			"path": "pages/login/index",
+			"style": {}
 		}
 		
 	],

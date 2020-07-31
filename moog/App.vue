@@ -40,6 +40,7 @@
 	@import "colorui/main.css";
 	@import "colorui/icon.css";
 	@import "static/css/nav.css";
+  @import "static/css/iconfont.css";
 	/*每个页面公共css */
 	Page{
 		height: 100%;

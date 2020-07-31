@@ -3,7 +3,7 @@
 		<cu-custom bgColor="bg-black" :isBack="true">
 			<block slot="content">Grab Order Record</block>
 			<block slot="right">
-				<image class="nav_right" src="https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg" mode="aspectFill"></image>
+				<span class="iconfont icon-kefu"></span>
 			</block>
 		</cu-custom>
 		<view class="head">
@@ -148,10 +148,9 @@
 		flex-direction: column;
 	}
 
-	.nav_right {
-		width: 25px;
-		height: 25px;
-		margin-right: 15px;
+	.icon-kefu {
+		font-size: 50rpx;
+		padding-right: 30rpx;
 	}
 
 	.head {
