@@ -3,7 +3,7 @@
 		<view class="show">
 			<view class="top">
 				<image src="../../static/images/britain.png" />
-				<view class="language">{{language}}</view>
+				<view class="language" @tap='navigateTo("../index/settingLanguage")'>{{language}}</view>
 			</view>
 			<view class="content">
 				<image class="content_img" src="../../static/images/Logo.png"></image>
@@ -54,7 +54,7 @@
 				<view class="iconfont icon-iconfontzhizuobiaozhun49"></view>
 				<input class="password" placeholder="Enter password ">
 			</view>
-			<button @click="registerCancel">sign up</button>
+			<button @click="registerSub">sign up</button>
 			<view class="sign">Alredy have an account? <text class="text" @click="registerCancel"> Sign in</text> </view>
 		</view>
 	</view>
@@ -66,7 +66,13 @@
 			return {
 				language: 'English',
 				showAccountLogin: false,
-				showRegister: false
+				showRegister: false,
+				regData:{
+					username:'',
+					pwd:'',
+					agentid:'',
+					code:'1111'
+				}
 			};
 		},
 		methods: {
@@ -91,7 +97,17 @@
 			registerCancel(){
 				this.showAccountLogin = true
 				this.showRegister = false
-			}
+			},
+			registerSub(){
+				this.$http.post('/api/login/register',{...this.regData}).then(res=>{
+					console.log(res)
+				})
+			},
+			navigateTo(e) {
+				uni.navigateTo({
+					url:e
+				})
+			},
 		}
 	}
 </script>
@@ -99,9 +115,8 @@
 <style lang="scss" scoped>
 	.login {
 		background: url('../../static/images/title_bg.png');
-		height: 1624rpx;
+		height: 100%;
 		position: relative;
-
 		.show {
 			.top {
 				display: flex;
