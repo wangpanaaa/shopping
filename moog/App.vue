@@ -48,6 +48,9 @@ Page {
 uni-page-body {
 	height: 100%;
 }
+.uni-video-container{
+	background-color:#fff
+}
 .icon {
 	width: 1em;
 	height: 1em;

@@ -16,8 +16,7 @@
 				<button class="cu-btn" style="margin-left: 50rpx;margin-top: 44rpx;">Start the journey of wealth</button>
 			</view>
 			<view class="flex box-list">
-				<navigator url="../record/index">
-					<view style="text-align: center;">
+					<view style="text-align: center;" @tap='navigateTo("../record/index")'>
 						<view>
 							<svg class="icon icon-box" aria-hidden="true">
 							  <use xlink:href="#icon-licai"></use>
@@ -25,8 +24,7 @@
 						</view>
 						<text style="font-size: 24rpx;">Financial</text>
 					</view>
-				</navigator>
-				<view style="text-align: center;">
+				<view style="text-align: center;" @tap='navigateTo("../record/blance")'>
 					<view>
 						<svg class="icon icon-box" aria-hidden="true">
 						  <use xlink:href="#icon-chongzhi"></use>
