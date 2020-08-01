@@ -20,17 +20,23 @@
 		<view class="chooseTitle">
 			Choose to pay by cash
 		</view>
-		<view class="chooseButton" >
-			<view>
+		<view class="chooseButton">
+			<view :class="[radio==1?'checkedRadion':'NOcheckedRadion']" @click="radio=1">
 				<image src="../../../static/images/upi.png" mode=""> </image>
-				<text class="cuIcon-check"  :class="[radio==1?'checkedRadion':'NOcheckedRadion']" @click="radio=1"></text>
+				<text class="cuIcon-check"></text>
 			</view>
-			<view >
-				<text class="cuIcon-check" :class="[radio==2?'checkedRadion':'NOcheckedRadion']"  @click="radio=2"></text>
+			<view :class="[radio==2?'checkedRadion':'NOcheckedRadion']" @click="radio=2">
+				<span  style="font-size:15px; color: #959595;font-weight: bold;">Pay</span>
+				 <span style="width:85px; text-align: justify;font-size: 12px; color: #c9c9c9;transform:scale(0.9);">
+					Cards,Wallets,
+					Net Bank & Pay
+				</span>
+				<text class="cuIcon-check"></text>
 			</view>
 		</view>
 		<view class="memo" style="margin-top: 20px;color:rgba(168,168,168,1)">
-			Your recharge amount is <span style="color:rgba(51,51,51,1);font-size:15px;font-weight:bold;margin-left: 13px;">₹ 600</span>
+			Your recharge amount is <span style="color:rgba(51,51,51,1);font-size:15px;font-weight:bold;margin-left: 13px;">₹
+				600</span>
 		</view>
 		<button class="commit">Next step <span class="iconfont icon-huabanbeifen12" style="font-weight: bold;font-size: 15px;"></span></button>
 	</view>
@@ -49,8 +55,8 @@
 				this.radio = e.detail.value
 			},
 		},
-		computed:{
-			money(){
+		computed: {
+			money() {
 				return this.Recharge
 			}
 		}
@@ -108,6 +114,7 @@
 			background: rgba(255, 255, 255, 1);
 			border-radius: 5px;
 			margin-right: 2%;
+
 			&:nth-child(3n) {
 				margin-right: 0%;
 			}
@@ -130,7 +137,8 @@
 			}
 
 		}
-		.boxChecked{
+
+		.boxChecked {
 			background: #e7e7e7;
 		}
 	}
@@ -169,28 +177,36 @@
 
 		.checkedRadion,
 		.NOcheckedRadion {
-			width: 24px;
-			height: 24px;
-			background: #222F3E;
-			color: #FFFFFF;
-			border-radius: 50%;
-			overflow: hidden;
-			display: flex;
-			align-items: center;
-			justify-content: center;
+			text {
+				width: 24px;
+				height: 24px;
+				background: #222F3E;
+				color: #FFFFFF;
+				border-radius: 50%;
+				overflow: hidden;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
 		}
 
 		.NOcheckedRadion {
-			background: #8d939b;
+			border: 0;
+
+			text {
+				background: #8d939b;
+			}
+
 		}
 	}
-	.commit{
+
+	.commit {
 		margin-top: 40px;
-		width:100%;
-		height:54px;
-		background:linear-gradient(180deg,rgba(247,222,162,1),rgba(240,194,80,1));
-		border:1px solid;
-		border-image:linear-gradient(170deg, rgba(172,142,66,1), rgba(133,108,47,1)) 1 1;
-		border-radius:3px;
-		}
+		width: 100%;
+		height: 54px;
+		background: linear-gradient(180deg, rgba(247, 222, 162, 1), rgba(240, 194, 80, 1));
+		border: 1px solid;
+		border-image: linear-gradient(170deg, rgba(172, 142, 66, 1), rgba(133, 108, 47, 1)) 1 1;
+		border-radius: 3px;
+	}
 </style>
