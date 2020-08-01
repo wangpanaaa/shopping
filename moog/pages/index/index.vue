@@ -154,7 +154,7 @@
 		</view>
 		
 		<view class="cu-modal drawer-modal justify-start" :class="modalName=='DrawerModalL'?'show':''" @tap="hideModal">
-			<view class="cu-dialog basis-xl" @tap.stop="" :style="[{top:CustomBar+'px'}]">
+			<view class="cu-dialog basis-xl" @tap.stop="" >
 				<view class="flex">
 					<image src="../../static/images/Calculate-revenue.png"></image>
 					<text class="basis-name">Hello, Chen Kang</text>
@@ -180,14 +180,12 @@
 				</view>
 				<view class="basis-list basis-border">
 					<view class="basis-item" style="font-weight: bold;">Settings</view>
-					<view class="basis-item">
-						<image src="../../static/images/britain.png" mode=""></image>
+					<view class="basis-item" @tap='navigateTo("./settingLanguage")'>
+						<image src="../../static/images/britain.png"></image>
 						English
 					</view>
 					<view class="basis-item">Personal information</view>
-					<navigator url="../login/index">
-						<view class="basis-item">Sign Out</view>
-					</navigator>
+					<view class="basis-item" @tap='navigateTo("../login/login")'>Sign Out</view>
 				</view>
 			</view>
 		</view>
@@ -209,6 +207,11 @@
 			},
 			hideModal(e) {
 				this.modalName = null
+			},
+			navigateTo(e) {
+				uni.navigateTo({
+					url:e
+				})
 			},
 		}
 	}
@@ -355,7 +358,7 @@
 	}
 	/*  #ifdef APP-PLUS  */
 		.drawer-modal{
-			margin-top: 25px;
+			margin-top: 50rpx;
 		}
 	/*  #endif  */
 	
