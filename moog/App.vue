@@ -45,7 +45,7 @@
 	Page{
 		height: 100%;
 	}
-	uni-page-body{
+	uni-page-body,body{
 			height: 100%;
 	}
 	.icon {

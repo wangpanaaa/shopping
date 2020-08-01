@@ -60,7 +60,7 @@
 		methods:{
 			submit(){
 				uni.navigateTo({
-					url:"/pages/record/blance"
+					url:"/pages/blance/index"
 				})
 			}
 		}
@@ -70,13 +70,13 @@
 <style lang="less">
 	.recordCotain {
 		background-color: #FFFFFF;
-		border-radius: 5px;
-		padding: 15px 10px;
+		border-radius: 10rpx;
+		padding: 30rpx 20rpx;
 
 		.recordHead {
 			display: flex;
-			border-bottom: 1px solid #F6F6F6;
-			padding-bottom: 12px;
+			border-bottom: 1rpx solid #F6F6F6;
+			padding-bottom: 24rpx;
 
 			&_left {
 				flex: 1;
@@ -85,15 +85,15 @@
 					display: inline-block;
 
 					&:nth-child(1) {
-						width: 53px;
+						width: 106rpx;
 						color: #A8A8A8;
-						font-size: 12px;
+						font-size: 24rpx;
 					}
 
 					&:nth-child(n+2) {
-						width: 70px;
+						width: 140rpx;
 						color: #33333;
-						font-size: 12px;
+						font-size: 24rpx;
 					}
 
 				}
@@ -102,25 +102,25 @@
 					display: inline-block;
 
 					&:nth-child(1) {
-						width: 53px;
+						width: 106rpx;
 						color: #A8A8A8;
-						font-size: 12px;
+						font-size: 24rpx;
 					}
 
 					&:nth-child(n+2) {
 						color: #33333;
-						font-size: 12px;
+						font-size: 24rpx;
 					}
 				}
 			}
 
 			&_button {
-				width: 77px;
-				height: 20px;
+				width: 154rpx;
+				height: 40rpx;
 				background: rgba(0, 160, 117, 1);
-				border-radius: 3px;
-				line-height: 20px;
-				font-size: 13px;
+				border-radius: 6rpx;
+				line-height: 40rpx;
+				font-size: 26rpx;
 				font-family: Myriad Pro;
 				text-align: center;
 				color: #FFFFFF;
@@ -140,17 +140,17 @@
 		}
 
 		.recordContent {
-			padding: 15px 0;
+			padding: 30rpx 0;
 			display: flex;
-			border-bottom: 1px solid #F6F6F6;
+			border-bottom: 1rpx solid #F6F6F6;
 
 			&_image {
-				width: 60px;
-				height: 60px;
-				padding: 2px;
+				width: 120rpx;
+				height: 120rpx;
+				padding: 4rpx;
 				box-sizing: border-box;
-				border: 1px solid rgba(220, 221, 221, 1);
-				border-radius: 5px;
+				border: 1rpx solid rgba(220, 221, 221, 1);
+				border-radius: 10rpx;
 
 				image {
 					width: 100%;
@@ -160,13 +160,13 @@
 
 			p {
 				flex: 1;
-				margin-left: 10px;
+				margin-left: 20rpx;
 				text-align: justify;
 			}
 		}
 
 		.recordFoot {
-			padding-top: 15px;
+			padding-top: 30rpx;
 			display: flex;
 			flex-direction: column;
 
@@ -174,20 +174,20 @@
 				display: flex;
 				justify-content: space-between;
 				&:nth-child(n+2){
-					margin-top: 6px;
+					margin-top: 12rpx;
 				}
 			}
 			&_button{
 				display: flex; justify-content: space-between;
-				margin-top: 15px;
+				margin-top: 30rpx;
 				button{
-					width: 150px;
-					height: 50px;
-					line-height: 50px;
+					width: 300rpx;
+					height: 100rpx;
+					line-height: 100rpx;
 					color: #222F3E;
 					background: #FFFFFF;
-					border:1px solid rgba(34,47,62,1);
-					border-radius:3px;
+					border:1rpx solid rgba(34,47,62,1);
+					border-radius:6rpx;
 					&:nth-child(2){
 						background:linear-gradient(180deg,rgba(247,222,162,1),rgba(240,194,80,1))
 					}

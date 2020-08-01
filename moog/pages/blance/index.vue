@@ -11,7 +11,7 @@
 			<view :style="{left:tabs[currentTabs].left}" class="line"></view>
 		</view>
 		<view class="swiper-area">
-			<swiper :current="currentTabs" @change="change" @transition="swiperStart" @animationfinish="swiperEnd">
+			<swiper :acceleration="false" :current="currentTabs" @change="change" @transition="swiperStart" @animationfinish="swiperEnd">
 				<swiper-item>
 					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
 					 refresher-background="#f5f5f5">
@@ -81,7 +81,7 @@
 					},
 					{
 						name: 'CHrrp',
-						left: '85%',
+						left: '88%',
 					}
 				],
 				currentTabs: 0,
@@ -153,10 +153,10 @@
 
 	.head_tabs {
 		width: calc(100% - 30px);
-		margin:10px auto 20px auto;
-		box-shadow: 0px 3px 12px 4px rgba(0, 0, 0, 0.1);
+		margin:20rpx auto 40rpx auto;
+		box-shadow: 0px 6rpx 24rpx 8rpx rgba(0, 0, 0, 0.1);
 		background: rgba(255, 255, 255, .96);
-		height: 46px;
+		height: 92rpx;
 		display: flex;
 		align-items: center;
 		justify-content: space-around;
@@ -164,12 +164,12 @@
 
 		span {
 			color: rgba(168, 168, 168, 1);
-			font-size: 14px;
+			font-size: 28rpx;
 		}
 
 		.line {
-			width: 9px;
-			height: 5px;
+			width: 18rpx;
+			height: 10rpx;
 			background: rgba(51, 51, 51, 1);
 			position: absolute;
 			bottom: 0;

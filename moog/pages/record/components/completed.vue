@@ -28,6 +28,6 @@
 		min-height: 100%;
 	}
 	.record{
-		margin-bottom: 10px;
+		margin-bottom: 20rpx;
 	}
 </style>

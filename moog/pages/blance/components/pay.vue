@@ -65,33 +65,33 @@
 
 <style lang="less">
 	.payCotain {
-		padding: 0 15px;
+		padding: 0 30rpx;
 	}
 
 	.amountInput {
-		padding: 0px 0px 20px 0;
+		padding: 0rpx 0rpx 40rpx 0;
 		display: flex;
 		align-items: center;
-		font-size: 13px;
+		font-size: 26rpx;
 		font-family: Myriad Pro;
 		font-weight: bold;
 		color: rgba(51, 51, 51, 1);
 
 		input {
 			flex: 1;
-			margin-left: 12px;
-			height: 37px;
+			margin-left: 24rpx;
+			height: 74rpx;
 			background: rgba(255, 255, 255, 1);
-			border: 1px solid rgba(220, 221, 221, 1);
-			border-radius: 5px;
+			border: 1rpx solid rgba(220, 221, 221, 1);
+			border-radius: 10rpx;
 		}
 
 		.placeholder {
-			font-size: 12px;
+			font-size: 12rpx;
 			font-family: Myriad Pro;
 			font-weight: normal;
 			color: rgba(168, 168, 168, .5);
-			padding: 0 5px;
+			padding: 0 10rpx;
 		}
 	}
 
@@ -101,18 +101,18 @@
 
 		.box {
 			width: 32%;
-			height: 50px;
+			height: 100rpx;
 			display: flex;
 			position: relative;
-			padding: 0 10px;
+			padding: 0 20rpx;
 			align-items: center;
-			font-size: 13px;
+			font-size: 26rpx;
 			font-family: Myriad Pro;
 			font-weight: bold;
 			color: rgba(51, 51, 51, 1);
 			box-sizing: border-box;
 			background: rgba(255, 255, 255, 1);
-			border-radius: 5px;
+			border-radius: 10rpx;
 			margin-right: 2%;
 
 			&:nth-child(3n) {
@@ -120,17 +120,17 @@
 			}
 
 			&:nth-child(n+4) {
-				margin-top: 10px;
+				margin-top: 20rpx;
 			}
 
 			.xingxing {
 				position: absolute;
 				top: 50%;
-				right: 10px;
+				right: 20rpx;
 				transform: scale(0.7) translate(30%, -50%);
 
 				.icon-tuijianxingji {
-					font-size: 12px;
+					font-size: 24rpx;
 					color: #FF2750;
 				}
 
@@ -144,33 +144,33 @@
 	}
 
 	.chooseTitle {
-		padding: 40px 0 25px 0;
-		font-size: 14px;
+		padding: 80rpx 0 50rpx 0;
+		font-size: 14rpx;
 		font-family: Myriad Pro;
 		font-weight: bold;
 		color: rgba(51, 51, 51, 1);
 	}
 
 	.chooseButton {
-		padding-bottom: 30px;
-		border-bottom: 1px dashed rgb(220, 221, 221);
+		padding-bottom: 60rpx;
+		border-bottom: 1rpx dashed rgb(220, 221, 221);
 		display: flex;
 		justify-content: space-between;
 
 		view {
-			width: 165px;
-			height: 50px;
+			width: 330rpx;
+			height: 100rpx;
 			background: rgba(255, 255, 255, 1);
-			border: 1px solid rgba(250, 167, 35, 1);
-			border-radius: 5px;
+			border: 1rpx solid rgba(250, 167, 35, 1);
+			border-radius: 10rpx;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 
 			&:nth-child(1) {
 				image {
-					width: 104px;
-					height: 40px;
+					width: 208rpx;
+					height: 60rpx;
 				}
 			}
 		}
@@ -178,8 +178,8 @@
 		.checkedRadion,
 		.NOcheckedRadion {
 			text {
-				width: 24px;
-				height: 24px;
+				width: 48rpx;
+				height: 48rpx;
 				background: #222F3E;
 				color: #FFFFFF;
 				border-radius: 50%;
@@ -201,12 +201,12 @@
 	}
 
 	.commit {
-		margin-top: 40px;
+		margin-top: 80rpx;
 		width: 100%;
-		height: 54px;
+		height: 108rpx;
 		background: linear-gradient(180deg, rgba(247, 222, 162, 1), rgba(240, 194, 80, 1));
-		border: 1px solid;
+		border: 1rpx solid;
 		border-image: linear-gradient(170deg, rgba(172, 142, 66, 1), rgba(133, 108, 47, 1)) 1 1;
-		border-radius: 3px;
+		border-radius: 6rpx;
 	}
 </style>

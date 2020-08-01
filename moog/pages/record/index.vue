@@ -154,27 +154,27 @@
 	}
 
 	.head {
-		padding: 12px 15px 0 15px;
+		padding: 24rpx 30rpx 0 30rpx;
 		position: relative;
 
 		&_title>p {
 			&:nth-child(1) {
 				color: #A8A8A8;
-				font-size: 12px;
+				font-size: 24rpx;
 			}
 
 			&:nth-child(2) {
-				margin-top: 2px;
+				margin-top: 4rpx;
 				color: #333333;
 				font-weight: bold;
-				font-size: 18px;
+				font-size: 36rpx;
 			}
 		}
 
 		&_bg {
-			margin-top: 8px;
+			margin-top: 16rpx;
 			width: 100%;
-			height: 90px;
+			height: 180rpx;
 
 			image {
 				width: 100%;
@@ -188,24 +188,24 @@
 			left: 50%;
 			transform: translate(-50%, -50%);
 			width: calc(100% - 45px);
-			box-shadow: 0px 3px 12px 4px rgba(0, 0, 0, 0.1);
+			box-shadow: 0px 6rpx 24rpx 8rpx rgba(0, 0, 0, 0.1);
 			border-radius: 23px;
 			background: rgba(255, 255, 255, .96);
-			height: 46px;
+			height: 92rpx;
 			display: flex;
 			align-items: center;
 			justify-content: space-around;
-			padding: 0 12px;
+			padding: 0 24rpx;
 			position: relative;
 
 			span {
 				color: rgba(168, 168, 168, 1);
-				font-size: 14px;
+				font-size: 28rpx;
 			}
 
 			.line {
-				width: 9px;
-				height: 5px;
+				width: 18rpx;
+				height: 10rpx;
 				background: rgba(51, 51, 51, 1);
 				position: absolute;
 				bottom: 0;
@@ -220,7 +220,7 @@
 		}
 	}
 .swiper-area{
-	padding: 0 15px;
+	padding: 0 30rpx;
 	flex: 1;
 	uni-swiper{
 		height: 100%;
