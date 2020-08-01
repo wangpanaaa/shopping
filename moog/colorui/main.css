@@ -418,13 +418,17 @@ switch.gray[checked] .wx-switch-input,
 checkbox.gray[checked] .wx-checkbox-input,
 radio.gray[checked] .wx-radio-input,
 switch.gray.checked .uni-switch-input,
-checkbox.gray.checked .uni-checkbox-input,
-radio.gray.checked .uni-radio-input {
+checkbox.gray.checked .uni-checkbox-input{
 	background-color: #f0f0f0 !important;
 	border-color: #f0f0f0 !important;
 	color: #333333 !important;
 }
 
+radio.gray.checked .uni-radio-input{
+	background-color: #8d939b !important;
+	border-color: #8d939b !important;
+	color: #333333 !important;
+}
 switch.black[checked] .wx-switch-input,
 checkbox.black[checked] .wx-checkbox-input,
 radio.black[checked] .wx-radio-input,

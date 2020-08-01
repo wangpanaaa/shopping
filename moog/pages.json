@@ -10,6 +10,10 @@
 			"style": {}
 		},
 		{
+			"path": "pages/record/blance",
+			"style": {}
+		},
+		{
 			"path": "pages/order/orderGrabbing",
 			"style":{}
 		},

@@ -34,7 +34,7 @@
 			</view>
 			<view class="recordFoot_button" v-if="status==2">
 				   <button type="default">Cancel</button>
-					 <button type="default">Submit</button>
+					 <button type="default" @click="submit">Submit</button>
 			</view>
 		</view>
 	</view>
@@ -55,6 +55,13 @@
 			status:{
 				type:String,
 				default:'1'
+			}
+		},
+		methods:{
+			submit(){
+				uni.navigateTo({
+					url:"/pages/record/blance"
+				})
 			}
 		}
 	}

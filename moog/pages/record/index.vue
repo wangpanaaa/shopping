@@ -149,8 +149,8 @@
 	}
 
 	.icon-kefu {
-		font-size: 50rpx;
-		padding-right: 30rpx;
+	font-size: 50rpx;
+	padding-right: 30rpx;
 	}
 
 	.head {
