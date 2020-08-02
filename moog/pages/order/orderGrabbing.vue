@@ -146,7 +146,9 @@ export default {
 					this.orderConfirm = false;
 					this.modalName = 'order-suc';
 					clearInterval(times)
-					await this.$http.post('/api/order/confirm',{orderid:this.goodsItem.orderid,status:1})
+					this.$http.post('/api/order/confirm',{orderid:this.goodsItem.orderid,status:1}).then(res=>{
+						console.log(res)
+					})
 				}
 			},Math.floor(Math.random()*4+5)*1000)
 		}
