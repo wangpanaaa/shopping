@@ -13,7 +13,7 @@ const getTokenStorage = () => {
 
 const http = new Request()
 http.setConfig((config) => { /* 设置全局配置 */
-	let baseURL = 'http://114.116.82.30/api/order/mall'
+	let baseURL = 'http://114.116.82.30'
 	// #ifdef H5
 	baseURL = '/api'
 	// #endif
@@ -35,9 +35,11 @@ http.interceptors.request.use((config) => { /* 请求之前拦截器。可以使
    return Promise.reject(config)
  }
  */
-	uni.showLoading({
-		title:'loading'
-	})
+	if(config.url!=='/api/user/membernews'){
+		uni.showLoading({
+			title:'loading'
+		})
+	}
 	return config
 }, (config) => {
 	return Promise.reject(config)

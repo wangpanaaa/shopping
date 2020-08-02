@@ -41,21 +41,20 @@
 					<text style="font-size: 24rpx;"> Invite </text>
 				</view>
 			</view>
-			<navigator url="../order/orderGrabbing">
-				<view class="flex flex-direction">
-					<button class="cu-btn bg-grey lg place-order">
-						<span class="iconfont icon-che"></span>
-						<text style="font-size: 30rpx;">Place an order </text>
-					</button>
-				</view>
-			</navigator>
+
+			<view class="flex flex-direction">
+				<button class="cu-btn bg-grey lg place-order" @tap="navigateTo('../order/orderGrabbing')">
+					<span class="iconfont icon-che"></span>
+					<text style="font-size: 30rpx;">Place an order </text>
+				</button>
+			</view>
 			
 			<view style="font-size: 24rpx;color: #A8A8A8;padding-top: 73rpx;padding-left: 28rpx;">Select member session </view>
 			<view style="font-size: 40rpx;color: #333;padding-top: 18rpx;padding-left: 32rpx;font-weight: bold;">Mission Hall </view>
 			<view class="etsy-list">
-				<view class="item-etsy" v-for="item of amazonList" :key='item.id'>
+				<view class="item-etsy" v-for="item of amazonList" :key='item.id' @tap="item.lock===0?navigateTo('../order/orderGrabbing'):''">
 					<image :src="item.pic" class="etsy-image"></image>
-					<image src="../../static/images/lock.png" class="lock" v-if="item.lock===1"></image>
+					<image src="../../static/images/lock.png" class="lock" v-if="item.lock===1" ></image>
 					<text class="etsy-text">{{item.subtitle}}</text>
 					<view class="etsy-Commission">
 						{{item.title}}
@@ -68,14 +67,14 @@
 			<view style="font-size: 24rpx;color: #A8A8A8;padding-top: 73rpx;padding-left: 28rpx;">Three-level proxy model </view>
 			<view style="font-size: 40rpx;color: #333;padding-top: 18rpx;padding-left: 32rpx;font-weight: bold;">Member News </view>
 			<image :src="settings.ad_tiny" class="banner-image"></image>
-			<view class="cu-list menu-avatar" style="padding: 10rpx 30rpx;">
-				<view class="cu-item" style="border-radius: 10rpx;margin-bottom: 10rpx;" >
-					<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"></view>
+			<view class="cu-list menu-avatar" style="padding: 10rpx 30rpx;height: 460rpx;" >
+				<view class="cu-item" style="border-radius: 10rpx;margin-bottom: 10rpx;" v-for="(item,index) in memberNewArr" :key='index'>
+					<view class="cu-avatar round lg" :style="{'background-image':'url(' + item.headimg + ')'}"></view>
 					<view class="content flex-sub">
-						<view class="text-grey">Francis</view>
-						<view class="text-gray text-sm flex justify-between">Get agent commission today </view>
+						<view class="text-grey">{{item.username}}</view>
+						<view class="text-gray text-sm flex justify-between">{{item.desc}}</view>
 					</view>
-					<view class="text-grey">₹ 375</view>
+					<view class="text-grey"> {{item.amount}}</view>
 				</view>
 				
 			</view>
@@ -83,9 +82,9 @@
 			<view style="font-size: 24rpx;color: #A8A8A8;padding-top: 73rpx;padding-left: 28rpx;">Professional grab order platform  </view>
 			<view style="font-size: 40rpx;color: #333;padding-top: 18rpx;padding-left: 32rpx;font-weight: bold;">ABOUT US  </view>
 			<view class="us-list flex">
-				<view class="us-item">
+				<view class="us-item" @tap="navigateTo('./noticedetail?id='+settings.profile)">
 					<image src="../../static/images/company-profile.png"></image>
-					<view style="font-size: 30rpx;color: #333333;font-weight:bold;">company profile </view>
+					<view style="font-size: 30rpx;color: #333333;font-weight:bold;" >company profile </view>
 					<view style="font-size: 24rpx;color: #A8A8A8;width: 126px;margin: 20rpx 39rpx;">Professional grab order  platform  </view>
 				</view>
 				<view class="us-item">
@@ -154,6 +153,7 @@
 </template>
 
 <script>
+	let memSetInterval=null;
 	import { mapState } from 'vuex'
 	export default {
 		data() {
@@ -162,6 +162,27 @@
 				modalName: null,
 				amazonList:[],
 				settings:JSON.parse(uni.getStorageSync('settings')) || {},
+				memberNew:[],
+				current:0,
+				headimglist:[
+					require('../../static/images/face/face1.png'),
+					require('../../static/images/face/face2.png'),
+					require('../../static/images/face/face3.png'),
+					require('../../static/images/face/face4.png'),
+					require('../../static/images/face/face5.png'),
+					require('../../static/images/face/face6.png'),
+					require('../../static/images/face/face7.png'),
+					require('../../static/images/face/face8.png'),
+					require('../../static/images/face/face9.png'),
+					require('../../static/images/face/face10.png'),
+					require('../../static/images/face/face11.png'),
+					require('../../static/images/face/face12.png'),
+					require('../../static/images/face/face13.png'),
+					require('../../static/images/face/face14.png'),
+					require('../../static/images/face/face15.png'),
+					require('../../static/images/face/face16.png')
+				],
+				memberNewArr:[]
 			}
 		},
 		computed: {...mapState({
@@ -171,6 +192,25 @@
 			this.$store.dispatch('getUserUpdate');
 			const {...data}=await this.$http.post('/api/order/mall')
 			this.amazonList=data.data
+			const list=await this.$http.post('/api/user/membernews')
+			this.memberNew=list.data
+			this.memberNewArr=this.memberNew.slice(0,3)
+			this.memberNewArr.forEach(item=>{
+				item.headimg=this.headimglist[Math.floor(Math.random()*5)]
+			})
+		},
+		async onShow() {
+			memSetInterval=setInterval(async ()=>{
+				this.memberNewArr=[]
+				const list=await this.$http.post('/api/user/membernews')
+				this.memberNewArr=this.memberNew.slice(0,3)
+				this.memberNewArr.forEach(item=>{
+					item.headimg=this.headimglist[Math.floor(Math.random()*10)]
+				})
+			},10000)
+		},
+		onHide() {
+			clearInterval(memSetInterval)
 		},
 		methods: {
 			showModal(e) {
@@ -179,9 +219,10 @@
 			hideModal(e) {
 				this.modalName = null
 			},
-			navigateTo(e) {
+			navigateTo(url) {
+				clearInterval(memSetInterval)
 				uni.navigateTo({
-					url:e
+					url:url
 				})
 			},
 			resetLogin(){
@@ -227,7 +268,7 @@
 		font-weight: bold;
 	}
 	.padding-116{
-		padding: 116rpx 0 50rpx 0;
+		padding: 116rpx 0 30rpx 0;
 	}
 	.padding-50{
 		padding-left:50rpx ;
@@ -368,7 +409,7 @@
 		.basis-list{
 			padding-left: 35rpx;
 			.basis-item{
-				height: 103rpx;
+				height: 80rpx;
 				display: flex;
 				align-items: center;
 				color: #333333;

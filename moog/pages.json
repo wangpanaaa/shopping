@@ -40,6 +40,10 @@
 		{
 			"path": "pages/cashout/index",
 			"style": {}
+		},
+		{
+			"path": "pages/index/noticedetail",
+			"style": {}
 		}
 
 	],

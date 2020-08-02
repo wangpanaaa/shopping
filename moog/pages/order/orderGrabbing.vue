@@ -8,30 +8,24 @@
 				></text>
 				<view style="display: inline-block;width: 94%;font-size: 34rpx;">Place an order</view>
 			</view>
-			<view style="padding-top: 72rpx;font-size: 50rpx;color: #FFB745;">₹ 375</view>
+			<view style="padding-top: 72rpx;font-size: 50rpx;color: #FFB745;">{{userInfo.balance}}</view>
 			<view style="font-size: 26rpx;padding-top: 25rpx;">Remaining available assets</view>
 			<view style="color: #A8A8A8;font-size: 26rpx;padding-top: 12rpx;">
 				Yesterday's earnings
-				<text style="color: #FFB745;">₹600</text>
+				<text style="color: #FFB745;">{{userInfo.commission_yesterday}}</text>
 			</view>
 		</view>
 		<view class="order-content">
 			<view class="order-item flex">
-				<view style="font-size: 26rpx;color: #333;">Commission has been robbed today</view>
-				<view style="font-size: 30rpx;color: #FAA723;">₹ 0</view>
+				<view style="font-size: 26rpx;color: #333;">Today's commission</view>
+				<view style="font-size: 30rpx;color: #FAA723;">{{userInfo.commission_today}}</view>
 			</view>
+			
 			<view class="order-item flex">
-				<view style="font-size: 26rpx;color: #333;">Account freezing amount</view>
-				<view style="font-size: 30rpx;color: #FAA723;">₹ 0</view>
+				<view style="font-size: 26rpx;color: #333;">Completed orders</view>
+				<view style="font-size: 30rpx;">{{userInfo.ordernum_today}}</view>
 			</view>
-			<view class="order-item flex">
-				<view style="font-size: 26rpx;color: #333;">Owned today</view>
-				<view style="font-size: 30rpx;">0</view>
-			</view>
-			<view class="order-item flex">
-				<view style="font-size: 26rpx;color: #333;">Yesterday's team commission</view>
-				<view style="font-size: 30rpx;color: #FAA723;">₹ 0</view>
-			</view>
+			
 			<view class="flex flex-direction">
 				<button class="cu-btn bg-grey lg place-order" @tap="LoadModal"><text style="font-size: 30rpx;color: #111111;">Order Now</text></button>
 			</view>
@@ -80,15 +74,15 @@
 					<view class="completed">order Completed</view>
 					<view class="order-suc-item">
 						<text>Total order amount</text>
-						<text>₹ 1350</text>
+						<text>{{goodsItem.price}}</text>
 					</view>
 					<view class="order-suc-item">
 						<text>Commission</text>
-						<text>₹ 4.05</text>
+						<text>{{goodsItem.commission}}</text>
 					</view>
 					<view class="order-suc-item">
 						<text>Estimated refund</text>
-						<text style="font-size: 34rpx;color: #FFB745;font-weight: bold;">₹ 1354.05</text>
+						<text style="font-size: 34rpx;color: #FFB745;font-weight: bold;">{{goodsItem.refund}}</text>
 					</view>
 					<view class="flex flex-direction"><button class="cu-btn" @tap="modalName = null">Confirm</button></view>
 				</view>
@@ -98,6 +92,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
 	data() {
 		return {
@@ -109,9 +104,11 @@ export default {
 			confirmTitle:['Ordering','Filling in the receiving information','Payment successful','Order submission','Writing comments','Order completed'],
 			confirmTitleItem:'Ordering',
 			current:0
-			
 		};
 	},
+	computed: {...mapState({
+		userInfo:'userInfo' || JSON.parse(uni.getStorageSync('userInfo'))
+	})},
 	async onLoad() {
 		const data=await this.$http.post('/api/order/orderdescription')
 		this.explainText=data.data
@@ -146,8 +143,8 @@ export default {
 					this.orderConfirm = false;
 					this.modalName = 'order-suc';
 					clearInterval(times)
-					this.$http.post('/api/order/confirm',{orderid:this.goodsItem.orderid,status:1}).then(res=>{
-						console.log(res)
+					this.$http.post('/api/order/confirm',{orderid:this.goodsItem.orderid,status:1}).then(()=>{
+						this.$store.dispatch('getUserUpdate');
 					})
 				}
 			},Math.floor(Math.random()*4+5)*1000)
