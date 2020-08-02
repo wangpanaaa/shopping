@@ -6,7 +6,7 @@
 				<view class="language" @tap='navigateTo("../index/settingLanguage")'>{{language}}</view>
 			</view>
 			<view class="content">
-				<image class="content_img" src="../../static/images/Logo.png"></image>
+				<image class="content_img" :src="settings.logo_max"></image>
 			</view>
 			<view class="footer">
 				<button @click="start">START SHOPPING</button>
@@ -63,7 +63,9 @@
 <script>
 	// import user from '../../common/user.js'
 	export default {
-		onLoad() {
+		async onLoad() {
+			const {...data}=await this.$http.post('/api/config/getconfig')
+			uni.setStorageSync('settings',JSON.stringify(data.data))
 			const token = uni.getStorageSync('token');
 			if(token){
 				uni.showLoading()
@@ -81,6 +83,7 @@
 					username: '',
 					password: ''
 				},
+				settings:JSON.parse(uni.getStorageSync('settings')) || {},
 				language: 'English',
 				showAccountLogin: false,
 				showRegister: false,

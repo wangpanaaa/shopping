@@ -54,7 +54,7 @@ http.interceptors.response.use(async (response) => { /* 请求之后拦截器。
 		})
 	  return Promise.reject(response)
 	}
-	return response
+	return response.data
 }, (response) => { // 请求错误做点什么。可以使用async await 做异步操作
 	return Promise.reject(response)
 })
