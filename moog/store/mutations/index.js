@@ -3,8 +3,11 @@ export default {
 	register(state,data){
 		state.userInfo=data
 	},
-	removeData(state){
+	loginOut(state){
 		state.userInfo={}
 		uni.clearStorageSync()
+		uni.reLaunch({
+			url:'/pages/login/login'
+		})
 	}
 }

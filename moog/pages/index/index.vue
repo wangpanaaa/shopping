@@ -1,7 +1,10 @@
 <template>
 	<view class="index-box">
-		<view :class="modalName=='DrawerModalL'?'hidebox':''">
+		
+		<view :class="[modalName=='DrawerModalL'?'hidebox':'']">
+			
 			<view class="bg-img title-img">
+				<status></status>
 				<view class="title flex">
 					<view>
 						<span class="iconfont icon-mulu" @tap="showModal" data-target="DrawerModalL"></span>
@@ -155,13 +158,17 @@
 <script>
 	let memSetInterval=null;
 	import { mapState } from 'vuex'
+	import status from "../../colorui/components/istatus.vue"
 	export default {
+		components:{
+				status
+		},
 		data() {
 			return {
 				CustomBar: this.CustomBar,
-				modalName: null,
+				modalName: '',
 				amazonList:[],
-				settings:JSON.parse(uni.getStorageSync('settings')) || {},
+				settings:'',
 				memberNew:[],
 				current:0,
 				headimglist:[
@@ -198,6 +205,7 @@
 			this.memberNewArr.forEach(item=>{
 				item.headimg=this.headimglist[Math.floor(Math.random()*5)]
 			})
+			this.settings=JSON.parse(uni.getStorageSync('settings')) || {}
 		},
 		async onShow() {
 			memSetInterval=setInterval(async ()=>{
@@ -226,10 +234,10 @@
 				})
 			},
 			resetLogin(){
-				this.$store.commit('removeData')
-				uni.reLaunch({
-					url:'/pages/login/login'
-				})
+				this.$store.commit('loginOut')
+				// uni.reLaunch({
+				// 	url:'/pages/login/login'
+				// })
 			}
 		}
 	}
@@ -240,10 +248,8 @@
 		font-family:Myriad Pro;
 	}
 	.title-img{
-		padding-top: 47rpx;
 		background-image: url('~@/static/images/title_bg.png');
 		height: 578upx;
-		
 	}
 	.title{
 		color: #fff;

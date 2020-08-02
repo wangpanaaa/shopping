@@ -1,5 +1,5 @@
 import Request from '@/utils/luch-request/index.js'
-
+import stote from '../store/index.js'
 
 const getTokenStorage = () => {
 	let token = ''
@@ -28,7 +28,7 @@ http.setConfig((config) => { /* 设置全局配置 */
 http.interceptors.request.use((config) => { /* 请求之前拦截器。可以使用async await 做异步操作 */
 	config.header = {
 		...config.header,
-		token: 'MTE0YmMxNjMwNTgyNGJFVGIyQ2VBYzFaZUFNYmNXU29aSWhjMzV0VEk2NUhFR3BKbmMxTXdkQ3c9'
+		token: getTokenStorage()
 	}
 	/*
  if (!token) { // 如果token不存在，return Promise.reject(config) 会取消本次请求
@@ -54,6 +54,7 @@ http.interceptors.response.use(async (response) => { /* 请求之后拦截器。
 			icon:'none',
 			title:response.data.msg
 		})
+		stote.commit('loginOut')
 	  return Promise.reject(response)
 	}
 	return response.data
