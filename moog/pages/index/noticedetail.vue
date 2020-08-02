@@ -3,8 +3,7 @@
 		<cu-custom bgColor="bg-black" :isBack="true">
 			<block slot="content">Article details</block>
 		</cu-custom>
-		<view class="content">
-			{{content}}
+		<view class="content" v-html="content">
 		</view>
 	</view>
 </template>
@@ -18,7 +17,7 @@
 		},
 		async onLoad(option) {
 			const {id}=option
-			const {data}=await this.$http.post('/api/config/noticedetail')
+			const {data}=await this.$http.post('/api/config/noticedetail',{id})
 			this.content=data.content
 		}
 	}
