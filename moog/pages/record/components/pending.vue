@@ -1,8 +1,6 @@
 <template>
 	<view class="pendingContain">
-		<record class="record" status="2"></record>
-		<record class="record" status="2"></record>
-		<record class="record" status="2"></record>
+	<record class="record" v-for="(v ,i) in list" :data="v"></record>
 			<view class="cu-load bg-white" :class="!false?'loading':'over'"></view>
 	</view>
 </template>
@@ -17,6 +15,12 @@
 			return {
 
 			}
+		},
+		props:{
+			list:{
+				type:Array,
+				default:[]
+		  },
 		},
 		methods: {
 

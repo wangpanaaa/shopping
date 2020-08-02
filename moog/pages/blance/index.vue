@@ -6,9 +6,9 @@
 				<span class="iconfont icon-kefu"></span>
 			</block>
 		</cu-custom>
-		<view class="head_tabs">
+		<view class="head_tabs" >
 			<span :class="{tabsChecked:currentTabs==index}" v-for="(item,index) in tabs" :key="index" @click="currentTabs=index">{{item.name}}</span>
-			<view :style="{left:tabs[currentTabs].left}" class="line"></view>
+			<view :style="{left:tabs[currentTabs].left}" class="line" v-if="tabs.length>1"></view>
 		</view>
 		<view class="swiper-area">
 			<swiper :acceleration="false" :current="currentTabs" @change="change" @transition="swiperStart" @animationfinish="swiperEnd">
@@ -22,32 +22,6 @@
 					</scroll-view>
 				</swiper-item>
 
-				<swiper-item>
-					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
-					 refresher-background="#f5f5f5">
-						<view style="height:100%" v-if="true">
-
-							<cashfree></cashfree>
-						</view>
-					</scroll-view>
-				</swiper-item>
-
-				<swiper-item>
-					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
-					 refresher-background="#f5f5f5">
-						<view style="height:100%" v-if="true">
-							<mypay></mypay>
-						</view>
-					</scroll-view>
-				</swiper-item>
-				<swiper-item>
-					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
-					 refresher-background="#f5f5f5">
-						<view style="height:100%" v-if="true">
-							<chrrp></chrrp>
-						</view>
-					</scroll-view>
-				</swiper-item>
 			</swiper>
 		</view>
 	</view>
@@ -67,26 +41,21 @@
 		},
 		data() {
 			return {
-				tabs: [{
-						name: 'DokyPay',
-						left: '13.5%',
-					},
-					{
-						name: 'Cashfree',
-						left: '41.5%',
-					},
-					{
-						name: 'Mypay',
-						left: '64.5%',
-					},
-					{
-						name: 'CHrrp',
-						left: '88%',
-					}
-				],
+				tabs: [	],
 				currentTabs: 0,
-				scrollViewHeight: 0
+				scrollViewHeight: 0,
 			}
+		},
+		onLoad() {
+			this.$http.post('/api/user_recharge/card').then(data => {
+				console.log(data)
+				data.data.channel.forEach((v,i)=>{
+				this.tabs.push({
+					name:v.group_name,
+					left:(12.5+i*25)+'%'
+				})
+				})
+			})
 		},
 		mounted() {
 			this.$offset(".swiper-area").then(res => {
@@ -97,16 +66,8 @@
 			});
 		},
 		methods: {
-			change({
-				detail: {
-					current
-				}
-			}) {
-				// swiper index 变化时触发
-				this.currentTabs = current;
-				// setTimeout(() => {
-				//   this.nav[this.current].triggered = 'restore'
-				// }, 500)
+			change(e) {
+				this.currentTabs =e.detail.current;
 			},
 			swiperStart(e) {
 				// this.nav[this.current].isTop = false
@@ -159,12 +120,13 @@
 		height: 92rpx;
 		display: flex;
 		align-items: center;
-		justify-content: space-around;
 		position: relative;
-
 		span {
+			width: 25%;
 			color: rgba(168, 168, 168, 1);
 			font-size: 28rpx;
+			display: inline-block;
+			text-align: center;
 		}
 
 		.line {

@@ -22,10 +22,10 @@
 		<view class="swiper-area">
 			<swiper :current="currentTabs" @change="change" @transition="swiperStart" @animationfinish="swiperEnd">
 				<swiper-item>
-					<scroll-view scroll-y  :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
+					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
 					 refresher-background="#f5f5f5">
 						<view style="height:100%" v-if="true">
-							<all></all>
+							<all :list="All.data"></all>
 						</view>
 					</scroll-view>
 				</swiper-item>
@@ -34,7 +34,7 @@
 					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
 					 refresher-background="#f5f5f5">
 						<view style="height:100%" v-if="true">
-							<pending></pending>
+							<pending :list="Pending.data"></pending>
 						</view>
 					</scroll-view>
 				</swiper-item>
@@ -43,7 +43,7 @@
 					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
 					 refresher-background="#f5f5f5">
 						<view style="height:100%" v-if="true">
-							<completed></completed>
+							<completed :list="Completed.data"></completed>
 						</view>
 					</scroll-view>
 				</swiper-item>
@@ -51,7 +51,7 @@
 					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
 					 refresher-background="#f5f5f5">
 						<view style="height:100%" v-if="true">
-							<cancelled></cancelled>
+							<cancelled :list="Cancelled.data"></cancelled>
 						</view>
 					</scroll-view>
 				</swiper-item>
@@ -92,8 +92,61 @@
 					}
 				],
 				currentTabs: 0,
-				scrollViewHeight: 0
+				scrollViewHeight: 0,
+				All: {
+					page: 1, //传递参数
+					count: 30, //传递参数
+					data: [], //返回参数
+					bottom: false
+				},
+				Pending: {
+					page: 1, //传递参数
+					status: 0, //传递参数
+					count: 30, //传递参数
+					data: [], //返回参数
+					bottom: false
+				},
+				Completed: {
+					page: 1, //传递参数
+					status: 1, //传递参数
+					count: 30, //传递参数
+					data: [], //返回参数
+					bottom: false
+				},
+				Cancelled: {
+					page: 1, //传递参数
+					status: 2, //传递参数
+					count: 30, //传递参数
+					data: [], //返回参数
+					bottom: false,
+					timer:''
+				}
 			}
+		},
+		onLoad() {
+			uni.showLoading()
+			this.$http.post('/api/order/log', {
+				page: this.All.page,
+				count: this.All.count
+			}).then(data => (this.All.data = data.data, uni.hideLoading()))
+			this.$http.post('/api/order/log', {
+				page: this.Pending.page,
+				count: this.Pending.count,
+				status: this.Pending.status
+			}).then(data => (this.Pending.data = data.data))
+			this.$http.post('/api/order/log', {
+				page: this.Completed.page,
+				count: this.Completed.count,
+				status: this.Completed.status
+			}).then(data => (this.Completed.data = data.data))
+			this.$http.post('/api/order/log', {
+				page: this.Cancelled.page,
+				count: this.Cancelled.count,
+				status: this.Cancelled.status
+			}).then(data => (this.Cancelled.data = data.data))
+			this.timer=setInterval(()=>{
+						console.log(222222222)
+			},1000)
 		},
 		mounted() {
 			this.$offset(".swiper-area").then(res => {
@@ -102,6 +155,9 @@
 				console.log(Height);
 				this.scrollViewHeight = res.height;
 			});
+		},
+		destroyed() {
+		clearInterval(	this.timer)
 		},
 		methods: {
 			change({
@@ -145,8 +201,8 @@
 	}
 
 	.icon-kefu {
-	font-size: 50rpx;
-	padding-right: 30rpx;
+		font-size: 50rpx;
+		padding-right: 30rpx;
 	}
 
 	.head {
@@ -215,10 +271,12 @@
 			}
 		}
 	}
-.swiper-area{
-	flex: 1;
-	uni-swiper{
-		height: 100%;
+
+	.swiper-area {
+		flex: 1;
+
+		uni-swiper {
+			height: 100%;
+		}
 	}
-}
 </style>
