@@ -61,6 +61,7 @@
 </template>
 
 <script>
+	import user from '../../common/user.js'
 	export default {
 		data() {
 			return {
@@ -86,9 +87,17 @@
 				this.showAccountLogin = false
 			},
 			enter(){
-				uni.redirectTo({
-				    url: '../index/index'
-				});
+				let _user = new user
+				let datas = {
+					username: '',
+					password: ''
+				}
+				_user.login(datas).then(res=>{
+					console.log(res)
+				})
+				// uni.redirectTo({
+				//     url: '../index/index'
+				// });
 			},
 			forgot(){
 				this.showAccountLogin = false
