@@ -1,11 +1,11 @@
 <template>
-	<view>
+	<view class="index-box">
 		<view :class="modalName=='DrawerModalL'?'hidebox':''">
 			<view class="bg-img title-img">
 				<view class="title flex">
 					<view>
 						<span class="iconfont icon-mulu" @tap="showModal" data-target="DrawerModalL"></span>
-						<image src="../../static/images/shopping.png" class="shopping"></image>
+						<image :src="settings.logo_tiny" class="shopping"></image>
 					</view>
 					<span class="iconfont icon-kefu"></span>
 				</view>
@@ -18,33 +18,25 @@
 			<view class="flex box-list">
 					<view style="text-align: center;" @tap='navigateTo("../record/index")'>
 						<view>
-							<svg class="icon icon-box" aria-hidden="true">
-							  <use xlink:href="#icon-licai"></use>
-							</svg>
+							<image src="../../static/images/btn_financial.png" class="list-image"></image>
 						</view>
 						<text style="font-size: 24rpx;">Financial</text>
 					</view>
 				<view style="text-align: center;" @tap='navigateTo("../record/blance")'>
 					<view>
-						<svg class="icon icon-box" aria-hidden="true">
-						  <use xlink:href="#icon-chongzhi"></use>
-						</svg>
+						<image src="../../static/images/btn_top-up.png" class="list-image"></image>
 					</view>
-					<text style="font-size: 24rpx;">Top-up</text>
+					<text style="font-size: 24rpx;" @tap="navigateTo('../blance/index')">Top-up</text>
 				</view>
 				<view style="text-align: center;">
 					<view>
-						<svg class="icon icon-box" aria-hidden="true">
-						  <use xlink:href="#icon-tixian"></use>
-						</svg>
+						<image src="../../static/images/btn_withdrawal.png" class="list-image"></image>
 					</view>
 					<text style="font-size: 24rpx;">Withdrawal</text>
 				</view>
 				<view style="text-align: center;">
 					<view>
-						<svg class="icon icon-box" aria-hidden="true">
-						  <use xlink:href="#icon-yaoqingjiangli"></use>
-						</svg>
+						<image src="../../static/images/btn_invite.png" class="list-image"></image>
 					</view>
 					<text style="font-size: 24rpx;"> Invite </text>
 				</view>
@@ -61,46 +53,23 @@
 			<view style="font-size: 24rpx;color: #A8A8A8;padding-top: 73rpx;padding-left: 28rpx;">Select member session </view>
 			<view style="font-size: 40rpx;color: #333;padding-top: 18rpx;padding-left: 32rpx;font-weight: bold;">Mission Hall </view>
 			<view class="etsy-list">
-				<view class="item-etsy">
-					<image src="../../static/images/etsy.png" class="etsy-image"></image>
-					<image src="../../static/images/lock.png" class="lock"></image>
-					<text class="etsy-text">Amount: ₹200.00</text>
+				<view class="item-etsy" v-for="item of amazonList" :key='item.id'>
+					<image :src="item.pic" class="etsy-image"></image>
+					<image src="../../static/images/lock.png" class="lock" v-if="item.lock===1"></image>
+					<text class="etsy-text">{{item.subtitle}}</text>
 					<view class="etsy-Commission">
-						Commission 0.20% | 50 Orders | LV1
+						{{item.title}}
 					</view>
 				</view>
-				<view class="item-etsy">
-					<image src="../../static/images/amazon.png" class="etsy-image"></image>
-					<image src="../../static/images/lock.png" class="lock"></image>
-					<text class="etsy-text">Amount: ₹200.00</text>
-					<view class="etsy-Commission">
-						Commission 0.20% | 50 Orders | LV1
-					</view>
-				</view>
-				<view class="item-etsy">
-					<image src="../../static/images/etsy.png" class="etsy-image"></image>
-					<image src="../../static/images/lock.png" class="lock"></image>
-					<text class="etsy-text">Amount: ₹200.00</text>
-					<view class="etsy-Commission">
-						Commission 0.20% | 50 Orders | LV1
-					</view>
-				</view>
-				<view class="item-etsy">
-					<image src="../../static/images/etsy.png" class="etsy-image"></image>
-					<image src="../../static/images/lock.png" class="lock"></image>
-					<text class="etsy-text">Amount: ₹200.00</text>
-					<view class="etsy-Commission">
-						Commission 0.20% | 50 Orders | LV1
-					</view>
-				</view>
+				
 			</view>
 			
 			
 			<view style="font-size: 24rpx;color: #A8A8A8;padding-top: 73rpx;padding-left: 28rpx;">Three-level proxy model </view>
 			<view style="font-size: 40rpx;color: #333;padding-top: 18rpx;padding-left: 32rpx;font-weight: bold;">Member News </view>
-			<image src="../../static/images/banner.png" class="banner-image"></image>
+			<image :src="settings.ad_tiny" class="banner-image"></image>
 			<view class="cu-list menu-avatar" style="padding: 10rpx 30rpx;">
-				<view class="cu-item" style="border-radius: 10rpx;margin-bottom: 10rpx;">
+				<view class="cu-item" style="border-radius: 10rpx;margin-bottom: 10rpx;" >
 					<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"></view>
 					<view class="content flex-sub">
 						<view class="text-grey">Francis</view>
@@ -108,16 +77,9 @@
 					</view>
 					<view class="text-grey">₹ 375</view>
 				</view>
-				<view class="cu-item" style="border-radius: 10rpx;margin-bottom: 10rpx;">
-					<view class="cu-avatar round lg" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg);"></view>
-					<view class="content flex-sub">
-						<view class="text-grey">Francis</view>
-						<view class="text-gray text-sm flex justify-between">Get agent commission today </view>
-					</view>
-					<view class="text-grey">₹ 375</view>
-				</view>
+				
 			</view>
-			<image src="../../static/images/phone-img.png" class="advertisement"></image>
+			<image :src="settings.ad_max" class="advertisement"></image>
 			<view style="font-size: 24rpx;color: #A8A8A8;padding-top: 73rpx;padding-left: 28rpx;">Professional grab order platform  </view>
 			<view style="font-size: 40rpx;color: #333;padding-top: 18rpx;padding-left: 32rpx;font-weight: bold;">ABOUT US  </view>
 			<view class="us-list flex">
@@ -145,7 +107,7 @@
 			<view class="bottom-text">
 				<view class="iocn-english">
 					<image src="../../static/images/britain.png"></image>
-					<text style="font-size: 28rpx;">EngLish</text>
+					<text style="font-size: 28rpx;" @tap="navigateTo('./settingLanguage')">EngLish</text>
 				</view>
 				<view style="font-size: 22rpx;text-align: center;margin-top: 33rpx;">Copyright © 2020. E-Nuggets All rights reserved.</view>
 			</view>
@@ -155,13 +117,13 @@
 			<view class="cu-dialog basis-xl" @tap.stop="" >
 				<view class="flex">
 					<image src="../../static/images/Calculate-revenue.png"></image>
-					<text class="basis-name">Hello, Chen Kang</text>
+					<text class="basis-name">Hello, {{userInfo.nickname}}</text>
 				</view>
 				<view class="basis-list basis-border">
 					<view class="basis-item">Home</view>
 					<view class="basis-item">Account 
 						<text class="lg text-gray cuIcon-moreandroid" style="color: #FAA723;margin: 0 10rpx;"></text>
-						<text style="font-family:Arial;font-size:34rpx;color: #FAA723;">₹ 375</text>
+						<text style="font-family:Arial;font-size:34rpx;color: #FAA723;">₹ {{userInfo.balance}}</text>
 					</view>
 					<view class="basis-item">Orders</view>
 					<view class="basis-item">Cash Out</view>
@@ -170,7 +132,7 @@
 				</view>
 				<view class="basis-list basis-border">
 					<view class="basis-item" style="font-weight: bold;">Explore</view>
-					<view class="basis-item">Notice</view>
+					<view class="basis-item" @tap='navigateTo("../message/list")'>Notice</view>
 					<view class="basis-item">Account Details</view>
 					<view class="basis-item">Recharge Record</view>
 					<view class="basis-item">Withdrawal Record</view>
@@ -192,12 +154,23 @@
 </template>
 
 <script>
+	import { mapState } from 'vuex'
 	export default {
 		data() {
 			return {
 				CustomBar: this.CustomBar,
 				modalName: null,
+				amazonList:[],
+				settings:JSON.parse(uni.getStorageSync('settings')) || {},
 			}
+		},
+		computed: {...mapState({
+			userInfo:'userInfo' || JSON.parse(uni.getStorageSync('userInfo'))
+		})},
+		async onLoad() {
+			this.$store.dispatch('getUserUpdate');
+			const {...data}=await this.$http.post('/api/order/mall')
+			this.amazonList=data.data
 		},
 		methods: {
 			showModal(e) {
@@ -216,6 +189,9 @@
 </script>
 
 <style lang="scss" scoped>
+	.index-box{
+		font-family:Myriad Pro;
+	}
 	.title-img{
 		padding-top: 37rpx;
 		background-image: url('~@/static/images/title_bg.png');
@@ -263,6 +239,10 @@
 		.icon-box{
 			width: 82rpx;
 			height: 64rpx;
+		}
+		.list-image{
+			width: 79rpx;
+			height: 79rpx;
 		}
 	}
 	.place-order{

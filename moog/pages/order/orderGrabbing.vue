@@ -44,7 +44,8 @@
 				</view>
 			</view>
 			<view class="cu-load load-modal" v-if="loadModal">
-				<video src="../../static/video/1596197044700795.mp4" autoplay loop muted :show-play-btn="false" :controls="false" objectFit="cover"></video>
+				<!-- <video src="../../static/video/1596197044700795.mp4" autoplay loop muted :show-play-btn="false" :controls="false" objectFit="cover"></video> -->
+				<image src="../../static/images/Loading.gif" class="modal-image"></image>
 				<text>Matching grab orders...</text>
 			</view>
 			<view class="cu-modal" :class="modalName == 'Image' ? 'show' : ''">
@@ -114,8 +115,10 @@ export default {
 				delta: 1
 			});
 		},
-		LoadModal(e) {
+		async LoadModal(e) {
 			this.loadModal = true;
+			const data=await this.$http.post('/api/order/mkorder');
+			console.log(data)
 			setTimeout(() => {
 				this.loadModal = false;
 				this.modalName = 'Image';
@@ -135,6 +138,7 @@ export default {
 
 <style lang="scss" scoped>
 .order-box {
+	font-family:Myriad Pro;
 	.tabber {
 		height: 365rpx;
 		background: url(../../static/images/Place-an-order.png);
@@ -182,6 +186,10 @@ export default {
 			}
 		}
 	}
+}
+.cu-load.load-modal uni-image{
+	width: 100%;
+	height: 150px;
 }
 
 .cu-load.load-modal {

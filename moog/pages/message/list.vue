@@ -1,0 +1,78 @@
+<template>
+	<view>
+		<cu-custom bgColor="bg-black" :isBack="true">
+			<block slot="content">Message list</block>
+		</cu-custom>
+		<view>
+			<view class="date">2020-07-30 17:48</view>
+			<view class="item">
+				<view class="title">
+					<text class="textl">Information title </text>
+					<text class="cuIcon-right" style="color: #DCDDDD;"></text>
+				</view>
+				<view class="text-con">
+					Hollywood legend Olivia de Havilland, star of "Gone With the Wind", died on Sunday at the age of 104 at her home in
+					Paris. Publicist Lisa Goldberg said she died peacefully of natural causes.
+					The doe-eyed actress beloved to millions as the sainted Melanie Wilkes in "Gone With the Wind" also won two Oscars
+					and was key to improving Hollywood's contract system for actors.
+					De Havilland was the sister of fellow Oscar winner Joan Fontaine, with whom she had a troubled relationship.
+				</view>
+			</view>
+		</view>
+		
+
+	</view>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {}
+		}
+	}
+</script>
+
+<style lang="scss" scoped>
+	.date {
+		margin: 32rpx 0;
+		text-align: center;
+		font-size: 26rpx;
+		font-family: Myriad Pro;
+		opacity: 0.8;
+	}
+
+	.item {
+		margin: 0 30rpx;
+		border: 1px solid rgba(220, 221, 221, 1);
+		border-radius: 10px;
+		background-color: #FFFFFF;
+
+		.title {
+			height: 85rpx;
+			margin: 0 30rpx;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			border-bottom: 1px solid #DCDDDD;
+
+			.textl {
+				font-size: 30rpx;
+				font-family: Myriad Pro;
+				font-weight: bold;
+			}
+		}
+
+		.text-con {
+			margin: 21rpx 28rpx 30rpx 28rpx;
+			word-break: break-all;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2;
+			overflow: hidden;
+			font-size:24rpx;
+			font-family:Bahnschrift;
+			line-height:40rpx;
+		}
+	}
+</style>

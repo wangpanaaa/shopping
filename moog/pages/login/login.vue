@@ -6,7 +6,7 @@
 				<view class="language" @tap='navigateTo("../index/settingLanguage")'>{{language}}</view>
 			</view>
 			<view class="content">
-				<image class="content_img" src="../../static/images/Logo.png"></image>
+				<image class="content_img" :src="settings.logo_max"></image>
 			</view>
 			<view class="footer">
 				<button @click="start">START SHOPPING</button>
@@ -21,16 +21,16 @@
 			</view>
 			<view class="phone">
 				<view class="iconfont icon-zhanghao"></view>
-				<input  placeholder="Please enter the account name">
+				<input  v-model="loginData.username" placeholder="Please enter the account name">
 			</view>
 			<view class="phone">
-				<view class="iconfont icon-jj"></view>
-				<input class="password" password placeholder="Enter password ">
+				<view class="iconfont icon-mima"></view>
+				<input v-model="loginData.password" class="password" password placeholder="Enter password ">
 				<view class="enter">
 					<view class="iconfont icon-fanhui1 text" @click="enter"></view>
 				</view>
 			</view>
-			<view class="forgot" @click="forgot">Forgot my password</view>
+			<!-- <view class="forgot" @click="forgot">Forgot my password</view> -->
 		</view>
 		<view class="showAccountLogin" v-if="showRegister" @click="registerCancel"></view>
 		<view class="register" v-if="showRegister">
@@ -40,38 +40,58 @@
 			</view>
 			<view class="phone">
 				<view class="iconfont icon-zhanghao"></view>
-				<input  placeholder="Please enter the account name">
+				<input  v-model="regData.username" placeholder="Please enter the account name">
 			</view>
 			<view class="phone">
 				<view class="iconfont icon-mima"></view>
-				<input class="password" password placeholder="Please enter the password">
+				<input v-model="regData.pwd" class="password" password placeholder="Please enter the password">
 			</view>
 			<view class="phone">
 				<view class="iconfont icon-mima"></view>
-				<input class="password" password placeholder="Please enter the invitation code">
+				<input v-model="regData.repwd" class="password" password placeholder="Enter the password again">
 			</view>
 			<view class="phone">
 				<view class="iconfont icon-iconfontzhizuobiaozhun49"></view>
-				<input class="password" placeholder="Enter password ">
+				<input v-model="regData.agentid" class="password" placeholder="Please enter the invitation code">
 			</view>
 			<button @click="registerSub">sign up</button>
-			<view class="sign">Alredy have an account? <text class="text" @click="registerCancel"> Sign in</text> </view>
+			<view class="sign">Alredy have an account? <text class="text" @click="signIn"> Sign in</text> </view>
 		</view>
 	</view>
 </template>
 
 <script>
+	// import user from '../../common/user.js'
 	export default {
+		async onLoad() {
+			const {...data}=await this.$http.post('/api/config/getconfig')
+			uni.setStorageSync('settings',JSON.stringify(data.data))
+			const token = uni.getStorageSync('token');
+			if(token){
+				uni.showLoading()
+				setTimeout(()=>{
+					uni.hideLoading()
+					uni.redirectTo({
+						url:'../index/index'
+					})
+				},300)
+			}
+		},
 		data() {
 			return {
+				loginData:{
+					username: '',
+					password: ''
+				},
+				settings:JSON.parse(uni.getStorageSync('settings')) || {},
 				language: 'English',
 				showAccountLogin: false,
 				showRegister: false,
 				regData:{
 					username:'',
 					pwd:'',
+					repwd:'',
 					agentid:'',
-					code:'1111'
 				}
 			};
 		},
@@ -81,27 +101,38 @@
 			},
 			signIn() {
 				this.showAccountLogin = true
+				this.showRegister = false
 			},
 			cancel(){
 				this.showAccountLogin = false
 			},
 			enter(){
-				uni.redirectTo({
-				    url: '../index/index'
-				});
+				if(!this.loginData.username || !this.loginData.password){
+					uni.showToast({
+						title:'请完善相关信息'
+					})
+					return
+				}
+				this.$store.dispatch('loginUser',this.loginData);
+				this.showAccountLogin = false
 			},
 			forgot(){
 				this.showAccountLogin = false
 				this.showRegister = true
 			},
 			registerCancel(){
-				this.showAccountLogin = true
+				this.showAccountLogin = false
 				this.showRegister = false
 			},
 			registerSub(){
-				this.$http.post('/api/login/register',{...this.regData}).then(res=>{
-					console.log(res)
-				})
+				if(!this.regData.username || !this.regData.pwd ||!this.regData.repwd){
+					uni.showToast({
+						title:'请完善相关信息'
+					})
+					return
+				}
+				this.$store.dispatch('register',this.regData);
+				this.showRegister = false
 			},
 			navigateTo(e) {
 				uni.navigateTo({
@@ -114,9 +145,12 @@
 
 <style lang="scss" scoped>
 	.login {
-		background: url('../../static/images/title_bg.png');
+		background: url('../../static/images/login-bg.png');
 		height: 100%;
 		position: relative;
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
 		.show {
 			.top {
 				display: flex;
