@@ -66,6 +66,7 @@
 		async onLoad() {
 			const {...data}=await this.$http.post('/api/config/getconfig')
 			uni.setStorageSync('settings',JSON.stringify(data.data))
+			this.settings=data.data
 			const token = uni.getStorageSync('token');
 			if(token){
 				uni.showLoading()
@@ -83,7 +84,7 @@
 					username: '',
 					password: ''
 				},
-				settings:JSON.parse(uni.getStorageSync('settings')) || {},
+				settings:{},
 				language: 'English',
 				showAccountLogin: false,
 				showRegister: false,

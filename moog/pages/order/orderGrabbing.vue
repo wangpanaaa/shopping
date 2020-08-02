@@ -36,12 +36,8 @@
 				<button class="cu-btn bg-grey lg place-order" @tap="LoadModal"><text style="font-size: 30rpx;color: #111111;">Order Now</text></button>
 			</view>
 			<view class="order-description">
-				<view class="title">order description</view>
-				<view style="color: #A8A8A8;font-size: 24rpx;line-height:46rpx;">(1) Each account can place 60 orders per day.</view>
-				<view style="color: #A8A8A8;font-size: 24rpx;line-height:46rpx;">(2) The commission for placing orders is 3‰ of the order amount.</view>
-				<view style="color: #A8A8A8;font-size: 24rpx;line-height:46rpx;">
-					(3) The system is based on LBS technology and automatically matches commodities through the cloud.
-				</view>
+				<view class="title">Order description</view>
+				<view style="color: #A8A8A8;font-size: 24rpx;line-height:46rpx;" v-html="explainText"></view>
 			</view>
 			<view class="cu-load load-modal" v-if="loadModal">
 				<!-- <video src="../../static/video/1596197044700795.mp4" autoplay loop muted :show-play-btn="false" :controls="false" objectFit="cover"></video> -->
@@ -50,31 +46,32 @@
 			</view>
 			<view class="cu-modal" :class="modalName == 'Image' ? 'show' : ''">
 				<view class="cu-dialog order-details">
-					<image src="../../static/images/etsy.png"></image>
+					<image :src="goodsItem.goods_pic"></image>
 					<view class="describe">
-						European style sofa chair neoclassical solid wood leisure chair small household Type single sofa reception negotiation chair bedroom tiger chair
+						{{goodsItem.goods_name}}
 					</view>
 					<view class="Total" style="margin-top: 25rpx;">
 						<text>Total order amount</text>
-						<text>₹ 1350</text>
+						<text>{{goodsItem.price}}</text>
 					</view>
 					<view class="Total">
 						<text>Commission</text>
-						<text>₹ 1350</text>
+						<text>{{goodsItem.commission}}</text>
 					</view>
 					<view class="Total">
 						<text>Estimated refund</text>
-						<text style="color: #FFB745;font-size: 34rpx;">₹ 1354.05</text>
+						<text style="color: #FFB745;font-size: 34rpx;">{{goodsItem.refund}}</text>
 					</view>
 					<view class="flex">
-						<button class="cu-btn cancel" @tap="modalName = null">Cancel</button>
+						<button class="cu-btn cancel" @tap="goodsCancal">Cancel</button>
 						<button class="cu-btn submit" @tap="submitOrder">Submit</button>
 					</view>
 				</view>
 			</view>
 			<view class="cu-load load-modal" v-if="orderConfirm">
-				<video src="../../static/video/1596197044700795.mp4" autoplay loop muted :show-play-btn="false" :controls="false" objectFit="cover"></video>
-				<text>生成中...</text>
+				<!-- <video src="../../static/video/1596197044700795.mp4" autoplay loop muted :show-play-btn="false" :controls="false" objectFit="cover"></video> -->
+				<image src="../../static/images/gif2.gif" class="modal-image"></image>
+				<text>{{confirmTitleItem}}</text>
 			</view>
 
 			<view class="cu-modal" :class="modalName == 'order-suc' ? 'show' : ''">
@@ -106,8 +103,18 @@ export default {
 		return {
 			loadModal: false,
 			modalName: null,
-			orderConfirm: false
+			orderConfirm: false,
+			goodsItem:{},
+			explainText:'',
+			confirmTitle:['Ordering','Filling in the receiving information','Payment successful','Order submission','Writing comments','Order completed'],
+			confirmTitleItem:'Ordering',
+			current:0
+			
 		};
+	},
+	async onLoad() {
+		const data=await this.$http.post('/api/order/orderdescription')
+		this.explainText=data.data
 	},
 	methods: {
 		BackPage() {
@@ -115,22 +122,33 @@ export default {
 				delta: 1
 			});
 		},
+		async goodsCancal(){
+			this.modalName = null
+			await this.$http.post('/api/order/confirm',{orderid:this.goodsItem.orderid,status:2})
+		},
 		async LoadModal(e) {
 			this.loadModal = true;
 			const data=await this.$http.post('/api/order/mkorder');
-			console.log(data)
 			setTimeout(() => {
 				this.loadModal = false;
 				this.modalName = 'Image';
+				this.goodsItem=data.data
 			}, 5000);
 		},
-		submitOrder() {
+		async submitOrder() {
+			this.current=0;
 			this.modalName = null;
-			this.orderConfirm = true;
-			setTimeout(() => {
-				this.orderConfirm = false;
-				this.modalName = 'order-suc';
-			}, 5000);
+			this.orderConfirm = true;	
+			let times=setInterval(()=>{
+				if(++this.current<6){
+					this.confirmTitleItem=this.confirmTitle[this.current]
+				}else{
+					this.orderConfirm = false;
+					this.modalName = 'order-suc';
+					clearInterval(times)
+					await this.$http.post('/api/order/confirm',{orderid:this.goodsItem.orderid,status:1})
+				}
+			},Math.floor(Math.random()*4+5)*1000)
 		}
 	}
 };
@@ -214,11 +232,10 @@ export default {
 	width: auto;
 	margin-left: 75rpx;
 	margin-right: 75rpx;
-
 	image {
 		margin: 20rpx 35rpx 0 35rpx;
 		height: 400rpx;
-		width: 200rpx;
+		width: 400rpx;
 	}
 
 	.describe {

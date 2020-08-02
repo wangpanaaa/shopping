@@ -17,7 +17,7 @@ export default {
 	},
 	loginUser({state, commit},userInfo){
 		Vue.prototype.$http.post('/api/login/login',{...userInfo}).then(res=>{
-			setKoken(res.data.data.token)
+			setKoken(res.data.token)
 			commit("register", res.data)
 		})
 	},

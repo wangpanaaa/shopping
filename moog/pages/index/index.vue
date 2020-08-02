@@ -145,7 +145,7 @@
 						English
 					</view>
 					<view class="basis-item">Personal information</view>
-					<view class="basis-item" @tap='navigateTo("../login/login")'>Sign Out</view>
+					<view class="basis-item" @tap='resetLogin'>Sign Out</view>
 				</view>
 			</view>
 		</view>
@@ -184,6 +184,12 @@
 					url:e
 				})
 			},
+			resetLogin(){
+				this.$store.commit('removeData')
+				uni.reLaunch({
+					url:'/pages/login/login'
+				})
+			}
 		}
 	}
 </script>
