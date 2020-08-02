@@ -48,6 +48,15 @@
 		{
 			"path": "pages/login/login",
 			"style": {}
+		},
+		{
+		    "path" : "pages/explore/notice",
+		    "style" : {
+				"navigationBarBackgroundColor":"#000000",
+				"navigationBarTextStyle":"white",
+				"navigationBarTitleText":"Message list",
+				"navigationStyle":"default"
+			}
 		}
 
 	],
