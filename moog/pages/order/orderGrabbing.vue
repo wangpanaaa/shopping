@@ -147,7 +147,7 @@ export default {
 						this.$store.dispatch('getUserUpdate');
 					})
 				}
-			},Math.floor(Math.random()*4+5)*1000)
+			},Math.floor(Math.random()*4+5)*500)
 		}
 	}
 };

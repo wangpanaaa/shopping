@@ -75,7 +75,7 @@
 					uni.redirectTo({
 						url:'../index/index'
 					})
-				},300)
+				},500)
 			}
 		},
 		data() {

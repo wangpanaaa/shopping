@@ -240,7 +240,7 @@
 		font-family:Myriad Pro;
 	}
 	.title-img{
-		padding-top: 37rpx;
+		padding-top: 47rpx;
 		background-image: url('~@/static/images/title_bg.png');
 		height: 578upx;
 		

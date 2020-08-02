@@ -35,11 +35,11 @@ http.interceptors.request.use((config) => { /* 请求之前拦截器。可以使
    return Promise.reject(config)
  }
  */
-	if(config.url!=='/api/user/membernews'){
-		uni.showLoading({
-			title:'loading'
-		})
-	}
+	// if(config.url!=='/api/user/membernews'){
+	// 	uni.showLoading({
+	// 		title:'loading'
+	// 	})
+	// }
 	return config
 }, (config) => {
 	return Promise.reject(config)
@@ -47,7 +47,7 @@ http.interceptors.request.use((config) => { /* 请求之前拦截器。可以使
 
 
 http.interceptors.response.use(async (response) => { /* 请求之后拦截器。可以使用async await 做异步操作  */
-	uni.hideLoading()
+	// uni.hideLoading()
 	if (response.data.code !== 0) { // 服务端返回的状态码不等于200，则reject()
 		uni.showToast({
 			mask:true,
