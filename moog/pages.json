@@ -24,6 +24,10 @@
 		{
 			"path": "pages/index/settingLanguage",
 			"style": {}
+		},
+		{
+			"path": "pages/password/index",
+			"style": {}
 		}
 
 	],
