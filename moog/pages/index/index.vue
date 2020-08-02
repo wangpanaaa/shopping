@@ -87,7 +87,7 @@
 					<view style="font-size: 30rpx;color: #333333;font-weight:bold;" >company profile </view>
 					<view style="font-size: 24rpx;color: #A8A8A8;width: 126px;margin: 20rpx 39rpx;">Professional grab order  platform  </view>
 				</view>
-				<view class="us-item">
+				<view class="us-item" @tap="navigateTo('./noticedetail?id='+settings.cooperation)">
 					<image src="../../static/images/Agent-cooperation.png"></image>
 					<view style="font-size: 30rpx;color: #333333;font-weight:bold;">Agent cooperation   </view>
 					<view style="font-size: 24rpx;color: #A8A8A8;width: 126px;margin: 20rpx 39rpx;">We look forward to  your joining     </view>
@@ -97,7 +97,7 @@
 					<view style="font-size: 30rpx;color: #333333;font-weight:bold;">Calculate revenue   </view>
 					<view style="font-size: 24rpx;color: #A8A8A8;width: 126px;margin: 20rpx 39rpx;">Earn commissions easily     </view>
 				</view>
-				<view class="us-item">
+				<view class="us-item" @tap="navigateTo('./noticedetail?id='+settings.rule)">
 					<image src="../../static/images/Rule-description.png"></image>
 					<view style="font-size: 30rpx;color: #333333;font-weight:bold;">Rule description    </view>
 					<view style="font-size: 24rpx;color: #A8A8A8;width: 126px;margin: 20rpx 39rpx;">Keep your funds safe  </view>
