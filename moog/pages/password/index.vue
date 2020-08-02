@@ -42,7 +42,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.inputP {
 		font-size: 26rpx;
 		font-family: Myriad Pro;
