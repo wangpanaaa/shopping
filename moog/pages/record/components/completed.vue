@@ -1,9 +1,7 @@
 <template>
 	<view class="completedContain">
-		<record class="record" status="1"></record>
-		<record class="record" status="1"></record>
-		<record class="record" status="1"></record>
-						<view class="cu-load bg-white" :class="!false?'loading':'over'"></view>					
+	<record class="record" v-for="(v ,i) in list" :data="v"></record>
+			<view class="cu-load bg-white" :class="!false?'loading':'over'"></view>				
 	</view>
 </template>
 
@@ -17,6 +15,12 @@
 			return {
 
 			}
+		},
+		props:{
+			list:{
+				type:Array,
+				default:[]
+		  },
 		},
 		methods: {
 

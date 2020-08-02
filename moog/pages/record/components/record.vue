@@ -3,36 +3,35 @@
 		<view class="recordHead">
 			<view class="recordHead_left">
 				<view class="recordHead_left_time">
-					<span>Time</span> <span>2020-07-13</span> <span>12:17:50</span>
+					<span>Time</span> <span>{{data.create_time.split(' ')[0]}}</span> <span>{{data.create_time.split(' ')[1]}}</span>
 				</view>
 				<view class="recordHead_left_number">
-					<span>Number</span> <span>2020071312217398050</span>
+					<span>Number</span> <span>{{data.id}}</span>
 				</view>
 			</view>
-			<view :class="['recordHead_button',buttonStatus[status]]">
-				{{buttonStatus[status]}}
+			<view :class="['recordHead_button',buttonStatus[data.status]]">
+				{{buttonStatus[data.status]}}
 			</view>
 		</view>
 		<view class="recordContent">
 			<view class="recordContent_image">
-				<image src="https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg" mode="aspectFill"></image>
+				<image :src="data.goods_pic" mode="aspectFill"></image>
 			</view>
 			<p>
-				European style sofa chair neoclassical solid wood leisure chair small household Type single sofa reception
-				negotiation chair bedroom tiger chair
+				{{data.goods_name}}
 			</p>
 		</view>
 		<view class="recordFoot">
 			<view class="recordFoot_item">
-				<span>order Tota</span><span>₹ 1350</span>
+				<span>order Tota</span><span>{{data.price}}</span>
 			</view>
 			<view class="recordFoot_item">
-				<span> Commission</span><span>₹ 1350</span>
+				<span> Commission</span><span>{{data.commission}}</span>
 			</view>
 			<view class="recordFoot_item">
-				<span>Estimated refund</span><span style="color: #ffb44e;font-size: 16px;font-weight: bold;">₹ 1350</span>
+				<span>Estimated refund</span><span style="color: #ffb44e;font-size: 16px;font-weight: bold;">{{data.refund}}</span>
 			</view>
-			<view class="recordFoot_button" v-if="status==2">
+			<view class="recordFoot_button" v-if="data.status==2">
 				   <button type="default">Cancel</button>
 					 <button type="default" @click="submit">Submit</button>
 			</view>
@@ -46,16 +45,22 @@
 			return {
 				buttonStatus: {
 					1: 'Completed',
-					2: 'Pending',
-					3: 'Cancelled',
+					0: 'Pending',
+					2: 'Cancelled',
 				}
 			}
 		},
 		props:{
-			status:{
-				type:String,
-				default:'1'
+			data:{
+				type:Object,
+				default:function(){
+					return{}
+				}
 			}
+		},
+		created(){
+			console.log(this.data)
+					console.log(1111111)
 		},
 		methods:{
 			submit(){
