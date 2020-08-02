@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 import cuCustom from './colorui/components/cu-custom.vue'
+import store from './store'
 import VueI18n from 'vue-i18n'
 import messages from './config/lang.js'
 import http from '@/config/request.js'
@@ -24,7 +25,8 @@ Vue.prototype.$http = http
 
 const app = new Vue({
 	i18n,
-    ...App
+    ...App,
+	store
 })
 app.$mount()
 

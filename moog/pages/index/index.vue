@@ -30,7 +30,7 @@
 						  <use xlink:href="#icon-chongzhi"></use>
 						</svg>
 					</view>
-					<text style="font-size: 24rpx;">Top-up</text>
+					<text style="font-size: 24rpx;" @tap="navigateTo('../blance/index')">Top-up</text>
 				</view>
 				<view style="text-align: center;">
 					<view>
@@ -145,7 +145,7 @@
 			<view class="bottom-text">
 				<view class="iocn-english">
 					<image src="../../static/images/britain.png"></image>
-					<text style="font-size: 28rpx;">EngLish</text>
+					<text style="font-size: 28rpx;" @tap="navigateTo('./settingLanguage')">EngLish</text>
 				</view>
 				<view style="font-size: 22rpx;text-align: center;margin-top: 33rpx;">Copyright © 2020. E-Nuggets All rights reserved.</view>
 			</view>
@@ -170,7 +170,7 @@
 				</view>
 				<view class="basis-list basis-border">
 					<view class="basis-item" style="font-weight: bold;">Explore</view>
-					<view class="basis-item">Notice</view>
+					<view class="basis-item" @tap='navigateTo("../message/list")'>Notice</view>
 					<view class="basis-item">Account Details</view>
 					<view class="basis-item">Recharge Record</view>
 					<view class="basis-item">Withdrawal Record</view>
@@ -207,6 +207,7 @@
 				this.modalName = null
 			},
 			navigateTo(e) {
+				console.log(e)
 				uni.navigateTo({
 					url:e
 				})

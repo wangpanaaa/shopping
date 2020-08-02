@@ -30,7 +30,7 @@
 					<view class="iconfont icon-fanhui1 text" @click="enter"></view>
 				</view>
 			</view>
-			<view class="forgot" @click="forgot">Forgot my password</view>
+			<!-- <view class="forgot" @click="forgot">Forgot my password</view> -->
 		</view>
 		<view class="showAccountLogin" v-if="showRegister" @click="registerCancel"></view>
 		<view class="register" v-if="showRegister">
@@ -48,11 +48,11 @@
 			</view>
 			<view class="phone">
 				<view class="iconfont icon-mima"></view>
-				<input v-model="regData.pwd2" class="password" password placeholder="Enter the password again">
+				<input v-model="regData.repwd" class="password" password placeholder="Enter the password again">
 			</view>
 			<view class="phone">
 				<view class="iconfont icon-iconfontzhizuobiaozhun49"></view>
-				<input v-model="regData.code" class="password" placeholder="Please enter the invitation code">
+				<input v-model="regData.agentid" class="password" placeholder="Please enter the invitation code">
 			</view>
 			<button @click="registerSub">sign up</button>
 			<view class="sign">Alredy have an account? <text class="text" @click="signIn"> Sign in</text> </view>
@@ -61,8 +61,20 @@
 </template>
 
 <script>
-	import user from '../../common/user.js'
+	// import user from '../../common/user.js'
 	export default {
+		onLoad() {
+			const token = uni.getStorageSync('token');
+			if(token){
+				uni.showLoading()
+				setTimeout(()=>{
+					uni.hideLoading()
+					uni.redirectTo({
+						url:'../index/index'
+					})
+				},300)
+			}
+		},
 		data() {
 			return {
 				loginData:{
@@ -75,11 +87,9 @@
 				regData:{
 					username:'',
 					pwd:'',
+					repwd:'',
 					agentid:'',
-					pwd2: '',
-					code:'1111'
-				},
-				user: new user
+				}
 			};
 		},
 		methods: {
@@ -94,13 +104,14 @@
 				this.showAccountLogin = false
 			},
 			enter(){
-				console.log(this.loginData)
-				this.user.login(datas).then(res=>{
-					console.log(res)
-				})
-				// uni.redirectTo({
-				//     url: '../index/index'
-				// });
+				if(!this.loginData.username || !this.loginData.password){
+					uni.showToast({
+						title:'请完善相关信息'
+					})
+					return
+				}
+				this.$store.dispatch('loginUser',this.loginData);
+				this.showAccountLogin = false
 			},
 			forgot(){
 				this.showAccountLogin = false
@@ -111,9 +122,14 @@
 				this.showRegister = false
 			},
 			registerSub(){
-				this.$http.post('/api/login/register',{...this.regData}).then(res=>{
-					console.log(res)
-				})
+				if(!this.regData.username || !this.regData.pwd ||!this.regData.repwd){
+					uni.showToast({
+						title:'请完善相关信息'
+					})
+					return
+				}
+				this.$store.dispatch('register',this.regData);
+				this.showRegister = false
 			},
 			navigateTo(e) {
 				uni.navigateTo({
@@ -126,9 +142,12 @@
 
 <style lang="scss" scoped>
 	.login {
-		background: url('../../static/images/title_bg.png');
+		background: url('../../static/images/login-bg.png');
 		height: 100%;
 		position: relative;
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
 		.show {
 			.top {
 				display: flex;
