@@ -21,11 +21,11 @@
 			</view>
 			<view class="phone">
 				<view class="iconfont icon-zhanghao"></view>
-				<input  placeholder="Please enter the account name">
+				<input  v-model="loginData.username" placeholder="Please enter the account name">
 			</view>
 			<view class="phone">
-				<view class="iconfont icon-jj"></view>
-				<input class="password" password placeholder="Enter password ">
+				<view class="iconfont icon-mima"></view>
+				<input v-model="loginData.password" class="password" password placeholder="Enter password ">
 				<view class="enter">
 					<view class="iconfont icon-fanhui1 text" @click="enter"></view>
 				</view>
@@ -40,22 +40,22 @@
 			</view>
 			<view class="phone">
 				<view class="iconfont icon-zhanghao"></view>
-				<input  placeholder="Please enter the account name">
+				<input  v-model="regData.username" placeholder="Please enter the account name">
 			</view>
 			<view class="phone">
 				<view class="iconfont icon-mima"></view>
-				<input class="password" password placeholder="Please enter the password">
+				<input v-model="regData.pwd" class="password" password placeholder="Please enter the password">
 			</view>
 			<view class="phone">
 				<view class="iconfont icon-mima"></view>
-				<input class="password" password placeholder="Please enter the invitation code">
+				<input v-model="regData.pwd2" class="password" password placeholder="Enter the password again">
 			</view>
 			<view class="phone">
 				<view class="iconfont icon-iconfontzhizuobiaozhun49"></view>
-				<input class="password" placeholder="Enter password ">
+				<input v-model="regData.code" class="password" placeholder="Please enter the invitation code">
 			</view>
 			<button @click="registerSub">sign up</button>
-			<view class="sign">Alredy have an account? <text class="text" @click="registerCancel"> Sign in</text> </view>
+			<view class="sign">Alredy have an account? <text class="text" @click="signIn"> Sign in</text> </view>
 		</view>
 	</view>
 </template>
@@ -65,6 +65,10 @@
 	export default {
 		data() {
 			return {
+				loginData:{
+					username: '',
+					password: ''
+				},
 				language: 'English',
 				showAccountLogin: false,
 				showRegister: false,
@@ -72,8 +76,10 @@
 					username:'',
 					pwd:'',
 					agentid:'',
+					pwd2: '',
 					code:'1111'
-				}
+				},
+				user: new user
 			};
 		},
 		methods: {
@@ -82,17 +88,14 @@
 			},
 			signIn() {
 				this.showAccountLogin = true
+				this.showRegister = false
 			},
 			cancel(){
 				this.showAccountLogin = false
 			},
 			enter(){
-				let _user = new user
-				let datas = {
-					username: '',
-					password: ''
-				}
-				_user.login(datas).then(res=>{
+				console.log(this.loginData)
+				this.user.login(datas).then(res=>{
 					console.log(res)
 				})
 				// uni.redirectTo({
@@ -104,7 +107,7 @@
 				this.showRegister = true
 			},
 			registerCancel(){
-				this.showAccountLogin = true
+				this.showAccountLogin = false
 				this.showRegister = false
 			},
 			registerSub(){
