@@ -129,7 +129,7 @@
 	}
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 	.blacnceContain {
 		height: 100%;
 		background-color: #f6f6f6;

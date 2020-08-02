@@ -26,7 +26,6 @@
 					 refresher-background="#f5f5f5">
 						<view style="height:100%" v-if="true">
 							<all></all>
-							<view class="cu-load bg-white" :class="!false?'loading':'over'"></view>
 						</view>
 					</scroll-view>
 				</swiper-item>
@@ -36,7 +35,6 @@
 					 refresher-background="#f5f5f5">
 						<view style="height:100%" v-if="true">
 							<pending></pending>
-								<view class="cu-load bg-white" :class="!false?'loading':'over'"></view>
 						</view>
 					</scroll-view>
 				</swiper-item>
@@ -46,7 +44,6 @@
 					 refresher-background="#f5f5f5">
 						<view style="height:100%" v-if="true">
 							<completed></completed>
-								<view class="cu-load bg-white" :class="!false?'loading':'over'"></view>
 						</view>
 					</scroll-view>
 				</swiper-item>
@@ -55,7 +52,6 @@
 					 refresher-background="#f5f5f5">
 						<view style="height:100%" v-if="true">
 							<cancelled></cancelled>
-							<view class="cu-load bg-white" :class="!false?'loading':'over'"></view>
 						</view>
 					</scroll-view>
 				</swiper-item>
@@ -140,7 +136,7 @@
 	}
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 	.recordCotain {
 		height: 100%;
 		background-color: #f6f6f6;
@@ -220,7 +216,6 @@
 		}
 	}
 .swiper-area{
-	padding: 0 30rpx;
 	flex: 1;
 	uni-swiper{
 		height: 100%;

@@ -38,7 +38,7 @@
 			Your recharge amount is <span style="color:rgba(51,51,51,1);font-size:15px;font-weight:bold;margin-left: 13px;">₹
 				600</span>
 		</view>
-		<button class="commit">Next step <span class="iconfont icon-huabanbeifen12" style="font-weight: bold;font-size: 15px;"></span></button>
+		<button class="commit" @click="next">Next step <span class="iconfont icon-huabanbeifen12" style="font-weight: bold;font-size: 15px;"></span></button>
 	</view>
 </template>
 
@@ -54,6 +54,11 @@
 			RadioChange(e) {
 				this.radio = e.detail.value
 			},
+			next(){
+				uni.navigateTo({
+					url:'/pages/payment/index'
+				})
+			}
 		},
 		computed: {
 			money() {
@@ -63,7 +68,7 @@
 	}
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 	.payCotain {
 		padding: 0 30rpx;
 	}
@@ -87,7 +92,7 @@
 		}
 
 		.placeholder {
-			font-size: 12rpx;
+			font-size: 24rpx;
 			font-family: Myriad Pro;
 			font-weight: normal;
 			color: rgba(168, 168, 168, .5);

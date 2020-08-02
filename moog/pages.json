@@ -24,6 +24,18 @@
 		{
 			"path": "pages/index/settingLanguage",
 			"style": {}
+		},
+		{
+			"path": "pages/payment/index",
+			"style": {}
+		},
+		{
+			"path": "pages/account/index",
+			"style": {}
+		},
+		{
+			"path": "pages/cashout/index",
+			"style": {}
 		}
 
 	],

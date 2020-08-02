@@ -3,6 +3,7 @@
 		<record class="record" status="1"></record>
 		<record class="record" status="1"></record>
 		<record class="record" status="1"></record>
+						<view class="cu-load bg-white" :class="!false?'loading':'over'"></view>					
 	</view>
 </template>
 
@@ -23,11 +24,14 @@
 	}
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 	.completedContain{
 		min-height: 100%;
+			padding: 0 30rpx;
 	}
 	.record{
-		margin-bottom: 20rpx;
+		&:nth-child(n+2){
+				margin-top: 20rpx;
+		}
 	}
 </style>
