@@ -5,29 +5,46 @@
 		</cu-custom>
 		<form class="main" @submit="formSubmit">
 			<view class="text">Receive identity information</view>
-			<view class="verification">Receiver</view>
+			<view class="verification">RECEIVE</view>
+			<view class="content">
+				<view class="iconfont icon-zhanghao"></view>
+				<input name='name' placeholder-class='inputP' placeholder='Please enter your real name' />
+			</view>
 			<view class="content">
 				<view class="iconfont icon-jj"></view>
 				<input name='tel' placeholder-class='inputP' placeholder='Please enter your mobile phone number' />
 			</view>
-			<view class="content2">
-				<view class="code">
-					<view class="iconfont icon-dentifyingcode"></view>
-					<input placeholder-class='inputP' placeholder="Please enter verification code" name='smscode' />
-				</view>
-				<button>Send</button>
-			</view>
+			<view class="text">Delivery address information</view>
+			<view class="verification">ADDRESS</view>
 			<view class="content">
-				<view class="iconfont icon-mima"></view>
-				<input name='pwd' placeholder-class='inputP' placeholder='Please enter your mobile phone number' />
-				<view class="iconfont"></view>
+				<view class="iconfont icon-dizhi"></view>
+				<input name='region' placeholder-class='inputP' placeholder='Please enter a region' />
 			</view>
-			<button form-type="submit">Confirm<view class="iconfont icon-huabanbeifen12"></view></button>
+			<view class="detailed_address">
+				<textarea placeholder-class='inputP' placeholder='Please enter detailed address'></textarea>
+			</view>
+			<view class="content2">
+				<text>Set as the default address </text>
+				<switch @change="todefault" color="#FF7070"></switch>
+			</view>
+			<button form-type="submit"><view class="iconfont icon-shanchu"></view>Delete</button>
 		</form>
 	</view>
 </template>
 
 <script>
+	export default{
+		data(){
+			return{
+				switchB: true
+			}
+		},
+		methods:{
+			todefault(e){
+				this.switchB = e.detail.value
+			}
+		}
+	}
 </script>
 
 <style lang="scss" scoped>
@@ -92,54 +109,50 @@
 					padding: 0 25rpx;
 				}
 			}
-	
-			.content2 {
+			.content2{
 				margin-top: 20rpx;
 				display: flex;
+				align-items: center;
+				justify-content: space-between;
 				width: 689rpx;
 				height: 110rpx;
-				.code{
-					width:436rpx;
-					height:110rpx;
-					background:rgba(255,255,255,1);
-					border:1rpx solid rgba(220, 221, 221, 1);
-					border-radius:10rpx;
-					display: flex;
-					align-items: center;
-					.iconfont {
-						font-size: 40rpx;
-						padding: 0 25rpx;
-					}
+				background: rgba(255, 255, 255, 1);
+				border: 1rpx solid rgba(220, 221, 221, 1);
+				border-radius: 10rpx;
+				padding: 0 30rpx;
+				switch{
+					// background: rgb(255, 112, 112) !important;
 				}
-				button{
-					width:236rpx;
-					height:110rpx;
-					background:rgba(250,167,35,1);
-					opacity:0.96;
-					border-radius:10rpx;
+			}
+			.detailed_address{
+				margin-top: 20rpx;
+				width:689rpx;
+				height:230rpx;
+				background:rgba(255,255,255,1);
+				border:1rpx solid rgba(220, 221, 221, 1);
+				border-radius:10rpx;
+				textarea{
+					padding: 44rpx 87rpx;
+					width: 100%;
 					margin: 0;
-					margin-left: 17rpx;
-					// padding: atuo;
-					font-size:34rpx;
-					font-family:Myriad Pro;
-					font-weight:400;
-					color:rgba(17,17,17,1);
-					display: flex;
-					align-items: center;
-					justify-content: center;
 				}
 			}
 			button{
-				margin-top: 80rpx;
+				margin-top: 20rpx;
+				margin-bottom: 270rpx;
 				width:690rpx;
 				height:110rpx;
-				background:linear-gradient(180deg,rgba(247,222,162,1),rgba(240,194,80,1));
-				border:2rpx solid;
-				border-image:linear-gradient(170deg, rgba(172,142,66,1), rgba(133,108,47,1)) 2 2;
-				border-radius:5rpx;
+				background:rgba(255,255,255,1);
+				border-radius:10rpx;
 				display: flex;
 				align-items: center;
 				justify-content: center;
+				color: #F44C4C;
+				font-size:28rpx;
+				view{
+					font-size: 33rpx;
+					margin-right: 10rpx;
+				}
 			}
 		}
 	}
