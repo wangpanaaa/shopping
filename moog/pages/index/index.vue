@@ -10,7 +10,7 @@
 						<span class="iconfont icon-mulu" @tap="showModal" data-target="DrawerModalL"></span>
 						<image :src="settings.logo_tiny" class="shopping"></image>
 					</view>
-					<span class="iconfont icon-kefu"></span>
+					<span class="iconfont icon-kefu" @tap='navigateTo("/pages/customerSerice/index")'></span>
 				</view>
 				<view class="title-text padding-116 padding-50">
 					The new economy
@@ -287,6 +287,7 @@
 		.icon-kefu{
 			font-size: 50rpx;
 			padding-right: 30rpx;
+			padding-top: 20rpx;
 		}
 		.shopping{
 			width: 200rpx;

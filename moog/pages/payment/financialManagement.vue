@@ -6,7 +6,7 @@
 			<view class="flex">
 				<text class="iconfont icon-fanhui1 left-icon" @tap="BackPage"></text>
 				<text class="title">Financial management</text>
-				<span class="iconfont icon-tixian1 r-icon"></span>
+				<span class="iconfont icon-tixian1 r-icon" @tap="navigateTo('/pages/cashout/index')"></span>
 			</view>
 			<view class="count">{{ userInfo.wmp_balance }}</view>
 			<view class="info-text">Financial amount</view>
@@ -106,7 +106,12 @@ export default {
 					title:'Successfully'
 				})
 			}
-		}
+		},
+		navigateTo(url) {
+			uni.navigateTo({
+				url:url
+			})
+		},
 	}
 };
 </script>
