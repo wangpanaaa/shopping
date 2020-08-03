@@ -1,53 +1,64 @@
 <template>
-	<view class="personal">
-		<cu-custom bgColor="bg-black" :isBack="true">
-			<block slot="content">Personal information</block>
-		</cu-custom>
-		<view class="info">
-			<view class="img">
-				<image :src="userImg"></image>
-				<view class="iconfont icon-xiugai"></view>
+	<view class="page">
+		<view class="personal">
+			<cu-custom bgColor="bg-black" :isBack="true">
+				<block slot="content">Personal information</block>
+			</cu-custom>
+			<view class="info">
+				<view class="img">
+					<image :src="userImg"></image>
+					<view @click="portrait=true" class="iconfont icon-xiugai"></view>
+				</view>
+				<text class="username">{{username}}</text>
+				<text class="code">Invitation code: {{code}}</text>
 			</view>
-			<text class="username">{{username}}</text>
-			<text class="code">Invitation code: {{code}}</text>
+			<view class="main">
+				<view class="cell">
+					<view class="left">
+						<view class="iconfont icon-jj"></view>
+						<text>My Phone Number</text>
+					</view>
+					<text>{{tel}}</text>
+				</view>
+				<view class="cell">
+					<view class="left">
+						<view class="iconfont icon-icon"></view>
+						<text>My Bank Card</text>
+					</view>
+					<view class="right">
+						<text>{{card}}</text>
+						<view class="iconfont icon-huabanbeifen12"></view>
+					</view>
+				</view>
+				<view class="cell" @click="toPassword">
+					<view class="left">
+						<view class="iconfont icon-mima"></view>
+						<text>Password Management</text>
+					</view>
+					<view class="right">
+						<view class="iconfont icon-huabanbeifen12"></view>
+					</view>
+				</view>
+				<view class="cell">
+					<view class="left">
+						<view class="iconfont icon-dizhi"></view>
+						<text>Shipping Address</text>
+					</view>
+					<view class="right">
+						<view class="iconfont icon-huabanbeifen12"></view>
+					</view>
+				</view>
+			</view>
 		</view>
-		<view class="main">
-			<view class="cell">
-				<view class="left">
-					<view class="iconfont icon-jj"></view>
-					<text>My Phone Number</text>
-				</view>
-				<text>{{tel}}</text>
-			</view>
-			<view class="cell">
-				<view class="left">
-					<view class="iconfont icon-icon"></view>
-					<text>My Bank Card</text>
-				</view>
-				<view class="right">
-					<text>{{card}}</text>
-					<view class="iconfont icon-huabanbeifen12"></view>
-				</view>
-			</view>
-			<view class="cell" @click="toPassword">
-				<view class="left">
-					<view class="iconfont icon-mima"></view>
-					<text>Password Management</text>
-				</view>
-				<view class="right">
-					<view class="iconfont icon-huabanbeifen12"></view>
-				</view>
-			</view>
-			<view class="cell">
-				<view class="left">
-					<view class="iconfont icon-dizhi"></view>
-					<text>Shipping Address</text>
-				</view>
-				<view class="right">
-					<view class="iconfont icon-huabanbeifen12"></view>
-				</view>
+		<view class="portrait" v-if="portrait"></view>
+		<view class="content" v-if="portrait">
+			<image v-for="item in urlList" :src="item.img" :key='item.id'></image>
+			<view class="footer">
+				<button class="cancel" @click="portrait=false">Cancel</button>
+				<button class="confirm" @click="confirm">Confirm</button>
 			</view>
 		</view>
+
 	</view>
 </template>
 
@@ -55,107 +66,209 @@
 	export default {
 		data() {
 			return {
+				portrait: false,
 				userImg: require('../../static/images/Agent-cooperation.png'),
 				username: 'Jonathan999',
 				code: '888',
 				tel: '199****8888',
-				card: '****888'
+				card: '****888',
+				urlList: [{
+						id: 1,
+						img: require('../../static/images/Agent-cooperation.png')
+					},
+					{
+						id: 2,
+						img: require('../../static/images/Agent-cooperation.png')
+					},
+					{
+						id: 3,
+						img: require('../../static/images/Agent-cooperation.png')
+					},
+					{
+						id: 4,
+						img: require('../../static/images/Agent-cooperation.png')
+					},
+					{
+						id: 5,
+						img: require('../../static/images/Agent-cooperation.png')
+					},
+					{
+						id: 6,
+						img: require('../../static/images/Agent-cooperation.png')
+					},
+					{
+						id: 7,
+						img: require('../../static/images/Agent-cooperation.png')
+					},
+				]
 			}
 		},
-		methods:{
-			toPassword(){
+		mounted() {
+
+		},
+		methods: {
+			toPassword() {
 				uni.navigateTo({
-					url:'../password/index'
+					url: '../password/index'
 				})
+			},
+			confirm() {
+				this.portrait = false
 			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-	.personal {
+	.page {
 		background: #FFFFFF;
 		height: 100%;
-		.info {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
+		position: relative;
+		.personal {
+			background: #FFFFFF;
+			height: 100%;background: #FFFFFF;
+			height: 100%;
 
-			.img {
-				margin-top: 96rpx;
-				position: relative;
+			.info {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
 
-				image {
-					width: 150rpx;
-					height: 150rpx;
-					border-radius: 50%;
+				.img {
+					margin-top: 96rpx;
+					position: relative;
+
+					image {
+						width: 150rpx;
+						height: 150rpx;
+						border-radius: 50%;
+					}
+
+					.iconfont {
+						font-size: 50rpx;
+						color: #FAA81E;
+						position: absolute;
+						bottom: 0;
+						right: 0;
+					}
 				}
 
-				.iconfont {
-					font-size: 50rpx;
-					color: #FAA81E;
-					position: absolute;
-					bottom: 0;
-					right: 0;
+				.username {
+					margin-top: 20rpx;
+					font-size: 34rpx;
+					font-family: Myriad Pro;
+					font-weight: 400;
+					color: rgba(51, 51, 51, 1);
+					line-height: 40rpx;
+				}
+
+				.code {
+					margin-top: 10rpx;
+					font-size: 26rpx;
+					font-family: Myriad Pro;
+					font-weight: 400;
+					color: rgba(168, 168, 168, 1);
+					line-height: 40rpx;
 				}
 			}
 
-			.username {
-				margin-top: 20rpx;
+			.main {
+				margin-top: 50rpx;
+
+				.cell {
+					padding: 0 30rpx;
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					width: 100%;
+					height: 108rpx;
+
+					.left {
+						display: flex;
+
+						.iconfont {
+							font-size: 45rpx;
+							margin-top: -10rpx;
+							margin-right: 20rpx;
+						}
+
+						>text {
+							font-size: 28rpx;
+							font-family: Myriad Pro;
+							font-weight: bold;
+							color: rgba(51, 51, 51, 1);
+						}
+					}
+
+					text {
+						font-size: 28rpx;
+						font-family: Myriad Pro;
+						font-weight: 400;
+						color: rgba(168, 168, 168, 1);
+						margin-right: 30rpx;
+					}
+
+					.right {
+						display: flex;
+
+						.iconfont {
+							font-size: 20rpx;
+						}
+
+						text {
+							margin-right: 7rpx;
+						}
+					}
+				}
+			}
+		}
+
+		.portrait {
+			background: #000;
+			top: 0rpx;
+			height: 100%;
+			opacity: 0.4;
+			width: 100%;
+			position: absolute;
+			z-index: 10000;
+		}
+
+		.content {
+			background: #fff;
+			position: absolute;
+			display: flex;
+			z-index: 10001;
+			flex-wrap: wrap;
+			bottom: 0;
+			padding-top: 48rpx;
+			image {
+				width: 150rpx;
+				height: 150rpx;
+				border-radius: 50%;
+				margin: 0 15rpx;
+			}
+
+			.footer {
+				display: flex;
 				font-size: 34rpx;
 				font-family: Myriad Pro;
 				font-weight: 400;
-				color: rgba(51, 51, 51, 1);
-				line-height: 40rpx;
-			}
+				color: rgba(17, 17, 17, 1);
+				margin: 54rpx 30rpx 68rpx 30rpx;
+				.cancel {
+					width: 330rpx;
+					height: 98rpx;
+					background: rgba(255, 255, 255, 1);
+					border: 1rpx solid rgba(34, 47, 62, 1);
+					border-radius: 5rpx;
+				}
 
-			.code {
-				margin-top: 10rpx;
-				font-size:26rpx;
-				font-family:Myriad Pro;
-				font-weight:400;
-				color:rgba(168,168,168,1);
-				line-height:40rpx;
-			}
-		}
-		.main{
-			margin-top: 50rpx;
-			.cell{
-				padding: 0 30rpx;
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				width: 100%;
-				height: 108rpx;
-				.left{
-					display: flex;
-					.iconfont{
-						font-size: 45rpx;
-						margin-top: -10rpx;
-						margin-right: 20rpx;
-					}
-					> text{
-						font-size:28rpx;
-						font-family:Myriad Pro;
-						font-weight:bold;
-						color:rgba(51,51,51,1);
-					}
-				}
-				text{
-					font-size:28rpx;
-					font-family:Myriad Pro;
-					font-weight:400;
-					color:rgba(168,168,168,1);
-					margin-right: 30rpx;
-				}
-				.right{
-					display: flex;
-					.iconfont{
-						font-size: 20rpx;
-					}
-					text{
-						margin-right: 7rpx;
-					}
+				.confirm {
+					margin-left: 30rpx;
+					width: 330rpx;
+					height: 98rpx;
+					background: rgba(250, 167, 35, 1);
+					border-radius: 5rpx;
 				}
 			}
 		}
