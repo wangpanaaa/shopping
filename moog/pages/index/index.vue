@@ -129,7 +129,7 @@
 					</view>
 					<view class="basis-item" @tap='navigateTo("/pages/order/orderGrabbing")'>Orders</view>
 					<view class="basis-item" @tap='navigateTo("/pages/cashout/index")'>Cash Out</view>
-					<view class="basis-item">Customer Service</view>
+					<view class="basis-item" @tap='navigateTo("/pages/customerSerice/index")'>Customer Service</view>
 					<view class="basis-item">Invite Friends</view>
 				</view>
 				<view class="basis-list basis-border">
