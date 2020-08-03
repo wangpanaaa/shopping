@@ -19,23 +19,23 @@
 				<button class="cu-btn" style="margin-left: 50rpx;margin-top: 44rpx;">Start the journey of wealth</button>
 			</view>
 			<view class="flex box-list">
-					<view style="text-align: center;" @tap='navigateTo("../record/index")'>
+					<view style="text-align: center;" @tap='navigateTo("../payment/financialManagement")'>
 						<view>
 							<image src="../../static/images/btn_financial.png" class="list-image"></image>
 						</view>
 						<text style="font-size: 24rpx;">Financial</text>
 					</view>
-				<view style="text-align: center;" @tap='navigateTo("../record/blance")'>
+				<view style="text-align: center;" @tap='navigateTo("../blance/index")'>
 					<view>
 						<image src="../../static/images/btn_top-up.png" class="list-image"></image>
 					</view>
-					<text style="font-size: 24rpx;" @tap="navigateTo('../blance/index')">Top-up</text>
+					<text style="font-size: 24rpx;">Top-up</text>
 				</view>
-				<view style="text-align: center;">
+				<view style="text-align: center;" @tap='navigateTo("/pages/cashout/index")'>
 					<view>
 						<image src="../../static/images/btn_withdrawal.png" class="list-image"></image>
 					</view>
-					<text style="font-size: 24rpx;" @tap='navigateTo("/pages/cashout/index")'>Withdrawal</text>
+					<text style="font-size: 24rpx;" >Withdrawal</text>
 				</view>
 				<view style="text-align: center;">
 					<view>
@@ -123,18 +123,18 @@
 				</view>
 				<view class="basis-list basis-border">
 					<view class="basis-item">Home</view>
-					<view class="basis-item">Account 
+					<view class="basis-item" @tap='navigateTo("../blance/index")'>Account 
 						<text class="lg text-gray cuIcon-moreandroid" style="color: #FAA723;margin: 0 10rpx;"></text>
-						<text style="font-family:Arial;font-size:34rpx;color: #FAA723;">₹ {{userInfo.balance}}</text>
+						<text style="font-family:Arial;font-size:34rpx;color: #FAA723;"> {{userInfo.balance}}</text>
 					</view>
-					<view class="basis-item">Orders</view>
+					<view class="basis-item" @tap='navigateTo("/pages/order/orderGrabbing")'>Orders</view>
 					<view class="basis-item" @tap='navigateTo("/pages/cashout/index")'>Cash Out</view>
 					<view class="basis-item">Customer Service</view>
 					<view class="basis-item">Invite Friends</view>
 				</view>
 				<view class="basis-list basis-border">
 					<view class="basis-item" style="font-weight: bold;">Explore</view>
-					<view class="basis-item" @tap='navigateTo("../message/list")'>Notice</view>
+					<view class="basis-item" @tap='navigateTo("/pages/index/noticedetail")'>Notice</view>
 					<view class="basis-item">Account Details</view>
 					<view class="basis-item">Recharge Record</view>
 					<view class="basis-item">Withdrawal Record</view>
@@ -146,7 +146,7 @@
 						<image src="../../static/images/britain.png"></image>
 						English
 					</view>
-					<view class="basis-item">Personal information</view>
+					<view class="basis-item" @tap='navigateTo("/pages/personal/information")'>Personal information</view>
 					<view class="basis-item" @tap='resetLogin'>Sign Out</view>
 				</view>
 			</view>

@@ -50,6 +50,10 @@
 			"style": {}
 		},
 		{
+			"path": "pages/payment/financialManagement",
+			"style": {}
+		},
+		{
 		    "path" : "pages/explore/notice",
 		    "style" : {
 				"navigationBarBackgroundColor":"#000000",
