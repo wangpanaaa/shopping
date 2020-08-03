@@ -16,16 +16,16 @@
 					The new economy
 				</view>
 				<view class="title-text padding-50">Invite commissions</view>
-				<button class="cu-btn" style="margin-left: 50rpx;margin-top: 44rpx;">Start the journey of wealth</button>
+				<button class="cu-btn" style="margin-left: 50rpx;margin-top: 44rpx;" @tap='navigateTo("/pages/payment/financialManagement")'>Start the journey of wealth</button>
 			</view>
 			<view class="flex box-list">
-					<view style="text-align: center;" @tap='navigateTo("../payment/financialManagement")'>
+					<view style="text-align: center;" @tap='navigateTo("/pages/payment/financialManagement")'>
 						<view>
 							<image src="../../static/images/btn_financial.png" class="list-image"></image>
 						</view>
 						<text style="font-size: 24rpx;">Financial</text>
 					</view>
-				<view style="text-align: center;" @tap='navigateTo("../blance/index")'>
+				<view style="text-align: center;" @tap='navigateTo("/pages/blance/index")'>
 					<view>
 						<image src="../../static/images/btn_top-up.png" class="list-image"></image>
 					</view>
@@ -46,7 +46,7 @@
 			</view>
 
 			<view class="flex flex-direction">
-				<button class="cu-btn bg-grey lg place-order" @tap="navigateTo('../order/orderGrabbing')">
+				<button class="cu-btn bg-grey lg place-order" @tap="navigateTo('/pages/order/orderGrabbing')">
 					<span class="iconfont icon-che"></span>
 					<text style="font-size: 30rpx;">Place an order </text>
 				</button>
@@ -55,7 +55,7 @@
 			<view style="font-size: 24rpx;color: #A8A8A8;padding-top: 73rpx;padding-left: 28rpx;">Select member session </view>
 			<view style="font-size: 40rpx;color: #333;padding-top: 18rpx;padding-left: 32rpx;font-weight: bold;">Mission Hall </view>
 			<view class="etsy-list">
-				<view class="item-etsy" v-for="item of amazonList" :key='item.id' @tap="item.lock===0?navigateTo('../order/orderGrabbing'):''">
+				<view class="item-etsy" v-for="item of amazonList" :key='item.id' @tap="item.lock===0?navigateTo('/pages/order/orderGrabbing'):''">
 					<image :src="item.pic" class="etsy-image"></image>
 					<image src="../../static/images/lock.png" class="lock" v-if="item.lock===1" ></image>
 					<text class="etsy-text">{{item.subtitle}}</text>
@@ -85,12 +85,12 @@
 			<view style="font-size: 24rpx;color: #A8A8A8;padding-top: 73rpx;padding-left: 28rpx;">Professional grab order platform  </view>
 			<view style="font-size: 40rpx;color: #333;padding-top: 18rpx;padding-left: 32rpx;font-weight: bold;">ABOUT US  </view>
 			<view class="us-list flex">
-				<view class="us-item" @tap="navigateTo('./noticedetail?id='+settings.profile)">
+				<view class="us-item" @tap="navigateTo('/pages/index/noticedetail?id='+settings.profile)">
 					<image src="../../static/images/company-profile.png"></image>
 					<view style="font-size: 30rpx;color: #333333;font-weight:bold;" >company profile </view>
 					<view style="font-size: 24rpx;color: #A8A8A8;width: 126px;margin: 20rpx 39rpx;">Professional grab order  platform  </view>
 				</view>
-				<view class="us-item" @tap="navigateTo('./noticedetail?id='+settings.cooperation)">
+				<view class="us-item" @tap="navigateTo('/pages/index/noticedetail?id='+settings.cooperation)">
 					<image src="../../static/images/Agent-cooperation.png"></image>
 					<view style="font-size: 30rpx;color: #333333;font-weight:bold;">Agent cooperation   </view>
 					<view style="font-size: 24rpx;color: #A8A8A8;width: 126px;margin: 20rpx 39rpx;">We look forward to  your joining     </view>
@@ -100,7 +100,7 @@
 					<view style="font-size: 30rpx;color: #333333;font-weight:bold;">Calculate revenue   </view>
 					<view style="font-size: 24rpx;color: #A8A8A8;width: 126px;margin: 20rpx 39rpx;">Earn commissions easily     </view>
 				</view>
-				<view class="us-item" @tap="navigateTo('./noticedetail?id='+settings.rule)">
+				<view class="us-item" @tap="navigateTo('/pages/index/noticedetail?id='+settings.rule)">
 					<image src="../../static/images/Rule-description.png"></image>
 					<view style="font-size: 30rpx;color: #333333;font-weight:bold;">Rule description    </view>
 					<view style="font-size: 24rpx;color: #A8A8A8;width: 126px;margin: 20rpx 39rpx;">Keep your funds safe  </view>
@@ -152,6 +152,22 @@
 			</view>
 		</view>
 		
+		<view class="cu-modal notice-dal" :class="NoticeFlag==true?'show':''">
+			<view class="cu-dialog">
+				<view class="bg-img">
+					<view class="cu-bar justify-end text-white">
+						<view class="action" @tap="hideModal">
+							<text class="cuIcon-close "></text>
+						</view>
+					</view>
+				</view>
+				<view class="title">{{noticedetail.title}}</view>
+				<view class="conten" v-html="noticedetail.content">                 
+				</view>
+				<view class="flex flex-direction"><button class="cu-btn" @tap="NoticeFlag = false">Confirm</button></view>
+			</view>
+		</view>
+		
 	</view>
 </template>
 
@@ -170,6 +186,8 @@
 				amazonList:[],
 				settings:'',
 				memberNew:[],
+				NoticeFlag:false,
+				noticedetail:{},
 				current:0,
 				headimglist:[
 					require('../../static/images/face/face1.png'),
@@ -196,6 +214,13 @@
 			userInfo:'userInfo' || JSON.parse(uni.getStorageSync('userInfo'))
 		})},
 		async onLoad() {
+			
+			const notices=await this.$http.post('/api/config/noticedetail')
+			this.noticedetail=notices.data
+			if(this.noticedetail.content){
+				this.NoticeFlag=true
+			}
+			
 			this.$store.dispatch('getUserUpdate');
 			const {...data}=await this.$http.post('/api/order/mall')
 			this.amazonList=data.data
@@ -203,7 +228,7 @@
 			this.memberNew=list.data
 			this.memberNewArr=this.memberNew.slice(0,3)
 			this.memberNewArr.forEach(item=>{
-				item.headimg=this.headimglist[Math.floor(Math.random()*5)]
+				item.headimg=this.headimglist[Math.floor(Math.random()*15)]
 			})
 			this.settings=JSON.parse(uni.getStorageSync('settings')) || {}
 		},
@@ -431,6 +456,35 @@
 		}
 		.basis-border{
 			border-bottom:5rpx solid #DCDDDD ;
+		}
+	}
+	.notice-dal{
+		font-family:Bahnschrift;
+		.bg-img{
+			background-image: url(../../static/images/noticedetail.png);
+			height: 240rpx;
+		}
+		.title{
+			margin: 52rpx 0 46rpx 0;
+			font-weight:bold;
+			font-size:40rpx;
+			color: #333333;
+		}
+		.conten{
+			margin: 0 20rpx 52rpx 20rpx;
+			line-height:40rpx;
+			font-size:24rpx;
+			text-align: left;
+		}
+		.flex{
+			align-items: center;
+		}
+		.cu-btn{
+			width: 520rpx;
+			height: 84rpx;
+			margin-bottom: 40rpx;
+			font-size:34rpx;
+			font-family:Myriad Pro;
 		}
 	}
 </style>

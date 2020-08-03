@@ -1,7 +1,8 @@
 <template>
 	<view class="box">
-		<status></status>
+		
 		<view class="bg-img">
+			<status></status>
 			<view class="flex">
 				<text class="iconfont icon-fanhui1 left-icon" @tap="BackPage"></text>
 				<text class="title">Financial management</text>
@@ -142,7 +143,9 @@ export default {
 		font-size: 50rpx;
 	}
 	.info-text {
-		margin-top: 25rpx;
+		/*  #ifdef H5  */
+			margin-top: 25rpx;
+		/*  #endif  */ 
 		text-align: center;
 		font-size: 26rpx;
 	}
