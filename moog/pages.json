@@ -50,6 +50,10 @@
 			"style": {}
 		},
 		{
+			"path": "pages/accountDetail/index",
+			"style": {}
+		},
+		{
 			"path": "pages/payment/financialManagement",
 			"style": {}
 		}

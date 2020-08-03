@@ -363,7 +363,6 @@
 
 	.swiper-area {
 		flex: 1;
-
 		uni-swiper {
 			height: 100%;
 		}

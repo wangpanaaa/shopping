@@ -42,6 +42,10 @@
 				withdrawal: ''
 			}
 		},
+	 async	onShow() {
+				const res = await this.$http.post('/api/account/withdrawal','',{'Content-Type':'multipart/form-data'})
+				 console.log(res)
+		},
 		methods:{
 			account(){
 				uni.navigateTo({
