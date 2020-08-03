@@ -56,7 +56,15 @@
 	    ,{
             "path" : "pages/customerSerice/index",
             "style" : {}
-        }
+        },
+		{
+			"path":"pages/message/list",
+			"style":{}
+		},
+		{
+		    "path" : "pages/index/inviteFriend",
+		    "style" : {}
+		}
     ],
 	"globalStyle": {
 		"mp-alipay": {

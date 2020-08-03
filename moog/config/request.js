@@ -1,5 +1,6 @@
 import Request from '@/utils/luch-request/index.js'
 import stote from '../store/index.js'
+import {url} from './baseUrl.js'
 
 const getTokenStorage = () => {
 	let token = ''
@@ -13,7 +14,7 @@ const getTokenStorage = () => {
 
 const http = new Request()
 http.setConfig((config) => { /* 设置全局配置 */
-	let baseURL = 'http://114.116.82.30'
+	let baseURL = url
 	// #ifdef H5
 	baseURL = '/api'
 	// #endif
