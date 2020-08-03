@@ -1,7 +1,6 @@
 <template>
 	<view class="cancleContain">
 	<record class="record" v-for="(v ,i) in list" :data="v"></record>
-			<view class="cu-load bg-white" :class="!false?'loading':'over'"></view>
 	</view>
 </template>
 

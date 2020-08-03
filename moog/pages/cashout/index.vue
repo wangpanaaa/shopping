@@ -1,7 +1,7 @@
 <template>
 	<view class="cashoutContain">
 		<cu-custom bgColor="bg-black" :isBack="true">
-			<block slot="content">CASH OUT11111</block>
+			<block slot="content">CASH OUT</block>
 			<block slot="right">
 				<span class="iconfont icon-bangzhu"></span>
 			</block>

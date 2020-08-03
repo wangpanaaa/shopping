@@ -35,7 +35,7 @@
 					<view>
 						<image src="../../static/images/btn_withdrawal.png" class="list-image"></image>
 					</view>
-					<text style="font-size: 24rpx;">Withdrawal</text>
+					<text style="font-size: 24rpx;" @tap='navigateTo("/pages/cashout/index")'>Withdrawal</text>
 				</view>
 				<view style="text-align: center;">
 					<view>
@@ -128,7 +128,7 @@
 						<text style="font-family:Arial;font-size:34rpx;color: #FAA723;">₹ {{userInfo.balance}}</text>
 					</view>
 					<view class="basis-item">Orders</view>
-					<view class="basis-item">Cash Out</view>
+					<view class="basis-item" @tap='navigateTo("/pages/cashout/index")'>Cash Out</view>
 					<view class="basis-item">Customer Service</view>
 					<view class="basis-item">Invite Friends</view>
 				</view>

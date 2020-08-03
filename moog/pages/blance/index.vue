@@ -12,12 +12,11 @@
 		</view>
 		<view class="swiper-area">
 			<swiper :acceleration="false" :current="currentTabs" @change="change" @transition="swiperStart" @animationfinish="swiperEnd">
-				<swiper-item>
+				<swiper-item v-for="(item,index) in tabs" :key="index" >
 					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
 					 refresher-background="#f5f5f5">
 						<view style="height:100%" v-if="true">
-
-							<dokypay></dokypay>
+							<pay :card="item.card"></pay>
 						</view>
 					</scroll-view>
 				</swiper-item>
@@ -28,16 +27,10 @@
 </template>
 
 <script>
-	import dokypay from "./components/dokypay.vue"
-	import cashfree from "./components/cashfree.vue"
-	import mypay from "./components/mypay.vue"
-	import chrrp from "./components/chrrp.vue"
+	import pay from "./components/pay.vue"
 	export default {
 		components: {
-			dokypay,
-			cashfree,
-			mypay,
-			chrrp,
+			pay,
 		},
 		data() {
 			return {
@@ -47,14 +40,16 @@
 			}
 		},
 		onLoad() {
+			uni.showLoading()
 			this.$http.post('/api/user_recharge/card').then(data => {
-				console.log(data)
-				data.data.channel.forEach((v,i)=>{
+				data.data.forEach((v,i)=>{
 				this.tabs.push({
 					name:v.group_name,
+					card:v.card,
 					left:(12.5+i*25)+'%'
 				})
 				})
+					uni.hideLoading()
 			})
 		},
 		mounted() {

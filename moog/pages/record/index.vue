@@ -23,35 +23,40 @@
 			<swiper :current="currentTabs" @change="change" @transition="swiperStart" @animationfinish="swiperEnd">
 				<swiper-item>
 					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
-					 refresher-background="#f5f5f5">
+					 refresher-background="#f5f5f5" @scroll="scroll" @scrolltolower="loadMore" :refresher-triggered="tabs[0].data.triggered"
+					 :refresher-enabled="tabs[0].data.isTop" @scrolltoupper="toupper" @refresherrefresh="onRefresh" @refresherrestore="onRestore">
 						<view style="height:100%" v-if="true">
-							<all :list="All.data"></all>
+							<all :list="tabs[0].data.list"></all>
+							<view class="cu-load bg-white" :class="!false?'loading':'over'"></view>
 						</view>
 					</scroll-view>
 				</swiper-item>
 
 				<swiper-item>
-					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
-					 refresher-background="#f5f5f5">
+				<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
+				 refresher-background="#f5f5f5" @scroll="scroll" @scrolltolower="loadMore" :refresher-triggered="tabs[1].data.triggered"
+				 :refresher-enabled="tabs[1].data.isTop" @scrolltoupper="toupper" @refresherrefresh="onRefresh" @refresherrestore="onRestore">
 						<view style="height:100%" v-if="true">
-							<pending :list="Pending.data"></pending>
+							<pending :list="tabs[1].data.list"></pending>
 						</view>
 					</scroll-view>
 				</swiper-item>
 
 				<swiper-item>
-					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
-					 refresher-background="#f5f5f5">
+				<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
+				 refresher-background="#f5f5f5" @scroll="scroll" @scrolltolower="loadMore" :refresher-triggered="tabs[2].data.triggered"
+				 :refresher-enabled="tabs[2].data.isTop" @scrolltoupper="toupper" @refresherrefresh="onRefresh" @refresherrestore="onRestore">
 						<view style="height:100%" v-if="true">
-							<completed :list="Completed.data"></completed>
+							<completed :list="tabs[2].data.list"></completed>
 						</view>
 					</scroll-view>
 				</swiper-item>
 				<swiper-item>
 					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
-					 refresher-background="#f5f5f5">
+					 refresher-background="#f5f5f5" @scroll="scroll" @scrolltolower="loadMore" :refresher-triggered="tabs[3].data.triggered"
+					 :refresher-enabled="tabs[3].data.isTop" @scrolltoupper="toupper" @refresherrefresh="onRefresh" @refresherrestore="onRestore">
 						<view style="height:100%" v-if="true">
-							<cancelled :list="Cancelled.data"></cancelled>
+							<cancelled :list="tabs[3].data.list"></cancelled>
 						</view>
 					</scroll-view>
 				</swiper-item>
@@ -65,6 +70,9 @@
 	import pending from "./components/pending.vue"
 	import completed from "./components/completed.vue"
 	import cancelled from "./components/cancelled.vue"
+	import {
+		throttle
+	} from "@/common/util.js";
 	export default {
 		components: {
 			all,
@@ -77,76 +85,80 @@
 				tabs: [{
 						name: 'All',
 						left: '8.5%',
+						data: {
+							page: 1, //传递参数
+							count: 30, //传递参数
+							list: [], //返回参数
+							bottom: false,
+							isTop: true,
+							triggered: 'restore'
+						}
 					},
 					{
 						name: 'Pending',
 						left: '25.5%',
+						data: {
+							page: 1, //传递参数
+							count: 5, //传递参数
+							status: 0, //传递参数
+							list: [], //返回参数
+							bottom: false,
+							isTop: true,
+							triggered: 'restore'
+						}
 					},
 					{
 						name: 'Completed',
 						left: '52.5%',
+						data: {
+							page: 1, //传递参数
+							count: 5, //传递参数
+							status: 1, //传递参数
+							list: [], //返回参数
+							bottom: false,
+							isTop: true,
+							triggered: 'restore'
+						}
 					},
 					{
 						name: 'Cancelled',
 						left: '80.5%',
+						data: {
+							page: 1, //传递参数
+							count: 5, //传递参数
+							status: 2, //传递参数
+							list: [], //返回参数
+							bottom: false,
+							isTop: true,
+							triggered: 'restore'
+						}
 					}
 				],
 				currentTabs: 0,
 				scrollViewHeight: 0,
-				All: {
-					page: 1, //传递参数
-					count: 30, //传递参数
-					data: [], //返回参数
-					bottom: false
-				},
-				Pending: {
-					page: 1, //传递参数
-					status: 0, //传递参数
-					count: 30, //传递参数
-					data: [], //返回参数
-					bottom: false
-				},
-				Completed: {
-					page: 1, //传递参数
-					status: 1, //传递参数
-					count: 30, //传递参数
-					data: [], //返回参数
-					bottom: false
-				},
-				Cancelled: {
-					page: 1, //传递参数
-					status: 2, //传递参数
-					count: 30, //传递参数
-					data: [], //返回参数
-					bottom: false,
-					timer:''
-				}
 			}
 		},
 		onLoad() {
 			uni.showLoading()
-			this.$http.post('/api/order/log', {
-				page: this.All.page,
-				count: this.All.count
-			}).then(data => (this.All.data = data.data, uni.hideLoading()))
-			this.$http.post('/api/order/log', {
-				page: this.Pending.page,
-				count: this.Pending.count,
-				status: this.Pending.status
-			}).then(data => (this.Pending.data = data.data))
-			this.$http.post('/api/order/log', {
-				page: this.Completed.page,
-				count: this.Completed.count,
-				status: this.Completed.status
-			}).then(data => (this.Completed.data = data.data))
-			this.$http.post('/api/order/log', {
-				page: this.Cancelled.page,
-				count: this.Cancelled.count,
-				status: this.Cancelled.status
-			}).then(data => (this.Cancelled.data = data.data))
-			this.timer=setInterval(()=>{
-						console.log(222222222)
-			},1000)
+			this.tabs.forEach((v, i) => {
+				let json
+				if (v.name === 'All') {
+					json = {
+						page: v.data.page,
+						count: v.data.count,
+					}
+				} else {
+					json = {
+						page: v.data.page,
+						count: v.data.count,
+						status: v.data.status
+					}
+				}
+				this.$http.post('/api/order/log', json).then(data => {
+					v.data.list = data.data
+					if (v.name === 'All') uni.hideLoading()
+				})
+			})
 		},
 		mounted() {
 			this.$offset(".swiper-area").then(res => {
@@ -157,26 +169,103 @@
 			});
 		},
 		destroyed() {
-		clearInterval(	this.timer)
+			clearInterval(this.timer)
 		},
 		methods: {
-			change({
-				detail: {
-					current
-				}
-			}) {
-				// swiper index 变化时触发
-				this.currentTabs = current;
-				// setTimeout(() => {
-				//   this.nav[this.current].triggered = 'restore'
-				// }, 500)
-			},
 			swiperStart(e) {
-				// this.nav[this.current].isTop = false
+				this.tabs[this.currentTabs].data.isTop = false
 			},
 			swiperEnd() {
-				// this.nav[this.current].isTop = true
+				this.tabs[this.currentTabs].data.isTop = true
 			},
+			'onRefresh': throttle(function() {
+				if (this.freshing) return;
+				this.freshing = true;
+				this.refresh()
+			}, 10),
+			'onRestore': throttle(function() {
+				this.tabs[this.currentTabs].data.triggered = 'restore'
+			}, 1000),
+			scroll(e) {
+				if (e.detail.scrollTop != 0) {
+					this.$nextTick(() => {
+						this.tabs[this.currentTabs].data.isTop = false
+					})
+
+				} else {
+					this.$nextTick(() => {
+						this.tabs[this.currentTabs].data.isTop = true
+					})
+				}
+			},
+			toupper() {
+				this.$nextTick(() => {
+					this.tabs[this.currentTabs].data.isTop = true
+				})
+			},
+			change(e) {
+				// swiper index 变化时触发
+				this.currentTabs = e.detail.current;
+				setTimeout(() => {
+				  this.tabs[this.currentTabs].data.triggered = 'restore'
+				}, 500)
+			},
+			loadMore () {
+			  // 上拉加载
+			  var resetObj = this.nav[this.current].ref;
+			  console.log(resetObj)
+			   if(this.current!=1){
+						 console.log(this[resetObj].p,this[resetObj].last_page)
+						 if (this[resetObj].p==this[resetObj].last_page || this.isSend) return 
+						   this[resetObj].p=this[resetObj].p+1
+							 this[resetObj].first_topic_id=this[resetObj].data.slice(0,1)[0].id
+						   this.apiRq(resetObj);
+					 }else{
+						  if (this[resetObj].bottom || this.isSend) return 
+							console.log('concernbottom')
+						  this[resetObj].id=this[resetObj].list.slice(-1)[0].id
+							this.apiRq(resetObj);
+					 }
+			},
+			  refresh () {
+			    // 下拉刷新,数据初始化，没有备份p、c的值，更改data的p、c值需要一起更改下面p、c的值
+					 this.tabs[this.currentTabs].data.page = 1;
+					 this.tabs[this.currentTabs].data.count = 5;
+					 this.tabs[this.currentTabs].data.list =[];
+					 let json
+					 if (this.tabs[this.currentTabs].name === 'All') {
+					 	json = {
+					 		page: this.tabs[this.currentTabs].data.page,
+					 		count: this.tabs[this.currentTabs].data.count,
+					 	}
+					 } else {
+					 	json = {
+					 		page: this.tabs[this.currentTabs].data.page,
+					 		count: this.tabs[this.currentTabs].data.count,
+					 		status: this.tabs[this.currentTabs].data.status
+					 	}
+					 }
+					  this.freshing = true;
+						let beginTime=new Date().getTime()
+					 this.$http.post('/api/order/log', json).then(data => {
+				  	this.tabs[this.currentTabs].data.list = data.data
+					 	if (this.tabs[this.currentTabs].name === 'All') uni.hideLoading()
+					 }).finally(r=>{
+								 //下拉刷新 计算接口响应时间，如果小于1s自己加延迟否则刷新组件会失效，框架导致
+								if (new Date().getTime() - beginTime < 1000) {
+								  console.log('刷新小于1秒')
+								  setTimeout(() => {
+								    this.freshing = false;
+								    this.tabs[this.currentTabs].data.triggered = false
+								  }, 1000)
+								} else {
+								  this.freshing = false;
+								  this.tabs[this.currentTabs].data.triggered = false
+								  console.log('刷新大1秒');
+								}
+					})
+				
+			  },
 			$offset(selector) {
 				// 获取组件内元素的 offset 信息
 				return new Promise(resolve =>
