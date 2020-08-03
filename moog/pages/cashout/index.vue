@@ -8,17 +8,17 @@
 		</cu-custom>
 		<view class="content">
 			<view class="head">
-				<p>₹ 295</p>
+				<p>{{userInfo.balance}}</p>
 				<p>Withdrawable cash</p>
 			</view>
 			<view class="bank">
-				<view class="addBank" v-if="true" @click="account">
+				<view class="addBank" v-if="!userInfo.bank_account" @click="account">
 					+Bank Account
 				</view>
 				<view class=" bankCount" v-else>
-					<p> <span>Withdraw Via</span> *******6323 </p>
-					<p> <span>My Account</span> xxxxxxxxxxxbank</p>
-					 <span class="iconfont icon-huabanbeifen12"></span>
+					<p> <span>Withdraw Via</span>{{userInfo.bank_name}}</p>
+					<p> <span>My Account</span> {{userInfo.bank_account}} </p>
+					<span class="iconfont icon-huabanbeifen12"></span>
 				</view>
 			</view>
 
@@ -26,9 +26,9 @@
 				<view class="withdrawal_title">
 					Cash withdrawal (income tax 10%)
 				</view>
-				<input type="text" v-model="withdrawal" placeholder-class="placeholder" placeholder="Please enter the cash withdrawal amount" />
+				<input type="number" v-model="amount" placeholder-class="placeholder" placeholder="Please enter the cash withdrawal amount" />
 			</view>
-			<view class="commit">
+			<view class="commit" @click="commit">
 				Withdraw <span class="iconfont icon-huabanbeifen12"></span>
 			</view>
 		</view>
@@ -39,14 +39,54 @@
 	export default {
 		data() {
 			return {
-				withdrawal: ''
+				amount: ''
 			}
 		},
-		methods:{
-			account(){
-				uni.navigateTo({
-					url:"../account/index"
-				})
+		onShow() {
+			console.log(this.userInfo)
+
+
+			//  console.log(res)
+
+
+		},
+		created() {
+
+		},
+		computed: {
+			userInfo() {
+				return this.$store.state.userInfo || JSON.parse(uni.getStorageSync('userInfo'))
+			}
+		},
+		methods: {
+			async commit() {
+				if (!this.amount) {
+					this.$msg('请输入有效金额')
+					return
+				}
+				uni.showLoading()
+				try {
+					const res = await this.$http.post('/api/account/withdrawal', {
+						amount: this.amount
+					})
+					uni.showToast({
+						icon: "success",
+						title: '提现成功'
+					})
+					this.$store.dispatch('getUserUpdate')
+				} catch (e) {
+					console.log(e)
+					uni.showToast({
+						icon: 'none',
+						title: '请求失败'
+					})
+
+
+				}
+
+
+
+
 			}
 		}
 	}
@@ -119,7 +159,8 @@
 				display: flex;
 				flex-direction: column;
 				justify-content: space-between;
-				position: relative;	
+				position: relative;
+
 				p {
 					font-weight: 400;
 					color: rgba(51, 51, 51, 1);
@@ -133,14 +174,15 @@
 						display: inline-block;
 					}
 				}
-				>span{
+
+				>span {
 					position: absolute;
-					top:50%;
+					top: 50%;
 					transform: translateY(-50%);
 					right: 0px;
 					font-size: 40rpx;
 					font-weight: bold;
-		
+
 				}
 			}
 		}

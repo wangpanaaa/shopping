@@ -5,10 +5,11 @@ import store from './store'
 import VueI18n from 'vue-i18n'
 import messages from './config/lang.js'
 import http from '@/config/request.js'
+import util from "@/common/util.js"
 Vue.use(VueI18n)
 Vue.component('cu-custom',cuCustom)
 
-
+Vue.prototype.$msg=util.msg
 Vue.config.productionTip = false
 
 
@@ -22,7 +23,6 @@ const i18n = new VueI18n({
 
 Vue.prototype._i18n = i18n
 Vue.prototype.$http = http
-
 const app = new Vue({
 	i18n,
     ...App,

@@ -50,6 +50,10 @@
 			"style": {}
 		},
 		{
+			"path": "pages/accountDetail/index",
+			"style": {}
+		},
+		{
 			"path": "pages/payment/financialManagement",
 			"style": {}
 		}
@@ -57,6 +61,14 @@
             "path" : "pages/customerSerice/index",
             "style" : {}
         },
+		{
+			"path":"pages/message/list",
+			"style":{}
+		},
+		{
+		    "path" : "pages/index/inviteFriend",
+		    "style" : {}
+		},
 		{
 			"path" : "pages/address/address",
 			"style" : {}

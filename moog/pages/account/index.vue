@@ -2,37 +2,37 @@
 	<view class="paymentContain">
 		<view class="head">
 			<p>Account Information</p>
-			<p> Please make sure your Account Number is correct,we do not 
-take any responsibility caused by incorrect input. </p>
+			<p> Please make sure your Account Number is correct,we do not
+				take any responsibility caused by incorrect input. </p>
 			<span class="iconfont icon-fanhui1" @click="back"></span>
 		</view>
 		<view class="content">
 			<view class="list">
 				<p>Account Number</p>
-				<input type="text" v-model="AccountNumber" placeholder-class="placeholder" placeholder="Input Account Number" />
+				<input type="number" v-model="bank_account" placeholder-class="placeholder" placeholder="Input Account Number" />
 			</view>
 			<view class="listDouble">
-					<view class="list">
-						<p>User Name</p>
-						<input type="text" v-model="UserName" placeholder-class="placeholder" placeholder="Input Bank User Name" />
-					</view>
-					<view class="list">
-						<p>IFSC Code</p>
-						<input type="text" v-model="IFSCCode" placeholder-class="placeholder" placeholder="Input IFSC Code" />
-					</view>
+				<view class="list">
+					<p>User Name</p>
+					<input type="text" v-model="cardholder_name" placeholder-class="placeholder" placeholder="Input Bank User Name" />
+				</view>
+				<view class="list">
+					<p>IFSC Code</p>
+					<input type="text" v-model="ifsc_code" placeholder-class="placeholder" placeholder="Input IFSC Code" />
+				</view>
 			</view>
-		
+
 			<view class="list">
 				<p>Bank Name</p>
-				<input type="text" v-model="BankName" placeholder-class="placeholder" placeholder="Input Bank Name | Input Branch Bank Name" />
+				<input type="text" v-model="bank_name" placeholder-class="placeholder" placeholder="Input Bank Name | Input Branch Bank Name" />
 			</view>
 			<view class="list">
 				<p>Phone Number</p>
-				<input type="text" v-model="PhoneNumber" placeholder-class="placeholder" placeholder="Input Phone Number" />
+				<input type="number" v-model="tel"  placeholder-class="placeholder" placeholder="Input Phone Number" />
 			</view>
 			<view class="list">
 				<p>Email</p>
-				<input type="text" v-model="Email" placeholder-class="placeholder" placeholder="Input Email Address" />
+				<input type="text" v-model="email" placeholder-class="placeholder" placeholder="Input Email Address" />
 			</view>
 		</view>
 
@@ -52,36 +52,50 @@ take any responsibility caused by incorrect input. </p>
 		},
 		data() {
 			return {
-				select: false,
-				AccountNumber: '',
-				PhoneNumber: '',
-				UserName:'',
-				BankName: '',
-				IFSCCode:'',
-				PhoneNumber: '',
-				Email: '',
+				bank_account: '', //银行账号
+				cardholder_name: '',
+				bank_name: '',
+				branch_bank: '',
+				ifsc_code: '',
+				email: '',
+				tel: '',
 			}
 		},
 		methods: {
 			back() {
 				uni.navigateBack()
 			},
-			commit() {
-				if (!this.select) {
-					uni.showToast({
-						title: '请勾选 Purchase terms',
-						icon: 'none',
-						duration: 2000
-					});
-					return
-				}
-				uni.navigateTo({
-					url: '/pages/cashout/index'
-				})	
-			}
-		}
+			async commit() {
 
-	}
+				let json = {
+					bank_account: this.bank_account,
+					cardholder_name: this.cardholder_name,
+					bank_name: this.bank_name,
+					branch_bank: this.branch_bank,
+					ifsc_code: this.ifsc_code,
+					email: this.email,
+					tel: this.tel,
+				}
+				uni.showLoading()
+				try {
+					const res = await this.$http.post('/api/account/bind_bank_account', json)
+					uni.navigateBack()
+					setTimeout(() => {
+							uni.showToast({
+								icon: 'success',
+							})
+						},300) 
+						}catch (e) {
+							console.log(e)
+							uni.showToast({
+								icon: 'none',
+								title: '请求失败'
+							})
+						}
+					}
+				}
+
+			}
 </script>
 
 
@@ -119,15 +133,16 @@ take any responsibility caused by incorrect input. </p>
 				color: #A8A8A8;
 				margin-top: 8rpx;
 				font-weight: normal;
-				line-height:40rpx;
+				line-height: 40rpx;
 			}
 		}
 	}
 
 	.content {
-			margin-top: 80rpx;
+		margin-top: 80rpx;
+
 		.list {
-			 flex: 1;
+			flex: 1;
 			height: 140rpx;
 			background: rgba(255, 255, 255, 1);
 			border-radius: 10rpx;
@@ -177,17 +192,20 @@ take any responsibility caused by incorrect input. </p>
 		font-size: 40rpx;
 		margin-top: 80rpx;
 	}
-	.listDouble{
+
+	.listDouble {
 		display: flex;
 		height: 140rpx;
 		margin-top: 20rpx;
-		.list{
+
+		.list {
 			flex: 1;
 			margin-top: 0rpx !important;
-			&:nth-child(1){
+
+			&:nth-child(1) {
 				margin-right: 30rpx;
 			}
 		}
-		
+
 	}
 </style>

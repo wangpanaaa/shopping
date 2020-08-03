@@ -1,5 +1,6 @@
 import Request from '@/utils/luch-request/index.js'
 import stote from '../store/index.js'
+import {url} from './baseUrl.js'
 
 const getTokenStorage = () => {
 	let token = ''
@@ -13,7 +14,7 @@ const getTokenStorage = () => {
 
 const http = new Request()
 http.setConfig((config) => { /* 设置全局配置 */
-	let baseURL = 'http://114.116.82.30'
+	let baseURL = url
 	// #ifdef H5
 	baseURL = '/api'
 	// #endif
@@ -54,7 +55,9 @@ http.interceptors.response.use(async (response) => { /* 请求之后拦截器。
 			icon:'none',
 			title:response.data.msg
 		})
-		stote.commit('loginOut')
+		if(response.data.code === 4){
+			stote.commit('loginOut')
+		}
 	  return Promise.reject(response)
 	}
 	return response.data
