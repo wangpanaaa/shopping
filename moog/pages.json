@@ -52,18 +52,12 @@
 		{
 			"path": "pages/payment/financialManagement",
 			"style": {}
-		},
-		{
-		    "path" : "pages/explore/notice",
-		    "style" : {
-				"navigationBarBackgroundColor":"#000000",
-				"navigationBarTextStyle":"white",
-				"navigationBarTitleText":"Message list",
-				"navigationStyle":"default"
-			}
 		}
-
-	],
+	    ,{
+            "path" : "pages/customerSerice/index",
+            "style" : {}
+        }
+    ],
 	"globalStyle": {
 		"mp-alipay": {
 			/* 支付宝小程序特有相关 */
