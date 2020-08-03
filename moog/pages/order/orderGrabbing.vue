@@ -147,7 +147,7 @@ export default {
 						this.$store.dispatch('getUserUpdate');
 					})
 				}
-			},Math.floor(Math.random()*4+1)*500)
+			},Math.floor(Math.random()*4+4)*500)
 		}
 	}
 };
@@ -233,7 +233,7 @@ export default {
 	margin-right: 75rpx;
 	image {
 		margin: 20rpx 35rpx 0 35rpx;
-		height: 400rpx;
+		// height: 400rpx;
 		width: 400rpx;
 	}
 
