@@ -11,7 +11,7 @@
 		<view class="custom_content">
 			<view class="content_item" v-for="(item,index) in list" :key='index'>
 				<view class="item_left">
-					<image src="item.headimg" class="img_valtor"></image>
+					<image :src="item.headimg" class="img_valtor"></image>
 					<view class="left_msg">
 						<view class="msg_name text_ellipsis">{{item.nickname}}</view>
 						<view class="msg_phone text_ellipsis">

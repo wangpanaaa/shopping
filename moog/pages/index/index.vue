@@ -127,7 +127,7 @@
 						<text class="lg text-gray cuIcon-moreandroid" style="color: #FAA723;margin: 0 10rpx;"></text>
 						<text style="font-family:Arial;font-size:34rpx;color: #FAA723;"> {{userInfo.balance}}</text>
 					</view>
-					<view class="basis-item" @tap='navigateTo("/pages/order/orderGrabbing")'>Orders</view>
+					<view class="basis-item" @tap='navigateTo("/pages/record/index")'>Orders</view>
 					<view class="basis-item" @tap='navigateTo("/pages/cashout/index")'>Cash Out</view>
 					<view class="basis-item" @tap='navigateTo("/pages/customerSerice/index")'>Customer Service</view>
 					<view class="basis-item">Invite Friends</view>
