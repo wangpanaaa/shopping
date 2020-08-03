@@ -23,7 +23,6 @@ const i18n = new VueI18n({
 
 Vue.prototype._i18n = i18n
 Vue.prototype.$http = http
-
 const app = new Vue({
 	i18n,
     ...App,

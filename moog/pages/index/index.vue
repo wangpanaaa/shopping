@@ -37,11 +37,11 @@
 					</view>
 					<text style="font-size: 24rpx;" >Withdrawal</text>
 				</view>
-				<view style="text-align: center;">
+				<view style="text-align: center;" @tap="navigateTo('/pages/index/inviteFriend')">
 					<view>
 						<image src="../../static/images/btn_invite.png" class="list-image"></image>
 					</view>
-					<text style="font-size: 24rpx;"> Invite </text>
+					<text style="font-size: 24rpx;" > Invite </text>
 				</view>
 			</view>
 
