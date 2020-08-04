@@ -1,7 +1,6 @@
 <template>
 	<view class="index-box">
 		<view :class="[modalName=='DrawerModalL'?'hidebox':'']">
-			
 			<view class="bg-img title-img">
 				<status></status>
 				<view class="title flex">
@@ -452,7 +451,7 @@
 		.basis-list{
 			padding-left: 35rpx;
 			.basis-item{
-				height: 80rpx;
+				height: 100rpx;
 				display: flex;
 				align-items: center;
 				color: #333333;

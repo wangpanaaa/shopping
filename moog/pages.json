@@ -76,6 +76,10 @@
 		{
 			"path" : "pages/address/addAddress",
 			"style" : {}
+		},
+		{
+			"path":"pages/payment/cardInfos",
+			"style" : {}
 		}
     ],
 	"globalStyle": {

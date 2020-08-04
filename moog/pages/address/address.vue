@@ -31,17 +31,18 @@
 				listData:[]
 			}
 		},
-		async mounted() {
+		async onShow() {
 			const data=await this.$http.post('/api/user/address')
 			this.listData=data.data
 		},
 		methods: {
 			toAdd(item) {
+				let data=''
 				if(item){
-					uni.$emit('getaddress',{data:item})
+					data=encodeURIComponent(JSON.stringify(item))
 				}
 				uni.navigateTo({
-					url: './addAddress'
+					url: './addAddress?data='+data
 				})
 			}
 		}

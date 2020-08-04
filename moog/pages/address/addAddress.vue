@@ -1,7 +1,7 @@
 <template>
 	<view class="add_address">
 		<cu-custom bgColor="bg-black" :isBack="true"><block slot="content">Add address</block></cu-custom>
-		<form class="main" @submit="formSubmit">
+		<form class="main">
 			<view class="text">Receive identity information</view>
 			<view class="verification">RECEIVE</view>
 			<view class="content">
@@ -21,9 +21,9 @@
 			<view class="detailed_address"><textarea placeholder-class="inputP" v-model="fromData.detail" placeholder="Please enter detailed address"></textarea></view>
 			<view class="content2">
 				<text>Set as the default address</text>
-				<switch @change="todefault" color="#FF7070" :checked="fromData.isdefault===1?'ture':'false'"></switch>
+				<switch @change="todefault" color="#FF7070" :checked="fromData.isdefault==1?true:false"></switch>
 			</view>
-			<button form-type="submit">
+			<button form-type="submit" @click="deleteAddress" v-if="fromData.id">
 				<view class="iconfont icon-shanchu"></view>
 				Delete
 			</button>
@@ -51,25 +51,33 @@ export default {
 				telephone: '',
 				region: '',
 				detail: '',
-				isdefault: '',
 				id: ''
 			}
 		};
 	},
-	onLoad() {
-		uni.$once('getaddress', data=>{
-			this.fromData=Object.assign(this.fromData,data.data)
-			console.log(this.fromData)
-		})
+	onLoad(e) {
+		let data=''
+		if(e.data){
+			data=JSON.parse(decodeURIComponent(e.data))
+		}
+		if(data.id){
+			this.fromData=Object.assign(this.fromData,data)
+		}
 	},
 	methods: {
 		todefault(e) {
-			setTimeout(()=>{
-				uni.$on('getAddress',function (data){
-					console.log(data)
-				})
-			},300)
 			this.isdefault = e.target.value?1:0;
+		},
+		async deleteAddress(){
+			uni.showLoading()
+			const res=await this.$http.post('/api/user/delAddress',{id:this.fromData.id})
+			uni.navigateBack();
+			setTimeout(() => {
+				uni.showToast({
+					icon: 'success',
+					title: res.msg
+				});
+			}, 1000);
 		},
 		async subTransinto(){
 			if(!this.fromData.realname && !this.fromData.telephone  && !this.fromData.region && !this.fromData.detail){
@@ -79,8 +87,15 @@ export default {
 				})
 				return
 			}
-			const data=await this.$http.post('/api/user/addAddress',this.fromData)
-			console.log(data)
+			uni.showLoading()
+			const res=await this.$http.post('/api/user/addAddress',this.fromData)
+			uni.navigateBack();
+			setTimeout(() => {
+				uni.showToast({
+					icon: 'success',
+					title: res.msg
+				});
+			}, 1000);
 		}
 	}
 };

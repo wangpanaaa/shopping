@@ -10,6 +10,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-mulu:before {
+  content: "\e612";
+}
+
 .icon-kefu:before {
   content: "\e651";
 }
@@ -204,9 +208,5 @@
 
 .icon-huabanbeifen12:before {
   content: "\e6d1";
-}
-
-.icon-mulu:before {
-  content: "\e602";
 }
 
