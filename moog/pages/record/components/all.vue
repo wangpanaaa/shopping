@@ -1,6 +1,6 @@
 <template>
 	<view class="allContain">
-		<record class="record" v-for="(v ,i) in list" :key="list.id" :data="v"></record>
+		<record class="record" v-for="(v ,i) in list" :key="v.id" :data="v"></record>
 	</view>
 </template>
 
