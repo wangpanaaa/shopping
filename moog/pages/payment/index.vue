@@ -8,19 +8,19 @@
 		<view class="content">
 			<view class="list">
 				<p>User Name </p>
-				<input type="text" v-model="UserName" placeholder-class="placeholder" placeholder="Input User Name" />
+				<input type="text" v-model="name" placeholder-class="placeholder" placeholder="Input User Name" />
 			</view>
 			<view class="list">
 				<p>Phone Number</p>
-				<input type="text" v-model="UserNumber" placeholder-class="placeholder" placeholder="Input Phone Number" />
+				<input type="text" v-model="phone" placeholder-class="placeholder" placeholder="Input Phone Number" />
 			</view>
 			<view class="list">
 				<p>Email Address</p>
-				<input type="text" v-model="UserAddress" placeholder-class="placeholder" placeholder="Input Email Address" />
+				<input type="text" v-model="email" placeholder-class="placeholder" placeholder="Input Email Address" />
 			</view>
 			<view class="list">
 				<p>UPI ID </p>
-				<input type="text" v-model="UserID" placeholder-class="placeholder" placeholder="Input UPI ID" />
+				<input type="text" v-model="account" placeholder-class="placeholder" placeholder="Input UPI ID" />
 			</view>
 		</view>
 
@@ -46,28 +46,50 @@
 		data() {
 			return {
 				select: false,
-				UserName: '',
-				UserNumber: '',
-				UserAddress: '',
-				UserID: '',
+				name: '',
+				phone: '',
+				email: '',
+				account: '',
+				channel_id: '',
+				id: '',
+				amount: ''
 			}
+		},
+		onLoad(e) {
+			this.channel_id = e.channel_id
+			this.id = e.id
+			this.amount = e.amount
 		},
 		methods: {
 			back() {
 				uni.navigateBack()
 			},
 			commit() {
-				if (!this.select) {
-					uni.showToast({
-						title: '请勾选 Purchase terms',
-						icon: 'none',
-						duration: 2000
-					});
+				if (!this.name || !this.phone || !this.email || !this.account) {
+					this.$msg('完善信息')
 					return
 				}
-				uni.navigateTo({
-					url: '/pages/cashout/index'
-				})	
+
+				if (!this.select) {
+					this.$msg('请勾选 Purchase terms')
+					return
+				}
+				let json = {
+					token: uni.getStorageSync('token'),
+					name: this.name,
+					phone: this.phone,
+					email: this.email,
+					account: this.account,
+					account: this.amount,
+					id: this.id,
+					amount: this.amount
+				}
+				uni.showLoading()
+
+				this.$http.post('api/user_recharge/cz', json).then(data => {
+					console.log(data)
+					uni.hideLoading()
+				})
 			}
 		}
 

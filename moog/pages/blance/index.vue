@@ -11,12 +11,12 @@
 			<view :style="{left:tabs[currentTabs].left}" class="line" v-if="tabs.length>1"></view>
 		</view>
 		<view class="swiper-area">
-			<swiper :acceleration="false" :current="currentTabs" @change="change" @transition="swiperStart" @animationfinish="swiperEnd">
+			<swiper :acceleration="false" :current="currentTabs" @change="change">
 				<swiper-item v-for="(item,index) in tabs" :key="index" >
 					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
 					 refresher-background="#f5f5f5">
 						<view style="height:100%" v-if="true">
-							<pay :card="item.card"></pay>
+							<pay @commit="commit" :card="item.card"></pay>
 						</view>
 					</scroll-view>
 				</swiper-item>
@@ -34,9 +34,11 @@
 		},
 		data() {
 			return {
-				tabs: [	],
+				tabs: [],
 				currentTabs: 0,
 				scrollViewHeight: 0,
+				channel_id:'',
+				id:''
 			}
 		},
 		onLoad() {
@@ -46,7 +48,9 @@
 				this.tabs.push({
 					name:v.group_name,
 					card:v.card,
-					left:(12.5+i*25)+'%'
+					left:(12.5+i*25)+'%',
+					id:v.id,
+					channel_id:v.channel_list[0].channel_id
 				})
 				})
 					uni.hideLoading()
@@ -63,12 +67,18 @@
 		methods: {
 			change(e) {
 				this.currentTabs =e.detail.current;
+				console.log()
 			},
-			swiperStart(e) {
-				// this.nav[this.current].isTop = false
-			},
-			swiperEnd() {
-				// this.nav[this.current].isTop = true
+			commit(e){
+				 if(!e){
+					 this.$msg('请选择金额')
+					 return
+				 }
+				 let channel_id=this.tabs[this.currentTabs].channel_id
+				 let id=this.tabs[this.currentTabs].id
+				uni.navigateTo({
+					url: `/pages/payment/index?channel_id=${channel_id}&id=${id}&amount=${e}`
+				})
 			},
 			$offset(selector) {
 				// 获取组件内元素的 offset 信息
