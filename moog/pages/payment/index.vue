@@ -101,7 +101,7 @@ export default {
 			});
 			
 			//#ifdef APP-PLUS
-				plus.runtime.openURL()
+				plus.runtime.openURL(openUrl)
 			//#endif
 			//#ifdef H5
 				window.open(openUrl)
