@@ -11,13 +11,7 @@
 				<span :class="{tabsChecked:currentTabs==index}" v-for="(item,index) in tabs" :key="index" @click="currentTabs=index">{{item.name}}</span>
 				<view :style="{left:tabs[currentTabs].left}" class="line" v-if="tabs.length>1"></view>
 			</view>
-			<view class="date">
-				<!-- 			 :value="date"  :end="endDate" -->
-				<span class="iconfont icon-riqi"></span>
-				<picker id="Before" :value="startBefore" @change="chooseDate" start="2020-01-01" :end="today" mode="date">{{startBefore}}</picker>
-				to
-				<picker id="After"  :value="startAfter" @change="chooseDate" :start="startBefore" :end="today" mode="date">{{startAfter}}</picker>
-			</view>
+				<dateSelect @change="dateSelectChange"></dateSelect>
 		</view>
 		<view class="swiper-area">
 			<swiper :acceleration="false" :current="currentTabs" @change="change" @transition="swiperStart" @animationfinish="swiperEnd">
@@ -39,8 +33,9 @@
 
 <script>
 	import accountDetailList from "./components/accountDetailList.vue"
+	import dateSelect from "./components/dateSelect.vue"
 	export default {
-		components:{accountDetailList},
+		components:{accountDetailList,dateSelect},
 		data() {
 			return {
 				tabs: [{
@@ -84,14 +79,7 @@
 				],
 				scrollViewHeight: '',
 				currentTabs: 0,
-				startEnd: '',
-				today: '',
-				startAfter: '',
-				startBefore: ''
 			}
-		},
-		created() {
-			this.date()
 		},
 		mounted() {
 			this.$offset(".swiper-area").then(res => {
@@ -103,31 +91,8 @@
 		},
 
 		methods: {
-			date() {
-				var date = new Date();
-
-			this.startAfter=this.today = date.getFullYear() +
-					"-" +
-					(date.getMonth() < 9 ?
-						"0" + (date.getMonth() + 1) :
-						date.getMonth() + 1) +
-					"-" +
-					(date.getDate() < 10 ? "0" + date.getDate() : date.getDate());
-				this.startBefore = date.getFullYear() +
-					"-" +
-					(date.getMonth() < 9 ?
-						"0" + (date.getMonth() + 1) :
-						date.getMonth() + 1) +
-					"-" + '01'
-
-			},
-			chooseDate(e) {
-				if (e.target.id === 'Before') {
-					this.startBefore = e.detail.value
-				} else {
-					this.startAfter = e.detail.value
-				}
-
+		  dateSelectChange(e){
+				console.log(e)
 			},
 			change(e) {
 				this.currentTabs = e.detail.current;
@@ -182,21 +147,7 @@
 		color: #FFFFFF;
 		background: rgba(34, 47, 62, 1);
 
-		.icon-riqi {
-			font-size: 30rpx;
-			margin-right: 10rpx;
-		}
-
-		.date {
-			margin-top: 30rpx;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-
-			picker {
-				padding: 10rpx;
-			}
-		}
+	
 
 	}
 
