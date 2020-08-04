@@ -120,31 +120,31 @@
 					<text class="basis-name">Hello, {{userInfo.nickname}}</text>
 				</view>
 				<view class="basis-list basis-border">
-					<view class="basis-item">Home</view>
-					<view class="basis-item" @tap='navigateTo("../blance/index")'>Account 
+					<!-- <view class="basis-item animation-reverse" :class="[animation=='scale-ups'?'animation-scale-up':'']" @tap='navigateTo("../blance/index")'>Home</view> -->
+					<view class="basis-item animation-reverse" :class="[animation==='/pages/blance/index'?'animation-scale-up':'']" data-title='Account' @tap='navigateTo("/pages/blance/index")'>Account 
 						<text class="lg text-gray cuIcon-moreandroid" style="color: #FAA723;margin: 0 10rpx;"></text>
 						<text style="font-family:Arial;font-size:34rpx;color: #FAA723;"> {{userInfo.balance}}</text>
 					</view>
-					<view class="basis-item" @tap='navigateTo("/pages/record/index")'>Orders</view>
-					<view class="basis-item" @tap='navigateTo("/pages/cashout/index")'>Cash Out</view>
-					<view class="basis-item" @tap='navigateTo("/pages/customerSerice/index")'>Customer Service</view>
-					<view class="basis-item" @tap="navigateTo('/pages/index/inviteFriend')">Invite Friends</view>
+					<view class="basis-item animation-reverse" :class="[animation==='/pages/record/index'?'animation-scale-up':'']" @tap='navigateTo("/pages/record/index")'>Orders</view>
+					<view class="basis-item animation-reverse" :class="[animation==='/pages/cashout/index'?'animation-scale-up':'']"  @tap='navigateTo("/pages/cashout/index")'>Cash Out</view>
+					<view class="basis-item animation-reverse" :class="[animation==='/pages/customerSerice/index'?'animation-scale-up':'']"  @tap='navigateTo("/pages/customerSerice/index")'>Customer Service</view>
+					<view class="basis-item animation-reverse" :class="[animation==='/pages/index/inviteFriend'?'animation-scale-up':'']"  @tap="navigateTo('/pages/index/inviteFriend')">Invite Friends</view>
 				</view>
 				<view class="basis-list basis-border">
 					<view class="basis-item" style="font-weight: bold;">Explore</view>
-					<view class="basis-item" @tap='navigateTo("/pages/index/noticedetail")'>Notice</view>
-					<view class="basis-item">Account Details</view>
-					<view class="basis-item">Recharge Record</view>
-					<view class="basis-item">Withdrawal Record</view>
-					<view class="basis-item">Team Report</view>
+					<view class="basis-item animation-reverse" :class="[animation==='/pages/index/noticedetail'?'animation-scale-up':'']"  @tap='navigateTo("/pages/index/noticedetail")'>Notice</view>
+					<view class="basis-item animation-reverse">Account Details</view>
+					<view class="basis-item animation-reverse">Recharge Record</view>
+					<view class="basis-item animation-reverse">Withdrawal Record</view>
+					<view class="basis-item animation-reverse">Team Report</view>
 				</view>
 				<view class="basis-list basis-border">
 					<view class="basis-item" style="font-weight: bold;">Settings</view>
-					<view class="basis-item" @tap='navigateTo("./settingLanguage")'>
+					<view class="basis-item animation-reverse" :class="[animation==='./settingLanguage'?'animation-scale-up':'']" @tap='navigateTo("./settingLanguage")'>
 						<image src="../../static/images/britain.png"></image>
 						English
 					</view>
-					<view class="basis-item" @tap='navigateTo("/pages/personal/information")'>Personal information</view>
+					<view class="basis-item animation-reverse" :class="[animation==='/pages/personal/information'?'animation-scale-up':'']" @tap='navigateTo("/pages/personal/information")'>Personal information</view>
 					<view class="basis-item" @tap='resetLogin'>Sign Out</view>
 				</view>
 			</view>
@@ -179,6 +179,7 @@
 		},
 		data() {
 			return {
+				animation:'',
 				CustomBar: this.CustomBar,
 				modalName: '',
 				amazonList:[],
@@ -262,11 +263,16 @@
 			hideModal(e) {
 				this.modalName = null
 			},
-			navigateTo(url) {
-				clearInterval(memSetInterval)
-				uni.navigateTo({
-					url:url
-				})
+			navigateTo(url,e) {
+				this.animation= url;
+				setTimeout(()=>{
+					this.animation= '';
+					clearInterval(memSetInterval)
+					uni.navigateTo({
+						url:url
+					})
+				}, 500)
+				
 			},
 			resetLogin(){
 				this.$store.commit('loginOut')
@@ -279,6 +285,7 @@
 </script>
 
 <style lang="scss" scoped>
+	@import "/colorui/animation.css";
 	.index-box{
 		font-family:Myriad Pro;
 	}
@@ -287,6 +294,7 @@
 		height: 578upx;
 	}
 	.title{
+		padding-top: 20rpx;
 		color: #fff;
 		align-items: center;
 		justify-content: space-between;

@@ -58,11 +58,13 @@ export default {
 		this.id = e.id;
 		this.amount = e.amount;
 		let payData=uni.getStorageSync('payData')
-		payData=JSON.parse(payData)
-		this.name=payData.name,
-		this.phone=payData.phone,
-		this.email=payData.email,
-		this.account=payData.account
+		if(payData){
+			payData=JSON.parse(payData)
+			this.name=payData.name,
+			this.phone=payData.phone,
+			this.email=payData.email,
+			this.account=payData.account
+		}
 	},
 	methods: {
 		back() {
@@ -98,18 +100,34 @@ export default {
 			  }
 			});
 			
-			// //#ifdef APP-PLUS
-			// 	plus.runtime.openURL()
-			// //#endif
+			//#ifdef APP-PLUS
+				plus.runtime.openURL()
+			//#endif
 			//#ifdef H5
 				window.open(openUrl)
 			//#endif
-			
 			uni.onSocketOpen(function (res) {
 			  console.log('WebSocket连接已打开！');
 			});
 			uni.onSocketMessage(function (res) {
-			  console.log('收到服务器内容：' + res.data);
+				if(res.data){
+					let data=JSON.parse(res.data)
+					if(data.type==='pay_success'){
+						uni.showModal({
+						    title: '',
+						    content: 'Payment successful',
+							showCancel:false,
+							confirmText:'OK',
+						    success: function (res) {
+						        if (res.confirm) {
+						            uni.redirectTo({
+						                url: '/pages/index/index'
+						            });
+						        }
+						    }
+						});
+					}
+				}
 			});
 		}
 	}
