@@ -58,10 +58,7 @@
 				}
 			}
 		},
-		created(){
-			console.log(this.data)
-					console.log(1111111)
-		},
+	
 		methods:{
 			submit(){
 				uni.navigateTo({
