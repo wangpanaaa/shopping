@@ -29,7 +29,7 @@ http.setConfig((config) => { /* 设置全局配置 */
 http.interceptors.request.use((config) => { /* 请求之前拦截器。可以使用async await 做异步操作 */
 	config.header = {
 		...config.header,
-		token: getTokenStorage()
+		token: 'MTE0YmMxNjMwNTgyNGJFVGIyQ2VBYzFaZUFNYmNXU29aSWhjMzV0VEk2NUhFR3BKbmMxTXdkQ3c9'
 	}
 	/*
  if (!token) { // 如果token不存在，return Promise.reject(config) 会取消本次请求

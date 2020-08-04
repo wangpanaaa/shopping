@@ -19,8 +19,9 @@
 				startBefore: ''
 			}
 		},
-		created() {
-			this.date()
+	async	created() {
+		await	this.date()
+		this.$emit('change',[ this.startBefore , this.startAfter])
 		},
 		 methods:{
 			 date() {

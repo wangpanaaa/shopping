@@ -73,9 +73,7 @@
 	import pending from "./components/pending.vue"
 	import completed from "./components/completed.vue"
 	import cancelled from "./components/cancelled.vue"
-	import {
-		throttle
-	} from "@/common/util.js";
+	import {throttle} from "@/common/util.js";
 	export default {
 		components: {
 			all,
@@ -139,6 +137,7 @@
 				],
 				currentTabs: 0,
 				scrollViewHeight: 0,
+				fetching:false
 			}
 		},
 		onLoad() {
@@ -170,9 +169,6 @@
 				console.log(Height);
 				this.scrollViewHeight = res.height;
 			});
-		},
-		destroyed() {
-			clearInterval(this.timer)
 		},
 		methods: {
 			swiperStart(e) {

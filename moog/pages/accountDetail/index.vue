@@ -3,7 +3,7 @@
 		<cu-custom bgColor="bg-black" :isBack="true">
 			<block slot="content">Grab Order Record</block>
 			<block slot="right">
-				<span class="iconfont icon-liebiao"></span>
+				<span class="iconfont icon-liebiao" @click="showModal"></span>
 			</block>
 		</cu-custom>
 		<view class="nav">
@@ -11,22 +11,73 @@
 				<span :class="{tabsChecked:currentTabs==index}" v-for="(item,index) in tabs" :key="index" @click="currentTabs=index">{{item.name}}</span>
 				<view :style="{left:tabs[currentTabs].left}" class="line" v-if="tabs.length>1"></view>
 			</view>
-				<dateSelect @change="dateSelectChange"></dateSelect>
+			<dateSelect @change="dateSelectChange"></dateSelect>
 		</view>
 		<view class="swiper-area">
 			<swiper :acceleration="false" :current="currentTabs" @change="change" @transition="swiperStart" @animationfinish="swiperEnd">
-				<swiper-item v-for="(item,index) in tabs" :key="index">
+				<swiper-item>
 					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
-					 refresher-background="#f5f5f5">
-						<view style="height:100%" v-if="true">
-							<accountDetailList></accountDetailList>
+					 refresher-background="#f5f5f5" @scroll="scroll" @scrolltolower="loadMore" :refresher-triggered="tabs[0].data.triggered"
+					 :refresher-enabled="tabs[0].data.isTop" @scrolltoupper="toupper" @refresherrefresh="onRefresh" @refresherrestore="onRestore">
+						<view style="min-height:100%;padding-top: 20rpx;" v-if="true">
+							<accountDetailList  v-for="item in tabs[0].data.list" :key="item.id" :item="item"></accountDetailList>
 						</view>
+						<view class="cu-load" :class="tabs[0].data.bottom?'over':'loading'"></view>
 					</scroll-view>
 				</swiper-item>
 
+				<swiper-item>
+					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
+					 refresher-background="#f5f5f5" @scroll="scroll" @scrolltolower="loadMore" :refresher-triggered="tabs[1].data.triggered"
+					 :refresher-enabled="tabs[1].data.isTop" @scrolltoupper="toupper" @refresherrefresh="onRefresh" @refresherrestore="onRestore">
+						<view style="min-height:100%;padding-top: 20rpx" v-if="true">
+							<accountDetailList  v-for="item in tabs[2].data.list" :key="item.id" :item="item"></accountDetailList>
+						</view>
+						<view class="cu-load" :class="tabs[1].data.bottom?'over':'loading'"></view>
+					</scroll-view>
+				</swiper-item>
+
+				<swiper-item>
+					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
+					 refresher-background="#f5f5f5" @scroll="scroll" @scrolltolower="loadMore" :refresher-triggered="tabs[2].data.triggered"
+					 :refresher-enabled="tabs[2].data.isTop" @scrolltoupper="toupper" @refresherrefresh="onRefresh" @refresherrestore="onRestore">
+						<view style="min-height:100%;padding-top: 20rpx" v-if="true">
+							<accountDetailList v-for="item in tabs[2].data.list" :key="item.id" :item="item"></accountDetailList>
+						</view>
+						<view class="cu-load" :class="tabs[2].data.bottom?'over':'loading'"></view>
+					</scroll-view>
+				</swiper-item>
 			</swiper>
 		</view>
+		<view class="cu-modal drawer-modal justify-end drawer-zIndex" :class="modalName?'show':''" @tap="hideModal">
+			<view class="cu-dialog basis-90" @tap.stop="">
+				<view style="background-color: #FFFFFF;height: 100%;">
+					<view class="title">
+						filter
+					</view>
+					<view style="padding:0 30rpx;">
+						<view class="timeSelect">
+							<view class="timeSelect_title">
+								TIME SELECTION
+							</view>
+							<picker>
+								<view class="timeSelect_start">
+									<span>Starting time</span>
+									<view class="input"><input type="text" placeholder-class="placeholder" disabled placeholder="Please enter the start time" /></view>
+								</view>
+							</picker>
+							<picker>
+								<view class="timeSelect_end">
+									<span> End Time</span>
+									<view class="input"><input type="text" placeholder-class="placeholder" disabled placeholder="Please enter the End time" /></view>
+								</view>
+							</picker>
 
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
 
 	</view>
 </template>
@@ -34,16 +85,22 @@
 <script>
 	import accountDetailList from "./components/accountDetailList.vue"
 	import dateSelect from "./components/dateSelect.vue"
+	import {throttle} from "@/common/util.js";
 	export default {
-		components:{accountDetailList,dateSelect},
+		components: {
+			accountDetailList,
+			dateSelect
+		},
 		data() {
 			return {
 				tabs: [{
 						name: 'All',
 						left: '16.65%',
+						start_time:'',//传递参数
+						end_time:'',//传递参数
 						data: {
 							page: 1, //传递参数
-							count: 30, //传递参数
+							count: 10, //传递参数
 							list: [], //返回参数
 							bottom: false,
 							isTop: true,
@@ -55,8 +112,8 @@
 						left: '50%',
 						data: {
 							page: 1, //传递参数
-							count: 5, //传递参数
-							status: 0, //传递参数
+							count: 10, //传递参数
+							type: 1, //传递参数
 							list: [], //返回参数
 							bottom: false,
 							isTop: true,
@@ -68,8 +125,8 @@
 						left: '83.35%',
 						data: {
 							page: 1, //传递参数
-							count: 5, //传递参数
-							status: 1, //传递参数
+							count: 10, //传递参数
+							type: 2, //传递参数
 							list: [], //返回参数
 							bottom: false,
 							isTop: true,
@@ -79,7 +136,39 @@
 				],
 				scrollViewHeight: '',
 				currentTabs: 0,
+				fetching:false,
+				modalName: ''
 			}
+		},
+		onLoad() {
+			uni.showLoading()
+			setTimeout(()=>{
+				this.tabs.forEach((v, i) => {
+					let json
+					if (v.name === 'All') {
+						json = {
+							page: v.data.page,
+							count: v.data.count,
+							start_time:this.start_time,
+							end_time:this.end_time
+						}
+					} else {
+						json = {
+							page: v.data.page,
+							count: v.data.count,
+							type: v.data.type,
+							start_time:this.start_time,
+							end_time:this.end_time
+						}
+					}
+					this.$http.post('/api/account/detail', json).then(data => {
+						v.data.list = data.data
+						if (v.name === 'All') uni.hideLoading()
+					})
+				})
+			},200)
+		
+	
 		},
 		mounted() {
 			this.$offset(".swiper-area").then(res => {
@@ -91,17 +180,136 @@
 		},
 
 		methods: {
-		  dateSelectChange(e){
-				console.log(e)
-			},
-			change(e) {
-				this.currentTabs = e.detail.current;
+			dateSelectChange(e) {
+				this.start_time=e[0]
+				this.end_time=e[1]
 			},
 			swiperStart(e) {
-				// this.nav[this.current].isTop = false
+				this.tabs[this.currentTabs].data.isTop = false
 			},
 			swiperEnd() {
-				// this.nav[this.current].isTop = true
+				this.tabs[this.currentTabs].data.isTop = true
+			},
+			'onRefresh': throttle(function() {
+				if (this.fetching){
+					this.$msg('Please wait on')
+					 return
+				};
+				this.fetching = true;
+				this.refresh()
+			}, 10),
+			'onRestore': throttle(function() {
+				this.tabs[this.currentTabs].data.triggered = 'restore'
+			}, 1000),
+			scroll(e) {
+				if (e.detail.scrollTop != 0) {
+					this.$nextTick(() => {
+						this.tabs[this.currentTabs].data.isTop = false
+					})
+
+				} else {
+					this.$nextTick(() => {
+						this.tabs[this.currentTabs].data.isTop = true
+					})
+				}
+			},
+			toupper() {
+				this.$nextTick(() => {
+					this.tabs[this.currentTabs].data.isTop = true
+				})
+			},
+			change(e) {
+				// swiper index 变化时触发
+				this.currentTabs = e.detail.current;
+				setTimeout(() => {
+					this.tabs[this.currentTabs].data.triggered = 'restore'
+				}, 500)
+			},
+			loadMore() {
+				// 上拉加载
+				if (this.fetching){
+					this.$msg('Please wait on')
+					 return
+				};
+				if (this.tabs[this.currentTabs].data.bottom) return
+				 ++this.tabs[this.currentTabs].data.page
+				let json
+				if (this.tabs[this.currentTabs].name === 'All') {
+					json = {
+						page: this.tabs[this.currentTabs].data.page,
+						count: this.tabs[this.currentTabs].data.count,
+						start_time:this.start_time,
+						end_time:this.end_time
+					}
+				} else {
+					json = {
+						page: this.tabs[this.currentTabs].data.page,
+						count: this.tabs[this.currentTabs].data.count,
+						type: this.tabs[this.currentTabs].data.status,
+						start_time:this.start_time,
+						end_time:this.end_time
+					}
+				}
+
+				this.$http.post('/api/account/detail', json).then(data => {
+					this.fetching = false;
+					this.tabs[this.currentTabs].data.list = this.tabs[this.currentTabs].data.list.concat(data.data)
+					if (data.data.length == 0) this.tabs[this.currentTabs].data.bottom = true
+				})
+
+			},
+			refresh() {
+				// 下拉刷新,数据初始化，没有备份p、c的值，更改data的p、c值需要一起更改下面p、c的值
+				this.tabs[this.currentTabs].data.page = 1;
+				this.tabs[this.currentTabs].data.count = 10;
+				this.tabs[this.currentTabs].data.list = [];
+				this.tabs[this.currentTabs].data.bottom = false;
+				console.log(this.tabs[this.currentTabs].data)
+				let json
+				if (this.tabs[this.currentTabs].name === 'All') {
+					json = {
+						page: this.tabs[this.currentTabs].data.page,
+						count: this.tabs[this.currentTabs].data.count,
+						start_time:this.start_time,
+						end_time:this.end_time
+					}
+				} else {
+					json = {
+						page: this.tabs[this.currentTabs].data.page,
+						count: this.tabs[this.currentTabs].data.count,
+						type: this.tabs[this.currentTabs].data.type,
+						start_time:this.start_time,
+						end_time:this.end_time
+					}
+				}
+				this.fetching = true;
+				let beginTime = new Date().getTime()
+				this.$http.post('/api/account/detail', json).then(data => {
+					this.tabs[this.currentTabs].data.list = data.data
+					if (this.tabs[this.currentTabs].name === 'All') uni.hideLoading()
+				}).finally(r => {
+					//下拉刷新 计算接口响应时间，如果小于1s自己加延迟否则刷新组件会失效，框架导致
+					let totalTime = new Date().getTime() - beginTime
+					if (totalTime < 1000) {
+						console.log('刷新小于1秒')
+						setTimeout(() => {
+							this.fetching = false;
+							this.tabs[this.currentTabs].data.triggered = false
+						}, totalTime > 500 ? 500 : 1000)
+					} else {
+						this.fetching = false;
+						this.tabs[this.currentTabs].data.triggered = false
+						console.log('刷新大1秒');
+					}
+				})
+
+			},
+			showModal(e) {
+
+				this.modalName = true
+			},
+			hideModal(e) {
+				this.modalName = null
 			},
 			$offset(selector) {
 				// 获取组件内元素的 offset 信息
@@ -146,9 +354,6 @@
 		height: 230rpx;
 		color: #FFFFFF;
 		background: rgba(34, 47, 62, 1);
-
-	
-
 	}
 
 	.head_tabs {
@@ -184,4 +389,85 @@
 			font-weight: bold;
 		}
 	}
+
+	.drawer-zIndex {
+		z-index: 9999;
+		top: var(--status-bar-height); //覆盖样式;
+		text-align: left;
+	}
+
+	.title {
+		height: 88rpx;
+		background: #222F3E;
+		padding: 0 30rpx;
+		line-height: 88rpx;
+		color: rgba(255, 255, 255, 1);
+		font-size: 34rpx;
+		font-family: Myriad Pro;
+
+	}
+
+	.timeSelect {
+		&_title {
+			padding: 45rpx 0 66rpx 0rpx;
+			font-size: 34rpx;
+			font-family: Myriad Pro;
+			font-weight: bold;
+			color: rgba(51, 51, 51, 1);
+		}
+
+		&_start,
+		&_end {
+			box-sizing: border-box;
+			background: rgba(255, 255, 255, 1);
+			font-size: 28rpx;
+			font-family: Myriad Pro;
+			font-weight: bold;
+			display: flex;
+
+			>span {
+				width: 200rpx;
+			}
+
+			.input {
+				flex: 1;
+				padding: 0 30rpx;
+				padding-bottom: 15rpx;
+				border-bottom: 1px solid #dddede;
+				position: relative;
+				margin-bottom: 50rpx;
+				&::after {
+					content: '';
+					display: block;
+					position: absolute;
+					width: 0;
+					height: 0;
+					border-color: #ea6114 transparent;
+					/*上下颜色 左右颜色*/
+					border-width: 0 0 20rpx 20rpx;
+					border-style: solid;
+					right: 0;
+					bottom: 0;
+				}
+
+				input {
+					font-size: 30rpx;
+					font-family: Myriad Pro;
+					font-weight: 400;
+					color: rgba(51, 51, 51, 1);
+				}
+
+				.placeholder {
+					font-size: 26rpx;
+					font-family: Myriad Pro;
+					font-weight: 400;
+					color: rgba(51, 51, 51, .4);
+				}
+			}
+
+		}
+
+	}
+
+	//index.css
 </style>

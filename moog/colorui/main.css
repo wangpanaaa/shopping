@@ -2816,7 +2816,9 @@ scroll-view.cu-steps .cu-item {
 .basis-xl {
 	flex-basis: 80%;
 }
-
+.basis-90 {
+	flex-basis: 90%;
+}
 .flex-sub {
 	flex: 1;
 }

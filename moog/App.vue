@@ -55,6 +55,11 @@ export default {
 	  fill: currentColor;
 	  overflow: hidden;
 	}
+	.uni-picker-container{
+			z-index: 9999 ; 	
+	
+	}
+	
 	.uni-video-container{
 		background-color:#fff
 	}
