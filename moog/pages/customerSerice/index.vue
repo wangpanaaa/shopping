@@ -1,13 +1,10 @@
 <template>
 	<view>
 		<view class="custom_head">
-			<cu-custom :isBack="true" style="color:#ffffff;">
-
-			</cu-custom>
-
+			<cu-custom :isBack="true" style="color:#ffffff;"></cu-custom>
 			<view class="head_text">Customer Service List</view>
 		</view>
-
+		
 		<view class="custom_content">
 			<view class="content_item" v-for="(item,index) in list" :key='index'>
 				<view class="item_left">

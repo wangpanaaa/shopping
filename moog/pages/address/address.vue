@@ -5,22 +5,17 @@
 			<view slot='right' class="iconfont icon-add" @click="toAdd"></view>
 		</cu-custom>
 		<view class="content">
-			<view class="item">
-				<view class="default"></view>
+			<view class="item" v-for="item in listData" :key='item.id' @click="toAdd(item)">
+				<view class="default" v-if="item.isdefault===1"></view>
 				<view class="title">
-					<text class="textl">Information title </text>
+					<text class="textl">{{item.realname}} </text>
 					<view class="right">
 						<text class="iconfont icon-jj"></text>
-						<text>{{tel}}</text>
+						<text>{{item.telephone}}</text>
 					</view>
 				</view>
 				<view class="text-con">
-					Hollywood legend Olivia de Havilland, star of "Gone With the Wind", died on Sunday at the age of 104 at her home
-					in
-					Paris. Publicist Lisa Goldberg said she died peacefully of natural causes.
-					The doe-eyed actress beloved to millions as the sainted Melanie Wilkes in "Gone With the Wind" also won two Oscars
-					and was key to improving Hollywood's contract system for actors.
-					De Havilland was the sister of fellow Oscar winner Joan Fontaine, with whom she had a troubled relationship.
+					{{item.detail}}
 				</view>
 			</view>
 		</view>
@@ -33,15 +28,18 @@
 	export default {
 		data() {
 			return {
-				tel: '91-1888888888'
+				listData:[]
 			}
 		},
 		async mounted() {
 			const data=await this.$http.post('/api/user/address')
-			console.log(data)
+			this.listData=data.data
 		},
 		methods: {
-			toAdd() {
+			toAdd(item) {
+				if(item){
+					uni.$emit('getaddress',{data:item})
+				}
 				uni.navigateTo({
 					url: './addAddress'
 				})

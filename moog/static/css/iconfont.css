@@ -1,5 +1,5 @@
 @font-face {font-family: "iconfont";
- src: url('~@/static/css/iconfont.ttf');
+  src: url('~@/static/css/iconfont.ttf');
 }
 
 .iconfont {
@@ -8,6 +8,18 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-kefu:before {
+  content: "\e651";
+}
+
+.icon-yincang:before {
+  content: "\e7c7";
+}
+
+.icon-xianshi:before {
+  content: "\e7c8";
 }
 
 .icon-licai1:before {
@@ -180,10 +192,6 @@
 
 .icon-icon:before {
   content: "\e60a";
-}
-
-.icon-kefu:before {
-  content: "\e62a";
 }
 
 .icon-tixian:before {

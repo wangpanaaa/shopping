@@ -1,6 +1,5 @@
 <template>
 	<view class="index-box">
-		
 		<view :class="[modalName=='DrawerModalL'?'hidebox':'']">
 			
 			<view class="bg-img title-img">
@@ -130,7 +129,7 @@
 					<view class="basis-item" @tap='navigateTo("/pages/record/index")'>Orders</view>
 					<view class="basis-item" @tap='navigateTo("/pages/cashout/index")'>Cash Out</view>
 					<view class="basis-item" @tap='navigateTo("/pages/customerSerice/index")'>Customer Service</view>
-					<view class="basis-item">Invite Friends</view>
+					<view class="basis-item" @tap="navigateTo('/pages/index/inviteFriend')">Invite Friends</view>
 				</view>
 				<view class="basis-list basis-border">
 					<view class="basis-item" style="font-weight: bold;">Explore</view>

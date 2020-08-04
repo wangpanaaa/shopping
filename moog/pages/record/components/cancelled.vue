@@ -1,6 +1,6 @@
 <template>
 	<view class="cancleContain">
-	<record class="record" v-for="(v ,i) in list" :data="v"></record>
+	<record class="record" v-for="(v ,i) in list" :data="v" :key='i'></record>
 	</view>
 </template>
 

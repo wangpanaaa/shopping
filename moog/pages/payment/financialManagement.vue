@@ -25,7 +25,7 @@
 				<text style="font-size:30rpx;color: #12AC3D;">{{ userInfo.wmp_yesterday }}</text>
 			</view>
 		</view>
-		<view style="margin: 63rpx 0 36rpx 32rpx;font-size:30rpx;">Income standard</view>
+		<view style="margin: 43rpx 0 36rpx 32rpx;font-size:30rpx;">Income standard</view>
 		<radio-group class="days-list" @change="radioChange">
 			<view class="flex" v-for="(item, index) in IncomeList" :key="item.id">
 				<view>
@@ -35,9 +35,9 @@
 				<radio class="red margin-left-sm" color="#222F3E" :checked="currentId === item.id" :value="item.id.toString()"></radio>
 			</view>
 		</radio-group>
-		<view style="margin: 40rpx 0 36rpx 32rpx;font-size:30rpx;" >Balance transfer</view>
+		<view style="margin: 20rpx 0 26rpx 32rpx;font-size:30rpx;" >Balance transfer</view>
 		<input
-			style="height:100rpx;margin: 0 30rpx;background-color: #fff;border-radius:10rpx;padding-left: 30rpx;"
+			style="height:80rpx;margin: 0 30rpx;background-color: #fff;border-radius:10rpx;padding-left: 30rpx;"
 			class="uni-input"
 			placeholder="Please enter the transfer amount"
 			v-model="amount"
@@ -124,7 +124,7 @@ export default {
 .bg-img {
 	color: #fff;
 	background-image: url(../../static/images/Place-an-order.png);
-	height: 365rpx;
+	height: 300rpx;
 	.flex {
 		padding-top: 20rpx;
 		align-items: center;
@@ -143,7 +143,7 @@ export default {
 		padding-right: 33rpx;
 	}
 	.count {
-		margin-top: 109rpx;
+		margin-top: 49rpx;
 		text-align: center;
 		color: #ffb745;
 		font-size: 50rpx;
@@ -160,7 +160,7 @@ export default {
 	margin: 52rpx 30rpx 0 48rpx;
 	.item {
 		font-size: 26rpx;
-		line-height: 78rpx;
+		line-height: 68rpx;
 		justify-content: space-between;
 		border-bottom: 1px solid #dcdddd;
 	}
@@ -172,7 +172,7 @@ export default {
 	margin: 0 30rpx;
 	.flex {
 		width: 330rpx;
-		height: 100rpx;
+		height: 80rpx;
 		border-radius: 10rpx;
 		align-items: center;
 		text-align: center;

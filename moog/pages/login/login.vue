@@ -64,6 +64,7 @@
 	// import user from '../../common/user.js'
 	export default {
 		async onLoad() {
+			this.loginData.username=uni.getStorageSync('username') || ''
 			const {...data}=await this.$http.post('/api/config/getconfig')
 			uni.setStorageSync('settings',JSON.stringify(data.data))
 			this.settings=data.data
