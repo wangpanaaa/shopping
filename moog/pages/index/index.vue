@@ -67,12 +67,12 @@
 			
 			<view style="font-size: 24rpx;color: #A8A8A8;padding-top: 73rpx;padding-left: 28rpx;">Three-level proxy model </view>
 			<view style="font-size: 40rpx;color: #333;padding-top: 18rpx;padding-left: 32rpx;font-weight: bold;">Member News </view>
-			<image :src="settings.ad_tiny" class="banner-image"></image>
-			<view class="cu-list menu-avatar" style="padding: 10rpx 30rpx;height: 460rpx;" >
-				<view class="cu-item" style="border-radius: 10rpx;margin-bottom: 10rpx;" v-for="(item,index) in memberNewArr" :key='index'>
+			<image :src="settings.ad_tiny" class="banner-image " ></image>
+			<view class="cu-list menu-avatar animation-reverse" style="padding: 10rpx 30rpx;height: 460rpx;" >
+				<view class="cu-item " style="border-radius: 10rpx;margin-bottom: 10rpx;"  v-for="(item,index) in memberNewArr" :key='index' >
 					<view class="cu-avatar round lg" :style="{'background-image':'url(' + item.headimg + ')'}"></view>
 					<view class="content flex-sub">
-						<view class="text-grey">{{item.username}}</view>
+						<view class="text-grey" :class="[memberNewArr.length===0?'animation-slide-top':'']">{{item.username}}</view>
 						<view class="text-gray text-sm flex justify-between">{{item.desc}}</view>
 					</view>
 					<view class="text-grey"> {{item.amount}}</view>
@@ -247,7 +247,7 @@
 			memSetInterval=setInterval(async ()=>{
 				this.memberNewArr=[]
 				const list=await this.$http.post('/api/user/membernews')
-				this.memberNewArr=this.memberNew.slice(0,3)
+				this.memberNewArr=list.data.slice(0,3)
 				this.memberNewArr.forEach(item=>{
 					item.headimg=this.headimglist[Math.floor(Math.random()*15)]
 				})
@@ -294,7 +294,7 @@
 		height: 578upx;
 	}
 	.title{
-		padding-top: 20rpx;
+		padding-top: 30rpx;
 		color: #fff;
 		align-items: center;
 		justify-content: space-between;

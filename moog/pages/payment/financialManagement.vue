@@ -123,7 +123,7 @@ export default {
 }
 .bg-img {
 	color: #fff;
-	background-image: url(../../static/images/Place-an-order.png);
+	background-image: url(../../static/images/financlal-management.png);
 	height: 300rpx;
 	.flex {
 		padding-top: 20rpx;

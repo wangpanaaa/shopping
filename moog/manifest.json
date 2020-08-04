@@ -36,7 +36,8 @@
                     "<uses-feature android:name=\"android.hardware.camera\"/>",
                     "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
                     "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
-                ]
+                ],
+                "autoSdkPermissions" : true
             },
             "ios" : {},
             /* ios打包配置 */
@@ -45,7 +46,11 @@
             }
         },
         "uniStatistics" : {
-            "enable" : false
+            "enable" : true
+        },
+        "splashscreen" : {
+            "waiting" : false,
+            "alwaysShowBeforeRender" : true
         }
     },
     /* SDK配置 */
@@ -59,7 +64,7 @@
             "es6" : true
         },
         "uniStatistics" : {
-            "enable" : false
+            "enable" : true
         }
     },
     "h5" : {
@@ -77,30 +82,30 @@
             }
         },
         "uniStatistics" : {
-            "enable" : false
+            "enable" : true
         }
     },
     "uniStatistics" : {
-        "enable" : false
+        "enable" : true
     },
     "mp-alipay" : {
         "uniStatistics" : {
-            "enable" : false
+            "enable" : true
         }
     },
     "mp-baidu" : {
         "uniStatistics" : {
-            "enable" : false
+            "enable" : true
         }
     },
     "mp-qq" : {
         "uniStatistics" : {
-            "enable" : false
+            "enable" : true
         }
     },
     "mp-toutiao" : {
         "uniStatistics" : {
-            "enable" : false
+            "enable" : true
         }
     }
 }
