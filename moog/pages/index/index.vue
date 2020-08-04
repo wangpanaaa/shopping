@@ -133,7 +133,7 @@
 				<view class="basis-list basis-border">
 					<view class="basis-item" style="font-weight: bold;">Explore</view>
 					<view class="basis-item animation-reverse" :class="[animation==='/pages/index/noticedetail'?'animation-scale-up':'']"  @tap='navigateTo("/pages/index/noticedetail")'>Notice</view>
-					<view class="basis-item animation-reverse">Account Details</view>
+					<view class="basis-item animation-reverse" :class="[animation==='/pages/accountDetail/index'?'animation-scale-up':'']"  @tap="navigateTo('/pages/accountDetail/index')">Account Details</view>
 					<view class="basis-item animation-reverse">Recharge Record</view>
 					<view class="basis-item animation-reverse">Withdrawal Record</view>
 					<view class="basis-item animation-reverse">Team Report</view>
