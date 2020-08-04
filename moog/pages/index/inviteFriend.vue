@@ -29,9 +29,9 @@
 	import {
 		url
 	} from '../../config/baseUrl.js'
-	import {
-		mapState
-	} from 'vuex';
+	// import {
+	// 	mapState
+	// } from 'vuex';
 	export default {
 		components: {
 			status
@@ -42,9 +42,9 @@
 			}
 		},
 		computed: {
-			...mapState({
-				userInfo: 'userInfo' || JSON.parse(uni.getStorageSync('userInfo'))
-			})
+			userInfo:function (){
+				return this.$store.state.userInfo  || JSON.parse(uni.getStorageSync('userInfo'))
+			}
 		},
 		mounted() {
 			this.invitationSrc = url + '/api/account/qrcode/uid/' + this.userInfo.uid

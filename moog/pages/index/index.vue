@@ -173,11 +173,11 @@
 
 <script>
 	let memSetInterval=null;
-	import { mapState } from 'vuex'
+	// import { mapState } from 'vuex'
 	import status from "../../colorui/components/istatus.vue"
 	export default {
 		components:{
-				status
+			status
 		},
 		data() {
 			return {
@@ -210,11 +210,12 @@
 				memberNewArr:[]
 			}
 		},
-		computed: {...mapState({
-			userInfo:'userInfo' || JSON.parse(uni.getStorageSync('userInfo'))
-		})},
+		computed: {
+			userInfo:function (){
+				return this.$store.state.userInfo  || JSON.parse(uni.getStorageSync('userInfo'))
+			}
+		},
 		async onLoad() {
-			
 			const notices=await this.$http.post('/api/config/noticedetail')
 			this.noticedetail=notices.data
 			if(this.noticedetail.content){

@@ -39,7 +39,7 @@
 						<view class="iconfont icon-huabanbeifen12"></view>
 					</view>
 				</view>
-				<view class="cell">
+				<view class="cell" @click="toAddress">
 					<view class="left">
 						<view class="iconfont icon-dizhi"></view>
 						<text>Shipping Address</text>
@@ -52,7 +52,7 @@
 		</view>
 		<view class="portrait" v-if="portrait"></view>
 		<view class="content" v-if="portrait">
-			<image v-for="item in urlList" :src="item.img" :key='item.id'></image>
+			<image v-for="(item,index) in urlList" :src="item.img" :key='item.id' :class="index==clickData.id-1?'click':''" @tap="handClick(item)"></image>
 			<view class="footer">
 				<button class="cancel" @click="portrait=false">Cancel</button>
 				<button class="confirm" @click="confirm">Confirm</button>
@@ -66,6 +66,7 @@
 	export default {
 		data() {
 			return {
+				clickData:'',
 				portrait: false,
 				userImg: require('../../static/images/Agent-cooperation.png'),
 				username: 'Jonathan999',
@@ -74,37 +75,78 @@
 				card: '****888',
 				urlList: [{
 						id: 1,
-						img: require('../../static/images/Agent-cooperation.png')
+						img: require('../../static/images/face/face1.png')
 					},
 					{
 						id: 2,
-						img: require('../../static/images/Agent-cooperation.png')
+						img: require('../../static/images/face/face2.png')
 					},
 					{
 						id: 3,
-						img: require('../../static/images/Agent-cooperation.png')
+						img: require('../../static/images/face/face3.png')
 					},
 					{
 						id: 4,
-						img: require('../../static/images/Agent-cooperation.png')
+						img: require('../../static/images/face/face4.png')
 					},
 					{
 						id: 5,
-						img: require('../../static/images/Agent-cooperation.png')
+						img: require('../../static/images/face/face5.png')
 					},
 					{
 						id: 6,
-						img: require('../../static/images/Agent-cooperation.png')
+						img: require('../../static/images/face/face6.png')
 					},
 					{
 						id: 7,
-						img: require('../../static/images/Agent-cooperation.png')
+						img: require('../../static/images/face/face7.png')
+					},
+					{
+						id: 8,
+						img: require('../../static/images/face/face8.png')
+					},
+					{
+						id: 9,
+						img: require('../../static/images/face/face9.png')
+					},
+					{
+						id: 10,
+						img: require('../../static/images/face/face10.png')
+					},
+					{
+						id: 11,
+						img: require('../../static/images/face/face11.png')
+					},
+					{
+						id: 12,
+						img: require('../../static/images/face/face12.png')
+					},
+					{
+						id: 13,
+						img: require('../../static/images/face/face13.png')
+					},
+					{
+						id: 14,
+						img: require('../../static/images/face/face14.png')
+					},
+					{
+						id: 15,
+						img: require('../../static/images/face/face15.png')
+					},
+					{
+						id: 16,
+						img: require('../../static/images/face/face16.png')
 					},
 				]
 			}
 		},
+		computed: {
+			userInfo:function (){
+				return this.$store.state.userInfo  || JSON.parse(uni.getStorageSync('userInfo'))
+			}
+		},
 		mounted() {
-
+			console.log(this.userInfo)
 		},
 		methods: {
 			toPassword() {
@@ -112,8 +154,17 @@
 					url: '../password/index'
 				})
 			},
+			toAddress(){
+				uni.navigateTo({
+					url: '/pages/address/address'
+				})
+			},
 			confirm() {
+				this.userImg=this.clickData.img
 				this.portrait = false
+			},
+			handClick(e){
+				this.clickData=e
 			}
 		}
 	}
@@ -245,9 +296,11 @@
 				width: 150rpx;
 				height: 150rpx;
 				border-radius: 50%;
-				margin: 0 15rpx;
+				margin: 10rpx 15rpx;
 			}
-
+			.click{
+				border: 2px solid ;
+			}
 			.footer {
 				display: flex;
 				font-size: 34rpx;

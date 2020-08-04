@@ -36,6 +36,10 @@
 				tel: '91-1888888888'
 			}
 		},
+		async mounted() {
+			const data=await this.$http.post('/api/user/address')
+			console.log(data)
+		},
 		methods: {
 			toAdd() {
 				uni.navigateTo({

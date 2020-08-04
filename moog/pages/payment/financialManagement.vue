@@ -57,7 +57,7 @@ border:2px solid;height:110rpx;border: 1px solid rgb(143, 144, 144);"
 
 <script>
 import status from '../../colorui/components/istatus.vue';
-import { mapState } from 'vuex';
+// import { mapState } from 'vuex';
 export default {
 	components: {
 		status
@@ -70,9 +70,9 @@ export default {
 		};
 	},
 	computed: {
-		...mapState({
-			userInfo: 'userInfo' || JSON.parse(uni.getStorageSync('userInfo'))
-		})
+		userInfo:function (){
+			return this.$store.state.userInfo  || JSON.parse(uni.getStorageSync('userInfo'))
+		}
 	},
 	mounted() {
 		console.log(this.userInfo);
@@ -105,6 +105,7 @@ export default {
 				uni.showToast({
 					title:'Successfully'
 				})
+				this.$store.dispatch('getUserUpdate');
 			}
 		},
 		navigateTo(url) {

@@ -92,7 +92,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
 export default {
 	data() {
 		return {
@@ -106,9 +106,11 @@ export default {
 			current:0
 		};
 	},
-	computed: {...mapState({
-		userInfo:'userInfo' || JSON.parse(uni.getStorageSync('userInfo'))
-	})},
+	computed: {
+		userInfo:function (){
+			return this.$store.state.userInfo  || JSON.parse(uni.getStorageSync('userInfo'))
+		}
+	},
 	async onLoad() {
 		const data=await this.$http.post('/api/order/orderdescription')
 		this.explainText=data.data
