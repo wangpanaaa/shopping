@@ -26,7 +26,7 @@
 
 		<view class="select">
 			<checkbox-group @change="select = !select">
-				<checkbox class="selectBox" :class="select ? 'checked' : ''" :checked="select"></checkbox>
+				<checkbox class="selectBox yellow" :class="select ? 'checked' : ''" :checked="select"></checkbox>
 				Purchase terms
 			</checkbox-group>
 		</view>
@@ -203,7 +203,6 @@ export default {
 		}
 	}
 }
-
 .select {
 	margin-top: 50rpx;
 	text-align: center;
