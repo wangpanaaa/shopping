@@ -71,7 +71,7 @@
 			},
 			commit(e){
 				 if(!e){
-					 this.$msg('请选择金额')
+					 this.$msg('Please select the amount')
 					 return
 				 }
 				 let channel_id=this.tabs[this.currentTabs].channel_id

@@ -36,14 +36,14 @@
 
 <script>
 import istatus from '../../colorui/components/istatus.vue';
-import { url } from '../../config/baseUrl.js';
+import { url,socketUrl } from '../../config/baseUrl.js';
 export default {
 	components: {
 		istatus
 	},
 	data() {
 		return {
-			select: false,
+			select: true,
 			name: '',
 			phone: '',
 			email: '',
@@ -57,6 +57,12 @@ export default {
 		this.channel_id = e.channel_id;
 		this.id = e.id;
 		this.amount = e.amount;
+		let payData=uni.getStorageSync('payData')
+		payData=JSON.parse(payData)
+		this.name=payData.name,
+		this.phone=payData.phone,
+		this.email=payData.email,
+		this.account=payData.account
 	},
 	methods: {
 		back() {
@@ -64,12 +70,12 @@ export default {
 		},
 		commit() {
 			if (!this.name || !this.phone || !this.email || !this.account) {
-				this.$msg('完善信息');
+				this.$msg('Please complete the relevant information');
 				return;
 			}
 
 			if (!this.select) {
-				this.$msg('请勾选 Purchase terms');
+				this.$msg('Please agree Purchase terms');
 				return;
 			}
 			let json = {
@@ -83,13 +89,28 @@ export default {
 				amount: this.amount,
 				language: 'en-us'
 			};
+			uni.setStorageSync('payData',JSON.stringify(json))
 			let openUrl=url + `/api/user_recharge/cz?id=${this.id}&name=${this.name}&phone=${this.phone}&email=${this.email}&account=${this.account}&channel_id=${this.channel_id}&amount=${this.amount}&language=${json.language}&token=${json.token}`;
-			//#ifdef APP-PLUS
-				plus.runtime.openURL()
-			//#endif
+			uni.connectSocket({
+			  url: socketUrl,
+			  header: {
+				'language':'en-us'
+			  }
+			});
+			
+			// //#ifdef APP-PLUS
+			// 	plus.runtime.openURL()
+			// //#endif
 			//#ifdef H5
-				window.location.href=openUrl
+				window.open(openUrl)
 			//#endif
+			
+			uni.onSocketOpen(function (res) {
+			  console.log('WebSocket连接已打开！');
+			});
+			uni.onSocketMessage(function (res) {
+			  console.log('收到服务器内容：' + res.data);
+			});
 		}
 	}
 };

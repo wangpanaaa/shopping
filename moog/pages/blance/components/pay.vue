@@ -7,7 +7,7 @@
 			<view class="box" :class="[selectCard==index?'boxChecked':'']" v-for="(item,index) in card" :key="index" @click="select(item,index)">{{item.card_name}} <view class="xingxing"><span v-for="i in Number(item.star)" :key="i" class="iconfont icon-tuijianxingji"></span></view>
 			</view>
 		</view>
-		<view class="chooseTitle">
+		<!-- <view class="chooseTitle">
 			Choose to pay by cash
 		</view>
 		<view class="chooseButton">
@@ -23,7 +23,7 @@
 				</span>
 				<text class="cuIcon-check"></text>
 			</view>
-		</view>
+		</view> -->
 		<view class="memo" style="margin-top: 20px;color:rgba(168,168,168,1)">
 			Your recharge amount is <span style="color:rgba(51,51,51,1);font-size:15px;font-weight:bold;margin-left: 13px;">₹
 				{{amount}}</span>
