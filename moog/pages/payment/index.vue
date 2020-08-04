@@ -12,7 +12,7 @@
 			</view>
 			<view class="list">
 				<p>Phone Number</p>
-				<input type="text" v-model="phone" placeholder-class="placeholder" placeholder="Input Phone Number" />
+				<input type="number" v-model="phone" placeholder-class="placeholder" placeholder="Input Phone Number" />
 			</view>
 			<view class="list">
 				<p>Email Address</p>
@@ -80,9 +80,10 @@
 					phone: this.phone,
 					email: this.email,
 					account: this.account,
-					account: this.amount,
+					channel_id: this.channel_id,
 					id: this.id,
-					amount: this.amount
+					amount: this.amount,
+					language:'en-us'
 				}
 				uni.showLoading()
 
