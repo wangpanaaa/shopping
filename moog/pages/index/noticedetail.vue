@@ -1,14 +1,11 @@
 <template>
 	<view>
 		<cu-custom bgColor="bg-black" :isBack="true">
-			<block slot="content">Article details</block>
+			<block slot="content">Message list</block>
 		</cu-custom>
 		<view v-if='content'>
 			<view class="content" v-html="content">
 			</view>
-		</view>
-		<view v-else class="none-data">
-			No New Information
 		</view>
 	</view>
 </template>

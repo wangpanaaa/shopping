@@ -117,7 +117,7 @@
 		<view class="cu-modal drawer-modal justify-start" :class="modalName=='DrawerModalL'?'show':''" @tap="hideModal">
 			<view class="cu-dialog basis-xl" @tap.stop="" >
 				<view class="flex">
-					<image src="../../static/images/Calculate-revenue.png"></image>
+					<image :src="randomImg"></image>
 					<text class="basis-name">Hello, {{userInfo.nickname}}</text>
 				</view>
 				<view class="basis-list basis-border">
@@ -188,6 +188,7 @@
 				NoticeFlag:false,
 				noticedetail:{},
 				current:0,
+				randomImg:'',
 				headimglist:[
 					require('../../static/images/face/face1.png'),
 					require('../../static/images/face/face2.png'),
@@ -215,12 +216,14 @@
 			}
 		},
 		async onLoad() {
+			//获取公告
 			const notices=await this.$http.post('/api/config/noticedetail')
 			this.noticedetail=notices.data
 			if(this.noticedetail.content){
 				this.NoticeFlag=true
 			}
 			
+			//更新用户信息
 			this.$store.dispatch('getUserUpdate');
 			const {...data}=await this.$http.post('/api/order/mall')
 			this.amazonList=data.data
@@ -233,12 +236,20 @@
 			this.settings=JSON.parse(uni.getStorageSync('settings')) || {}
 		},
 		async onShow() {
+			//随机生成头像
+			let randomImg=uni.getStorageSync('randomImg')
+			if(!randomImg){
+				randomImg=this.headimglist[Math.floor(Math.random()*15)]
+				uni.setStorageSync('randomImg',randomImg)
+			}
+			this.randomImg=randomImg
+			
 			memSetInterval=setInterval(async ()=>{
 				this.memberNewArr=[]
 				const list=await this.$http.post('/api/user/membernews')
 				this.memberNewArr=this.memberNew.slice(0,3)
 				this.memberNewArr.forEach(item=>{
-					item.headimg=this.headimglist[Math.floor(Math.random()*10)]
+					item.headimg=this.headimglist[Math.floor(Math.random()*15)]
 				})
 			},10000)
 		},

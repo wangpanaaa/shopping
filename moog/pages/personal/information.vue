@@ -68,7 +68,7 @@
 			return {
 				clickData:'',
 				portrait: false,
-				userImg: require('../../static/images/Agent-cooperation.png'),
+				userImg: '',
 				username: 'Jonathan999',
 				code: '888',
 				tel: '199****8888',
@@ -146,7 +146,7 @@
 			}
 		},
 		mounted() {
-			console.log(this.userInfo)
+			this.userImg=uni.getStorageSync('randomImg')
 		},
 		methods: {
 			toPassword() {
@@ -161,6 +161,7 @@
 			},
 			confirm() {
 				this.userImg=this.clickData.img
+				uni.setStorageSync('randomImg',this.clickData.img)
 				this.portrait = false
 			},
 			handClick(e){
