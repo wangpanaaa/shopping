@@ -16,7 +16,7 @@
 					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
 					 refresher-background="#f5f5f5">
 						<view style="height:100%" v-if="true">
-							<pay @commit="commit" :card="item.card"></pay>
+							<pay @commit="commit" :card="item.card" :payRadio="item.channel_list"></pay>
 						</view>
 					</scroll-view>
 				</swiper-item>
@@ -37,7 +37,6 @@
 				tabs: [],
 				currentTabs: 0,
 				scrollViewHeight: 0,
-				channel_id:'',
 				id:''
 			}
 		},
@@ -50,15 +49,14 @@
 					card:v.card,
 					left:(12.5+i*25)+'%',
 					id:v.id,
-					channel_id:v.channel_list[0].channel_id
-				})
+					channel_list:v.channel_list
+			  	})
 				})
 					uni.hideLoading()
 			})
 		},
 		mounted() {
 			this.$offset(".swiper-area").then(res => {
-				console.log(res);
 				var Height = uni.getSystemInfoSync().screenHeight
 				console.log(Height);
 				this.scrollViewHeight = res.height;
@@ -67,15 +65,15 @@
 		methods: {
 			change(e) {
 				this.currentTabs =e.detail.current;
-				console.log()
+	
 			},
-			commit(e){
+			commit(e,radio){
 				 if(!e){
 					 this.$msg('Please select the amount')
 					 return
 				 }
-				 let channel_id=this.tabs[this.currentTabs].channel_id
 				 let id=this.tabs[this.currentTabs].id
+				 let channel_id=this.tabs[this.currentTabs].channel_list[radio].channel_id
 				uni.navigateTo({
 					url: `/pages/payment/index?channel_id=${channel_id}&id=${id}&amount=${e}`
 				})

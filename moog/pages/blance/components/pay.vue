@@ -7,15 +7,15 @@
 			<view class="box" :class="[selectCard==index?'boxChecked':'']" v-for="(item,index) in card" :key="index" @click="select(item,index)">{{item.card_name}} <view class="xingxing"><span v-for="i in Number(item.star)" :key="i" class="iconfont icon-tuijianxingji"></span></view>
 			</view>
 		</view>
-		<!-- <view class="chooseTitle">
+		<view class="chooseTitle">
 			Choose to pay by cash
 		</view>
 		<view class="chooseButton">
-			<view :class="[radio==1?'checkedRadion':'NOcheckedRadion']" @click="radio=1">
+			<view :class="[radio==0?'checkedRadion':'NOcheckedRadion']" @click="radio=0">
 				<image src="../../../static/images/upi.png" mode=""> </image>
 				<text class="cuIcon-check"></text>
 			</view>
-			<view :class="[radio==2?'checkedRadion':'NOcheckedRadion']" @click="radio=2" v-show="false">
+			<view :class="[radio==1?'checkedRadion':'NOcheckedRadion']" @click="radio=1" v-show="false">
 				<span style="font-size:15px; color: #959595;font-weight: bold;">Pay</span>
 				<span style="width:85px; text-align: justify;font-size: 12px; color: #c9c9c9;transform:scale(0.9);">
 					Cards,Wallets,
@@ -23,7 +23,7 @@
 				</span>
 				<text class="cuIcon-check"></text>
 			</view>
-		</view> -->
+		</view>
 		<view class="memo" style="margin-top: 20px;color:rgba(168,168,168,1)">
 			Your recharge amount is <span style="color:rgba(51,51,51,1);font-size:15px;font-weight:bold;margin-left: 13px;">₹
 				{{amount}}</span>
@@ -37,15 +37,16 @@
 		data() {
 			return {
 				amount: '',
-				radio: 1,
+				radio: 0,
 				selectCard:null,
 				channel_id:'',
 				id:''
 			}
 		},
 		props: {
-			card: Array,
-			default: []
+			card:{
+				default: []
+			}
 		},
 		methods: {
 		select(item,index){
@@ -54,8 +55,7 @@
 			console.log(item)
 		},
 			next() {
-				this.$emit('commit',this.amount)
-		
+				this.$emit('commit',this.amount,this.radio)
 			}
 		}
 	}
