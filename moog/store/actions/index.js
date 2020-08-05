@@ -30,5 +30,12 @@ export default {
 			uni.setStorageSync('userInfo',JSON.stringify(res.data))
 			state.userInfo=res.data
 		})
+	},
+	loginOut(state){
+		state.userInfo=null
+		uni.clearStorageSync()
+		uni.reLaunch({
+			url:'/pages/login/login'
+		})
 	}
 }

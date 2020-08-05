@@ -56,7 +56,7 @@ http.interceptors.response.use(async (response) => { /* 请求之后拦截器。
 			title:response.data.msg
 		})
 		if(response.data.code === 4){
-			stote.commit('loginOut')
+			stote.dispatch('loginOut')
 		}
 	  return Promise.reject(response)
 	}

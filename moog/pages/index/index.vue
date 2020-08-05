@@ -1,8 +1,7 @@
 <template>
 	<view class="index-box">
-		<view :class="[modalName=='DrawerModalL'?'hidebox':'']">
+		<view :class="modalName=='DrawerModalL'?'hidebox':''">
 			<view class="bg-img title-img">
-				<status></status>
 				<view class="title flex">
 					<view>
 						<span class="iconfont icon-mulu" @tap="showModal" data-target="DrawerModalL"></span>
@@ -270,7 +269,7 @@
 				
 			},
 			resetLogin(){
-				this.$store.commit('loginOut')
+				this.$store.dispatch('loginOut')
 				// uni.reLaunch({
 				// 	url:'/pages/login/login'
 				// })
@@ -285,6 +284,9 @@
 		font-family:Myriad Pro;
 	}
 	.title-img{
+		/*  #ifdef  APP-PLUS  */
+		padding-top: var(--status-bar-height);//覆盖样式
+		/*  #endif  */   
 		background-image: url('~@/static/images/title_bg.png');
 		height: 578upx;
 	}
