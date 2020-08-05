@@ -158,6 +158,7 @@
 				}
 				this.$http.post('/api/order/log', json).then(data => {
 					v.data.list = data.data
+					if (data.data.length < v.data.count) v.data.bottom = true
 					if (v.name === 'All') uni.hideLoading()
 				})
 			})
@@ -211,7 +212,13 @@
 			},
 			loadMore() {
 				// 上拉加载
-				if (this.tabs[this.currentTabs].data.bottom || this.fetching) return 
+				if (this.fetching){
+					this.$msg('Please wait on')
+					 return
+				};
+				if (this.tabs[this.currentTabs].data.bottom){
+					return 
+				}
 				++this.tabs[this.currentTabs].data.page
 				let json
 				if (this.tabs[this.currentTabs].name === 'All') {
@@ -230,7 +237,7 @@
 				this.$http.post('/api/order/log', json).then(data => {
 					this.fetching = false;
 					this.tabs[this.currentTabs].data.list = this.tabs[this.currentTabs].data.list.concat(data.data)
-					if(data.data.length==0)this.tabs[this.currentTabs].data.bottom=true
+					if (data.data.length <this.tabs[this.currentTabs].data.count) this.tabs[this.currentTabs].data.bottom = true
 				})
 
 			},
@@ -258,6 +265,7 @@
 				let beginTime = new Date().getTime()
 				this.$http.post('/api/order/log', json).then(data => {
 					this.tabs[this.currentTabs].data.list = data.data
+					if (data.data.length <this.tabs[this.currentTabs].data.count) this.tabs[this.currentTabs].data.bottom = true
 					if (this.tabs[this.currentTabs].name === 'All') uni.hideLoading()
 				}).finally(r => {
 					//下拉刷新 计算接口响应时间，如果小于1s自己加延迟否则刷新组件会失效，框架导致

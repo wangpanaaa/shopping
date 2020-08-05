@@ -88,6 +88,14 @@
 		{
 			"path":"pages/team/members",
 			"style":{}
+		},
+		{
+			"path":"pages/withdrawalRecord/index",
+			"style":{}
+		},
+		{
+			"path":"pages/rechargeRecord/index",
+			"style":{}
 		}
     ],
 	"globalStyle": {
