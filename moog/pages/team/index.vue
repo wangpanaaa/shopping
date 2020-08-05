@@ -9,13 +9,19 @@
 				</view>
 			</block>
 		</cu-custom>
-		<view class="nav">
+		<!-- <view class="nav">
 			<dateSelect @change="dateSelectChange"></dateSelect>
+		</view> -->
+		<view class="team-list" >
+			<view class="item flex" v-for="(item,index) in listData.team" :key="index">
+				<view style="font-size:30rpx;">{{item.name}}</view>
+				<view style="font-size:34rpx;color: #E9611B;">{{item.value}}</view>
+			</view>
 		</view>
-		<view class="team-list">
-			<view class="item flex">
-				<view style="font-size:30rpx;">Team balance</view>
-				<view style="font-size:34rpx;color: #E9611B;">₹ 0</view>
+		<view class="team-list" >
+			<view class="item flex" v-for="(item,index) in listData.charge" :key="index">
+				<view style="font-size:30rpx;">{{item.name}}</view>
+				<view style="font-size:34rpx;color: #E9611B;">{{item.value}}</view>
 			</view>
 		</view>
 	</view>
@@ -29,8 +35,13 @@
 		},
 		data(){
 			return {
-				
+				listData:[]
 			}
+		},
+		onLoad() {
+			this.$http.post('/api/user/teamreport').then(res=>{
+				this.listData=res.data
+			})
 		},
 		methods:{
 			dateSelectChange(e) {
@@ -97,6 +108,7 @@
 	.team-list{
 		margin: 30rpx;
 		background-color: #fff;
+		padding-bottom: 40rpx;
 		.item{
 			margin: 0 36rpx 0 36rpx;
 			height: 90rpx;

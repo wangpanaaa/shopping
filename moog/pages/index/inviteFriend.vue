@@ -60,7 +60,9 @@
 				uni.setClipboardData({
 					data: this.userInfo.invite_link,
 					success: function() {
-						console.log('Copy successful, go to the browser to open it');
+						uni.showToast({
+							title:"Copy successful"
+						})
 					}
 				});
 				//#endif
