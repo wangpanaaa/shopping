@@ -11,8 +11,15 @@
 				<span :class="{tabsChecked:currentTabs==index}" v-for="(item,index) in tabs" :key="index" @click="currentTabs=index">{{item.name}}</span>
 				<view :style="{left:tabs[currentTabs].left}" class="line" v-if="tabs.length>1"></view>
 			</view>
-			<dateSelect @change="dateSelectChange"></dateSelect>
-		</view>
+			<view class="dateSelect">
+				<view class="date">
+					<span class="iconfont icon-riqi"></span>
+					<picker id="Before" :value="start_time" @change="chooseDate" start="2020-01-01" :end="today" mode="date">{{start_time}}</picker>
+					to
+					<picker id="After"  :value="startEnd" @change="chooseDate" :start="start_time" :end="today" mode="date">{{startEnd}}</picker>
+				</view>
+			</view>
+		</view> 
 		<view class="swiper-area">
 			<swiper :acceleration="false" :current="currentTabs" @change="change" @transition="swiperStart" @animationfinish="swiperEnd">
 				<swiper-item>
@@ -20,7 +27,7 @@
 					 refresher-background="#f5f5f5" @scroll="scroll" @scrolltolower="loadMore" :refresher-triggered="tabs[0].data.triggered"
 					 :refresher-enabled="tabs[0].data.isTop" @scrolltoupper="toupper" @refresherrefresh="onRefresh" @refresherrestore="onRestore">
 						<view style="min-height:100%;padding-top: 20rpx;" v-if="true">
-							<accountDetailList  v-for="item in tabs[0].data.list" :key="tabs[0].name+item.id" :item="item"></accountDetailList>
+							<accountDetailList  v-for="item in tabs[0].data.list" :key="tabs[0].name+item.id" :item="item" :startAfter="start_time" :startBefore="end_time"></accountDetailList>
 						</view>
 						<view class="cu-load" :class="tabs[0].data.bottom?'over':'loading'"></view>
 					</scroll-view>
@@ -32,7 +39,7 @@
 					 :refresher-enabled="tabs[1].data.isTop" @scrolltoupper="toupper" @refresherrefresh="onRefresh" @refresherrestore="onRestore">
 						<view style="min-height:100%;padding-top: 20rpx" v-if="true">
 							<accountDetailList  v-for="item in tabs[2].data.list" :key="tabs[1].name+item.id" :item="item"></accountDetailList>
-						</view>
+						</view> 
 						<view class="cu-load" :class="tabs[1].data.bottom?'over':'loading'"></view>
 					</scroll-view>
 				</swiper-item>
@@ -58,18 +65,18 @@
 					<view style="padding:0 30rpx;">
 						<view class="timeSelect">
 							<view class="timeSelect_title">
-								TIME SELECTION
+								TIME SELECTION 
 							</view>
-							<picker mode="date" :value="start_time" :start="start_time" :end="end_time" @change="bindDateChange" data-title='start'>
+							<picker class='Before' mode="date" :value="start_time" start="2020-01-01" :end="today" @change="chooseDate" data-title='start'>
 								<view class="timeSelect_start">
 									<span>Starting time</span>
 									<view class="input"><input type="text" v-model="start_time"  placeholder-class="placeholder" disabled placeholder="Please enter the start time" /></view>
 								</view>
 							</picker>
-							<picker mode="date" :value="end_time" :start="start_time" :end="end_time" @change="bindDateChange" data-title='end'>
+							<picker class='After'  mode="date" :value="end_time" :start="start_time" :end="today" @change="chooseDate" data-title='end'>
 								<view class="timeSelect_end">
 									<span> End Time</span>
-									<view class="input"><input type="text" v-model="end_time" placeholder-class="placeholder" disabled placeholder="Please enter the End time" /></view>
+									<view class="input"><input type="text" v-model="startEnd" placeholder-class="placeholder" disabled placeholder="Please enter the End time" /></view>
 								</view>
 							</picker>
 							<view class="selection ">
@@ -107,6 +114,8 @@
 			return {
 				start_time:'',//传递参数
 				end_time:'',//传递参数
+				today:'',
+				startEnd:'',
 				tabs: [{
 						name: 'All',
 						left: '16.65%',
@@ -154,6 +163,10 @@
 				selectClick:'',
 			}
 		},
+		created() {
+			this.date()
+				this.fetchList()
+		},
 		mounted() {
 			this.$offset(".swiper-area").then(res => {
 				console.log(res);
@@ -164,6 +177,35 @@
 		},
 
 		methods: {
+			date() {
+				var date = new Date();
+			
+			this.startEnd=this.today = date.getFullYear() +
+					"-" +
+					(date.getMonth() < 9 ?
+						"0" + (date.getMonth() + 1) :
+						date.getMonth() + 1) +
+					"-" +
+					(date.getDate() < 10 ? "0" + date.getDate() : date.getDate());
+				this.start_time = date.getFullYear() +
+					"-" +
+					(date.getMonth() < 9 ?
+						"0" + (date.getMonth() + 1) :
+						date.getMonth() + 1) +
+					"-" + '01'
+			
+			},
+			chooseDate(e) {
+				if (e.target.id === 'Before') {
+					 this.start_time = e.detail.value
+								 if(new Date(this.start_time).getTime()-new Date(this.startEnd).getTime()>0){
+									 this.startEnd=this.start_time
+								 }
+				} else {
+					 this.startEnd = e.detail.value
+				}
+				this.fetchList()
+			},
 			bindDateChange: function(e) {
 				e.target.dataset.title==='start'?this.start_time=e.detail.value:this.end_time=e.detail.value
 			},
@@ -171,6 +213,7 @@
 				this.tabs.forEach((v, i) => {
 					let json
 					if (v.name === 'All') {
+						v.data.page=1
 						json = {
 							page: v.data.page,
 							count: v.data.count,
@@ -178,6 +221,7 @@
 							end_time:this.end_time
 						}
 					} else {
+								v.data.page=1 
 						json = {
 							page: v.data.page,
 							count: v.data.count,
@@ -193,12 +237,7 @@
 					})
 				})
 			},
-			dateSelectChange(e) {
-				this.start_time=e[0]
-				this.end_time=e[1]
-					uni.showLoading()
-					this.fetchList()
-			},
+	
 			swiperStart(e) {
 				this.tabs[this.currentTabs].data.isTop = false
 			},
@@ -246,6 +285,7 @@
 					this.$msg('Please wait on')
 					 return
 				};
+				this.fetching=true
 				if (this.tabs[this.currentTabs].data.bottom){
 					return 
 				}
@@ -360,7 +400,21 @@
 		box-sizing: border-box;
 		background-color: #f6f6f6;
 	}
-
+  .icon-riqi {
+  	font-size: 30rpx;
+  	margin-right: 10rpx;
+  }
+  
+  .date {
+  	margin-top: 30rpx;
+  	display: flex;
+  	justify-content: center;
+  	align-items: center;
+  
+  	picker {
+  		padding: 10rpx;
+  	}
+  }
 	.icon-liebiao {
 		font-size: 50rpx;
 		padding-right: 30rpx;
