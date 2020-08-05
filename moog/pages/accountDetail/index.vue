@@ -60,29 +60,30 @@
 							<view class="timeSelect_title">
 								TIME SELECTION
 							</view>
-							<picker>
+							<picker mode="date" :value="start_time" :start="start_time" :end="end_time" @change="bindDateChange" data-title='start'>
 								<view class="timeSelect_start">
 									<span>Starting time</span>
-									<view class="input"><input type="text" placeholder-class="placeholder" disabled placeholder="Please enter the start time" /></view>
+									<view class="input"><input type="text" v-model="start_time"  placeholder-class="placeholder" disabled placeholder="Please enter the start time" /></view>
 								</view>
 							</picker>
-							<picker>
+							<picker mode="date" :value="end_time" :start="start_time" :end="end_time" @change="bindDateChange" data-title='end'>
 								<view class="timeSelect_end">
 									<span> End Time</span>
-									<view class="input"><input type="text" placeholder-class="placeholder" disabled placeholder="Please enter the End time" /></view>
+									<view class="input"><input type="text" v-model="end_time" placeholder-class="placeholder" disabled placeholder="Please enter the End time" /></view>
 								</view>
 							</picker>
 							<view class="selection ">
 								State selection
 							</view>
 							<view class="btn-list flex">
+								
 								<view class="item" v-for="(item,index) in selectData" :key='index'>
 									<button type="default" class="bottom" @tap="handSelect(item)" :class="[selectClick==item?'active':'']">{{item}}</button>
 								</view>
 							</view>
 							<view class="btn-fixed flex">
 								<button type="default" class="bottom" style="margin-right: 25rpx;" @tap="hideModal">Cancel</button>
-								<button type="default" class="bottom" style="background-color: #FAA723;border: none;">Confirm</button>
+								<button type="default" class="bottom" style="background-color: #FAA723;border: none;" @click="subClick">Confirm</button>
 							</view>
 						</view>
 					</view>
@@ -104,11 +105,11 @@
 		},
 		data() {
 			return {
+				start_time:'',//传递参数
+				end_time:'',//传递参数
 				tabs: [{
 						name: 'All',
 						left: '16.65%',
-						start_time:'',//传递参数
-						end_time:'',//传递参数
 						data: {
 							page: 1, //传递参数
 							count: 10, //传递参数
@@ -163,6 +164,9 @@
 		},
 
 		methods: {
+			bindDateChange: function(e) {
+				e.target.dataset.title==='start'?this.start_time=e.detail.value:this.end_time=e.detail.value
+			},
 			fetchList(){
 				this.tabs.forEach((v, i) => {
 					let json
@@ -339,6 +343,10 @@
 			},
 			handSelect(data){
 				this.selectClick=data
+			},
+			subClick(){
+				this.fetchList()
+				this.hideModal()
 			}
 		}
 	}

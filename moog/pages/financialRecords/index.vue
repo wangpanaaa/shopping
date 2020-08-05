@@ -152,7 +152,7 @@
 							end_time:this.end_time
 						}
 					}
-					this.$http.post('/api/account/detail', json).then(data => {
+					this.$http.post('/api/wmp_order/log', json).then(data => {
 						v.data.list = data.data
 						if (data.data.length <v.data.count)v.data.bottom = true
 						if (v.name === 'Storage records') uni.hideLoading()
