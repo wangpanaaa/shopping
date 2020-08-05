@@ -5,8 +5,8 @@
 						<span class="iconfont icon-riqi"></span>	{{item.create_time}}
 		</view>
 		<view class="memo">
-			{{item.desc}}  <text :style="{transform: 'rotate('+(item.status==1?130:230)+'deg)'}"><span class="iconfont icon-fanhui1" :style="{color:item.status==1?'#12AC3D':'#ef8c57'}"></span></text>	
-			<span :style="{color:item.status==1?'#12AC3D':'#ef8c57'}">{{item.amount}}</span>
+			{{item.desc}}  <text :style="{ transform: 'rotate('+(item.status==1?0:90)+'deg)',position:'relative',top:(item.status==1?9:6)+'rpx'}"><span class="iconfont icon-jiantou" :style="{color:item.status==1?'#12AC3D':'#ef8c57'}"></span></text>	
+			<span :style="{color:item.status==1?'#12AC3D':'#ef8c57',position:'relative',left:'-10rpx'}">{{item.amount}}</span>
 		</view>
 	</view>
 </template>
@@ -56,9 +56,9 @@
 		}
 		.memo{
 			font-size:26rpx;
-			.icon-fanhui1{
+			.icon-jiantou{
 				color: rgba(18, 172, 61, 1);
-				font-size: 50rpx;
+				font-size: 40rpx;
 			}
 	
 			&>text{
