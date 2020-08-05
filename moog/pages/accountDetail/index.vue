@@ -56,47 +56,47 @@
 				</swiper-item>
 			</swiper>
 		</view>
-		<view class="cu-modal drawer-modal justify-end drawer-zIndex" :class="modalName?'show':''" @tap="hideModal">
-			<view class="cu-dialog basis-90" @tap.stop="">
-				<view style="background-color: #FFFFFF;height: 100%;">
-					<view class="title">
-						filter
-					</view>
-					<view style="padding:0 30rpx;">
-						<view class="timeSelect">
-							<view class="timeSelect_title">
-								TIME SELECTION 
+	<view class="cu-modal drawer-modal justify-end drawer-zIndex" :class="modalName?'show':''" @tap="hideModal">
+		<view class="cu-dialog basis-90" @tap.stop="">
+			<view style="background-color: #FFFFFF;height: 100%;">
+				<view class="title">
+					filter
+				</view>
+				<view style="padding:0 30rpx;">
+					<view class="timeSelect">
+						<view class="timeSelect_title">
+							TIME SELECTION 
+						</view>
+						<picker id='Before' mode="date" :value="start_time" start="2020-01-01" :end="today" @change="chooseDate" data-title='start'>
+							<view class="timeSelect_start">
+								<span>Starting time</span>
+								<view class="input"><input type="text" v-model="start_time"  placeholder-class="placeholder" disabled placeholder="Please enter the start time" /></view>
 							</view>
-							<picker class='Before' mode="date" :value="start_time" start="2020-01-01" :end="today" @change="chooseDate" data-title='start'>
-								<view class="timeSelect_start">
-									<span>Starting time</span>
-									<view class="input"><input type="text" v-model="start_time"  placeholder-class="placeholder" disabled placeholder="Please enter the start time" /></view>
-								</view>
-							</picker>
-							<picker class='After'  mode="date" :value="end_time" :start="start_time" :end="today" @change="chooseDate" data-title='end'>
-								<view class="timeSelect_end">
-									<span> End Time</span>
-									<view class="input"><input type="text" v-model="end_time" placeholder-class="placeholder" disabled placeholder="Please enter the End time" /></view>
-								</view>
-							</picker>
-							<view class="selection ">
-								State selection
+						</picker>
+						<picker id='After'  mode="date" :value="end_time" :start="start_time" :end="today" @change="chooseDate" data-title='end'>
+							<view class="timeSelect_end">
+								<span> End Time</span>
+								<view class="input"><input type="text" v-model="end_time" placeholder-class="placeholder" disabled placeholder="Please enter the End time" /></view>
 							</view>
-							<view class="btn-list flex">
-								
-								<view class="item" v-for="(item,index) in selectData" :key='index'>
-									<button type="default" class="bottom" @tap="handSelect(item)" :class="[selectClick==item?'active':'']">{{item}}</button>
-								</view>
+						</picker>
+						<view class="selection ">
+							State selection
+						</view>
+						<view class="btn-list flex">
+							
+							<view class="item" v-for="(item,index) in selectData" :key='index'>
+								<button type="default" class="bottom" @tap="handSelect(item)" :class="[selectClick==item?'active':'']">{{item}}</button>
 							</view>
-							<view class="btn-fixed flex">
-								<button type="default" class="bottom" style="margin-right: 25rpx;" @tap="hideModal">Cancel</button>
-								<button type="default" class="bottom" style="background-color: #FAA723;border: none;" @click="subClick">Confirm</button>
-							</view>
+						</view>
+						<view class="btn-fixed flex">
+							<button type="default" class="bottom" style="margin-right: 25rpx;" @tap="hideModal">Cancel</button>
+							<button type="default" class="bottom" style="background-color: #FAA723;border: none;" @click="subClick">Confirm</button>
 						</view>
 					</view>
 				</view>
 			</view>
 		</view>
+	</view>
 
 	</view>
 </template>
@@ -164,7 +164,7 @@
 		},
 		created() {
 			this.date()
-				this.fetchList()
+			this.fetchList()
 		},
 		mounted() {
 			this.$offset(".swiper-area").then(res => {
@@ -195,19 +195,28 @@
 			
 			},
 			chooseDate(e) {
+				console.log(e.target)
 				if (e.target.id === 'Before') {
-					 this.start_time = e.detail.value
-								 if(new Date(this.start_time).getTime()-new Date(this.end_time).getTime()>0){
-									 this.end_time=this.start_time
-								 }
+					if (new Date(e.detail.value).getTime() - new Date(this.end_time).getTime() > 0) {
+						this.start_time = e.detail.value
+						this.end_time = e.detail.value
+			
+					} else {
+						this.start_time = e.detail.value
+					}
 				} else {
-					 this.end_time = e.detail.value
+					if (new Date(this.start_time).getTime() - new Date(e.detail.value).getTime() > 0) {
+						console.log(1)
+						this.start_time = e.detail.value
+						this.end_time = e.detail.value
+			
+					} else {
+						this.end_time = e.detail.value
+					}
 				}
 				this.fetchList()
 			},
-			bindDateChange: function(e) {
-				e.target.dataset.title==='start'?this.start_time=e.detail.value:this.end_time=e.detail.value
-			},
+		
 			fetchList(){
 				this.tabs.forEach((v, i) => {
 					let json
