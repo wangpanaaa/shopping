@@ -80,6 +80,14 @@
 		{
 			"path":"pages/payment/cardInfos",
 			"style" : {}
+		},
+		{
+			"path":"pages/team/index",
+			"style":{}
+		},
+		{
+			"path":"pages/team/members",
+			"style":{}
 		}
     ],
 	"globalStyle": {

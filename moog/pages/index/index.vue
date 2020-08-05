@@ -136,7 +136,7 @@
 					<view class="basis-item animation-reverse" @click="navigateTo('/pages/accountDetail/index')">Account Details</view> 
 					<view class="basis-item animation-reverse">Recharge Record</view>
 					<view class="basis-item animation-reverse">Withdrawal Record</view>
-					<view class="basis-item animation-reverse">Team Report</view>
+					<view class="basis-item animation-reverse" @click="navigateTo('/pages/team/index')">Team Report</view>
 				</view>
 				<view class="basis-list basis-border">
 					<view class="basis-item" style="font-weight: bold;">Settings</view>
