@@ -16,7 +16,7 @@
 					<span class="iconfont icon-riqi"></span>
 					<picker id="Before" :value="start_time" @change="chooseDate" start="2020-01-01" :end="today" mode="date">{{start_time}}</picker>
 					to
-					<picker id="After"  :value="startEnd" @change="chooseDate" :start="start_time" :end="today" mode="date">{{startEnd}}</picker>
+					<picker id="After"  :value="end_time" @change="chooseDate" :start="start_time" :end="today" mode="date">{{end_time}}</picker>
 				</view>
 			</view>
 		</view> 
@@ -38,7 +38,7 @@
 					 refresher-background="#f5f5f5" @scroll="scroll" @scrolltolower="loadMore" :refresher-triggered="tabs[1].data.triggered"
 					 :refresher-enabled="tabs[1].data.isTop" @scrolltoupper="toupper" @refresherrefresh="onRefresh" @refresherrestore="onRestore">
 						<view style="min-height:100%;padding-top: 20rpx" v-if="true">
-							<accountDetailList  v-for="item in tabs[2].data.list" :key="tabs[1].name+item.id" :item="item"></accountDetailList>
+							<accountDetailList  v-for="item in tabs[1].data.list" :key="tabs[1].name+item.id" :item="item"></accountDetailList>
 						</view> 
 						<view class="cu-load" :class="tabs[1].data.bottom?'over':'loading'"></view>
 					</scroll-view>
@@ -76,7 +76,7 @@
 							<picker class='After'  mode="date" :value="end_time" :start="start_time" :end="today" @change="chooseDate" data-title='end'>
 								<view class="timeSelect_end">
 									<span> End Time</span>
-									<view class="input"><input type="text" v-model="startEnd" placeholder-class="placeholder" disabled placeholder="Please enter the End time" /></view>
+									<view class="input"><input type="text" v-model="end_time" placeholder-class="placeholder" disabled placeholder="Please enter the End time" /></view>
 								</view>
 							</picker>
 							<view class="selection ">
@@ -115,7 +115,6 @@
 				start_time:'',//传递参数
 				end_time:'',//传递参数
 				today:'',
-				startEnd:'',
 				tabs: [{
 						name: 'All',
 						left: '16.65%',
@@ -180,7 +179,7 @@
 			date() {
 				var date = new Date();
 			
-			this.startEnd=this.today = date.getFullYear() +
+			this.end_time=this.today = date.getFullYear() +
 					"-" +
 					(date.getMonth() < 9 ?
 						"0" + (date.getMonth() + 1) :
@@ -198,11 +197,11 @@
 			chooseDate(e) {
 				if (e.target.id === 'Before') {
 					 this.start_time = e.detail.value
-								 if(new Date(this.start_time).getTime()-new Date(this.startEnd).getTime()>0){
-									 this.startEnd=this.start_time
+								 if(new Date(this.start_time).getTime()-new Date(this.end_time).getTime()>0){
+									 this.end_time=this.start_time
 								 }
 				} else {
-					 this.startEnd = e.detail.value
+					 this.end_time = e.detail.value
 				}
 				this.fetchList()
 			},
@@ -285,10 +284,10 @@
 					this.$msg('Please wait on')
 					 return
 				};
-				this.fetching=true
 				if (this.tabs[this.currentTabs].data.bottom){
 					return 
 				}
+					this.fetching=true
 				 ++this.tabs[this.currentTabs].data.page
 				let json
 				if (this.tabs[this.currentTabs].name === 'All') {
@@ -302,7 +301,7 @@
 					json = {
 						page: this.tabs[this.currentTabs].data.page,
 						count: this.tabs[this.currentTabs].data.count,
-						type: this.tabs[this.currentTabs].data.status,
+						type: this.tabs[this.currentTabs].data.type,
 						start_time:this.start_time,
 						end_time:this.end_time
 					}
@@ -310,7 +309,9 @@
 
 				this.$http.post('/api/account/detail', json).then(data => {
 					this.fetching = false;
+					console.log(this.fetching)
 					this.tabs[this.currentTabs].data.list = this.tabs[this.currentTabs].data.list.concat(data.data)
+					console.log(this.tabs[this.currentTabs].data.list)
 					if (data.data.length <this.tabs[this.currentTabs].data.count) this.tabs[this.currentTabs].data.bottom = true
 				})
 
