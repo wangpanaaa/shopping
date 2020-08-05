@@ -42,7 +42,6 @@
 			placeholder="Please enter the transfer amount"
 			v-model="amount"
 			type="number"
-			focus
 		/>
 		<view class="padding flex flex-direction">
 			<button

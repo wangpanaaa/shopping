@@ -21,11 +21,11 @@
 			</view>
 			<view class="phone">
 				<view class="iconfont icon-zhanghao"></view>
-				<input  v-model="loginData.username" placeholder="Please enter the account name">
+				<input  v-model="loginData.username" placeholder="Please enter the account name" style="height:100rpx">
 			</view>
 			<view class="phone">
 				<view class="iconfont icon-mima"></view>
-				<input v-model="loginData.password" class="password" password placeholder="Enter password ">
+				<input v-model="loginData.password" class="password" password placeholder="Enter password " style="height:100rpx">
 				<view class="enter">
 					<view class="iconfont icon-fanhui1 text" @click="enter"></view>
 				</view>
@@ -40,19 +40,19 @@
 			</view>
 			<view class="phone">
 				<view class="iconfont icon-zhanghao"></view>
-				<input  v-model="regData.username" placeholder="Please enter the account name">
+				<input  v-model="regData.username" placeholder="Please enter the account name" style="height:100rpx">
 			</view>
 			<view class="phone">
 				<view class="iconfont icon-mima"></view>
-				<input v-model="regData.pwd" class="password" password placeholder="Please enter the password">
+				<input v-model="regData.pwd" class="password" password placeholder="Please enter the password" style="height:100rpx">
 			</view>
 			<view class="phone">
 				<view class="iconfont icon-mima"></view>
-				<input v-model="regData.repwd" class="password" password placeholder="Enter the password again">
+				<input v-model="regData.repwd" class="password" password placeholder="Enter the password again" style="height:100rpx">
 			</view>
 			<view class="phone">
 				<view class="iconfont icon-iconfontzhizuobiaozhun49"></view>
-				<input v-model="regData.agentid" class="password" placeholder="Please enter the invitation code">
+				<input v-model="regData.agentid" class="password" placeholder="Please enter the invitation code" style="height:100rpx">
 			</view>
 			<button @click="registerSub">sign up</button>
 			<view class="sign">Alredy have an account? <text class="text" @click="signIn"> Sign in</text> </view>
