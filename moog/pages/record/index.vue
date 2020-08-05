@@ -3,7 +3,7 @@
 		<cu-custom bgColor="bg-black" :isBack="true">
 			<block slot="content">Grab Order Record</block>
 			<block slot="right">
-				<span class="iconfont icon-kefu"></span>
+				<span class="iconfont icon-kefu" @tap='navigateTo("/pages/customerSerice/index")'></span>
 			</block>
 		</cu-custom>
 		<view class="head">
@@ -295,6 +295,11 @@
 					.exec()
 				);
 			},
+			navigateTo(url){
+				uni.navigateTo({
+					url:url
+				})
+			}
 		}
 	}
 </script>
