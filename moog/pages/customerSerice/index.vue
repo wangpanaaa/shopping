@@ -40,7 +40,10 @@
 				uni.setClipboardData({
 					data: e,
 					success: function() {
-						console.log('success');
+						uni.showToast({
+							icon:"none",
+							title:"Copy Success"
+						})
 					}
 				});
 			}

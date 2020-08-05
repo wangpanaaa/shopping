@@ -40,7 +40,7 @@
 			</view>
 			<view class="cu-modal" :class="modalName == 'Image' ? 'show' : ''">
 				<view class="cu-dialog order-details">
-					<image :src="goodsItem.goods_pic"></image>
+					<image :src="goodsItem.goods_pic" mode="aspectFit"></image>
 					<view class="describe">
 						{{goodsItem.goods_name}}
 					</view>
@@ -230,13 +230,15 @@ export default {
 }
 
 .order-details {
+	background-color: #fff;
 	width: auto;
 	margin-left: 75rpx;
 	margin-right: 75rpx;
 	image {
-		margin: 20rpx 35rpx 0 35rpx;
-		// height: 400rpx;
 		width: 400rpx;
+		height: 400rpx;
+		margin: 20rpx 0;
+		
 	}
 
 	.describe {
