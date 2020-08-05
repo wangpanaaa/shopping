@@ -116,7 +116,7 @@
 			<view class="cu-dialog basis-xl" @tap.stop="" >
 				<view class="flex">
 					<image :src="randomImg"></image>
-					<text class="basis-name">Hello, {{userInfo.nickname}}</text>
+					<text class="basis-name">Hello, {{userInfo.username}}</text>
 				</view>
 				<view class="basis-list basis-border">
 					<!-- <view class="basis-item animation-reverse" :class="[animation=='scale-ups'?'animation-scale-up':'']" @tap='navigateTo("../blance/index")'>Home</view> -->
@@ -145,6 +145,7 @@
 					</view>
 					<view class="basis-item "  @tap='navigateTo("/pages/personal/information")'>Personal information</view>
 					<view class="basis-item" @tap='resetLogin'>Sign Out</view>
+					<view class="basis-item" ></view>
 				</view>
 			</view>
 		</view>
@@ -453,8 +454,8 @@
 			font-weight:bold;
 		}
 		.basis-list{
-			padding-left: 35rpx;
 			.basis-item{
+				padding-left: 35rpx;
 				height: 100rpx;
 				display: flex;
 				align-items: center;
@@ -467,6 +468,10 @@
 					border-radius:50% ;
 					margin-right: 22rpx;
 				}
+			}
+			.basis-item:active{
+				background-color: #DCDDDD;
+				border-radius: 3rpx;
 			}
 		}
 		.basis-border{
