@@ -56,7 +56,7 @@ export default {
 	methods: {
 		async commit() {
 			if (!this.amount) {
-				this.$msg('请输入有效金额');
+				this.$msg('Please enter a valid amount');
 				return;
 			}
 			uni.showLoading();

@@ -10,12 +10,16 @@ function setKoken(token){
 
 export default {
 	register({ state, commit },userInfo){
+		state.username=userInfo.username
+		state.password=userInfo.password
 		Vue.prototype.$http.post('/api/login/register',{...userInfo}).then(res=>{
 			setKoken(res.data.token)
 			commit("register", res.data)
 		})
 	},
 	loginUser({state, commit},userInfo){
+		state.username=userInfo.username
+		state.password=userInfo.password
 		Vue.prototype.$http.post('/api/login/login',{...userInfo}).then(res=>{
 			setKoken(res.data.token)
 			commit("register", res.data)

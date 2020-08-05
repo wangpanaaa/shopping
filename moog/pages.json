@@ -96,6 +96,10 @@
 		{
 			"path":"pages/rechargeRecord/index",
 			"style":{}
+		},
+		{
+			"path":"pages/financialRecords/index",
+			"style":{}
 		}
     ],
 	"globalStyle": {

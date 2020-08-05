@@ -1,3 +1,5 @@
 export default {
-	userInfo:null
+	userInfo:null,//用户信息
+	username:null,//输入账号
+	password:null,//输入的密码
 }

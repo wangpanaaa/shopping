@@ -2,12 +2,12 @@
 	<view class="accountDetailListContain">
 		<view class="date">
 			<span class="iconfont icon-riqi"></span> {{item.create_time}}
-			<view class="mount" :style="{color:true?'#E9611B':'#A8A8A8'}">{{'Dimissed'}}</view>
+			<view class="mount" :style="{color:true?'#E9611B':'#A8A8A8'}">{{item.status}}</view>
 		</view>
 		<view class="title">
-			<view style="font-size:34rpx; color: #333333;font-weight: bold;">{{'Cash Out'}} 
-			<span style="font-size:34rpx; color: #333333; font-weight: normal; margin-left: 28rpx;">₹ 375</span></view>
-			 <span  style="font-size:26rpx; color: #333333;">Institution Name</span>
+			<view style="font-size:34rpx; color: #333333;font-weight: bold;">{{item.channel}} 
+			<span style="font-size:34rpx; color: #333333; font-weight: normal; margin-left: 28rpx;">{{item.amount}}</span></view>
+			 <span  style="font-size:26rpx; color: #333333;">{{item.remark}}</span>
 		</view>
 		<view class="memo" style=" color: #A8A8A8; ">
 			{{item.desc}}

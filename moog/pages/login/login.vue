@@ -64,7 +64,8 @@
 	// import user from '../../common/user.js'
 	export default {
 		async onLoad() {
-			this.loginData.username=uni.getStorageSync('username') || ''
+			this.loginData.username=this.$store.state.username || ''
+			this.loginData.password=this.$store.state.password || ''
 			const {...data}=await this.$http.post('/api/config/getconfig')
 			uni.setStorageSync('settings',JSON.stringify(data.data))
 			this.settings=data.data
@@ -111,7 +112,7 @@
 			enter(){
 				if(!this.loginData.username || !this.loginData.password){
 					uni.showToast({
-						title:'请完善相关信息'
+						title:'Please complete the relevant information'
 					})
 					return
 				}
@@ -129,7 +130,7 @@
 			registerSub(){
 				if(!this.regData.username || !this.regData.pwd ||!this.regData.repwd){
 					uni.showToast({
-						title:'请完善相关信息'
+						title:'Please complete the relevant information'
 					})
 					return
 				}

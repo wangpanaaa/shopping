@@ -76,7 +76,7 @@
 					start_time: this.start_time,
 					end_time: this.end_time
 				}
-				this.$http.post('/api/account/detail', json).then(data => {
+				this.$http.post('/api/account/withdrawal_list', json).then(data => {
 					this.page.list = data.data
 					if (data.data.length <this.page.count) this.page.bottom = true
 					uni.hideLoading()

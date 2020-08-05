@@ -1,7 +1,7 @@
 <template>
 	<view class="accountDetailContain">
 		<cu-custom bgColor="bg-black" :isBack="true">
-			<block slot="content">Account details</block>
+			<block slot="content">Financial Records</block>
 			<block slot="right">
 				<span class="iconfont icon-liebiao" @click="showModal"></span>
 			</block>
@@ -26,27 +26,9 @@
 					</scroll-view>
 				</swiper-item>
 
-				<swiper-item>
-					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
-					 refresher-background="#f5f5f5" @scroll="scroll" @scrolltolower="loadMore" :refresher-triggered="tabs[1].data.triggered"
-					 :refresher-enabled="tabs[1].data.isTop" @scrolltoupper="toupper" @refresherrefresh="onRefresh" @refresherrestore="onRestore">
-						<view style="min-height:100%;padding-top: 20rpx" v-if="true">
-							<accountDetailList  v-for="item in tabs[2].data.list" :key="tabs[1].name+item.id" :item="item"></accountDetailList>
-						</view>
-						<view class="cu-load" :class="tabs[1].data.bottom?'over':'loading'"></view>
-					</scroll-view>
-				</swiper-item>
+				
 
-				<swiper-item>
-					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
-					 refresher-background="#f5f5f5" @scroll="scroll" @scrolltolower="loadMore" :refresher-triggered="tabs[2].data.triggered"
-					 :refresher-enabled="tabs[2].data.isTop" @scrolltoupper="toupper" @refresherrefresh="onRefresh" @refresherrestore="onRestore">
-						<view style="min-height:100%;padding-top: 20rpx" v-if="true">
-							<accountDetailList v-for="item in tabs[2].data.list" :key="tabs[2].name+item.id" :item="item"></accountDetailList>
-						</view>
-						<view class="cu-load" :class="tabs[2].data.bottom?'over':'loading'"></view>
-					</scroll-view>
-				</swiper-item>
+				
 			</swiper>
 		</view>
 		<view class="cu-modal drawer-modal justify-end drawer-zIndex" :class="modalName?'show':''" @tap="hideModal">
@@ -104,11 +86,12 @@
 		},
 		data() {
 			return {
+				start_time:'',//传递参数
+				end_time:'',//传递参数
 				tabs: [{
-						name: 'All',
+						name: 'Storage records',
 						left: '16.65%',
-						start_time:'',//传递参数
-						end_time:'',//传递参数
+						
 						data: {
 							page: 1, //传递参数
 							count: 10, //传递参数
@@ -119,25 +102,12 @@
 						}
 					},
 					{
-						name: 'Transfer out',
+						name: 'Extract Records',
 						left: '50%',
 						data: {
 							page: 1, //传递参数
 							count: 10, //传递参数
 							type: 1, //传递参数
-							list: [], //返回参数
-							bottom: false,
-							isTop: true,
-							triggered: 'restore'
-						}
-					},
-					{
-						name: 'Transfer IN',
-						left: '83.35%',
-						data: {
-							page: 1, //传递参数
-							count: 10, //传递参数
-							type: 2, //传递参数
 							list: [], //返回参数
 							bottom: false,
 							isTop: true,
@@ -166,7 +136,7 @@
 			fetchList(){
 				this.tabs.forEach((v, i) => {
 					let json
-					if (v.name === 'All') {
+					if (v.name === 'Storage records') {
 						json = {
 							page: v.data.page,
 							count: v.data.count,
@@ -185,7 +155,7 @@
 					this.$http.post('/api/account/detail', json).then(data => {
 						v.data.list = data.data
 						if (data.data.length <v.data.count)v.data.bottom = true
-						if (v.name === 'All') uni.hideLoading()
+						if (v.name === 'Storage records') uni.hideLoading()
 					})
 				})
 			},
@@ -247,7 +217,7 @@
 				}
 				 ++this.tabs[this.currentTabs].data.page
 				let json
-				if (this.tabs[this.currentTabs].name === 'All') {
+				if (this.tabs[this.currentTabs].name === 'Storage records') {
 					json = {
 						page: this.tabs[this.currentTabs].data.page,
 						count: this.tabs[this.currentTabs].data.count,
@@ -279,7 +249,7 @@
 				this.tabs[this.currentTabs].data.bottom = false;
 				console.log(this.tabs[this.currentTabs].data)
 				let json
-				if (this.tabs[this.currentTabs].name === 'All') {
+				if (this.tabs[this.currentTabs].name === 'Storage records') {
 					json = {
 						page: this.tabs[this.currentTabs].data.page,
 						count: this.tabs[this.currentTabs].data.count,
@@ -300,7 +270,7 @@
 				this.$http.post('/api/account/detail', json).then(data => {
 					this.tabs[this.currentTabs].data.list = data.data
 					if (data.data.length <this.tabs[this.currentTabs].data.count) this.tabs[this.currentTabs].data.bottom = true
-					if (this.tabs[this.currentTabs].name === 'All') uni.hideLoading()
+					if (this.tabs[this.currentTabs].name === 'Storage records') uni.hideLoading()
 				}).finally(r => {
 					//下拉刷新 计算接口响应时间，如果小于1s自己加延迟否则刷新组件会失效，框架导致
 					let totalTime = new Date().getTime() - beginTime
