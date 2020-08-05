@@ -108,7 +108,7 @@
 					<image src="../../static/images/britain.png"></image>
 					<text style="font-size: 28rpx;" @tap="navigateTo('./settingLanguage')">EngLish</text>
 				</view>
-				<view style="font-size: 22rpx;text-align: center;margin-top: 33rpx;">Copyright © 2020. E-Nuggets All rights reserved.</view>
+				<!-- <view style="font-size: 22rpx;text-align: center;margin-top: 33rpx;">Copyright © 2020. E-Nuggets All rights reserved.</view> -->
 			</view>
 		</view>
 		
@@ -393,11 +393,12 @@
 	.bottom-text{
 		background-color: #222F3E;
 		color: #fff;
-		height: 74px;
+		height: 74rpx;
 		.iocn-english{
-			padding-top: 33rpx;
+			height: 74rpx;
 			display: flex;
 			justify-content: center;
+			align-items: center;
 		}
 		image{
 			border-radius:50% ;
