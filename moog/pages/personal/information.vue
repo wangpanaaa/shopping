@@ -7,8 +7,8 @@
 					<image :src="userImg"></image>
 					<view @click="portrait = true" class="iconfont icon-xiugai"></view>
 				</view>
-				<text class="username">{{ username }}</text>
-				<text class="code">Invitation code: {{ code }}</text>
+				<text class="username">{{ userInfo.username }}</text>
+				<text class="code">Invitation code: {{ userInfo.uid }}</text>
 			</view>
 			<view class="main">
 				<view class="cell">
@@ -16,7 +16,7 @@
 						<view class="iconfont icon-jj"></view>
 						<text>My Phone Number</text>
 					</view>
-					<text>{{ tel }}</text>
+					<text>{{ userInfo.tel }}</text>
 				</view>
 				<view class="cell" @click="topages('/pages/payment/cardInfos')">
 					<view class="left">
@@ -24,7 +24,7 @@
 						<text>My Bank Card</text>
 					</view>
 					<view class="right">
-						<text>{{ card }}</text>
+						<text>{{ userInfo.bank_account }}</text>
 						<view class="iconfont icon-huabanbeifen12"></view>
 					</view>
 				</view>
@@ -136,6 +136,7 @@ export default {
 	},
 	computed: {
 		userInfo: function() {
+			console.log(this.$store.state.userInfo)
 			return this.$store.state.userInfo || JSON.parse(uni.getStorageSync('userInfo'));
 		}
 	},

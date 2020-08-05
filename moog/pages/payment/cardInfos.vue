@@ -68,7 +68,7 @@
 						style="background:linear-gradient(180deg,rgba(247,222,162,1),rgba(240,194,80,1));
 		border:2px solid;height:110rpx;border: 1px solid rgb(143, 144, 144);"
 					>
-						MyriadPro-Regular
+						Modify information 
 						<text class="cuIcon-right"></text>
 					</button>
 				</view>

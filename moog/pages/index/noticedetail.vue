@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<cu-custom bgColor="bg-black" :isBack="true">
-			<block slot="content">Message list</block>
+			<block slot="content">{{title}}</block>
 		</cu-custom>
 		<view v-if='content'>
 			<view class="content" v-html="content">
@@ -15,12 +15,16 @@
 		data(){
 			return {
 				content:'',
+				title:'',
 			}
 		},
 		async onLoad(option) {
+			uni.showLoading()
 			const {id}=option
 			const {data}=await this.$http.post('/api/config/noticedetail',{id})
+			uni.hideLoading()
 			this.content=data.content
+			this.title=data.title
 		}
 	}
 </script>

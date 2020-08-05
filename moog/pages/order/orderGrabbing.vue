@@ -1,5 +1,5 @@
 <template>
-	<view class="order-box">
+	<view class="order-box" :class="[loadModal || orderConfirm ?'noClick':'']">
 		<view class="tabber">
 			<view style="display: flex;">
 				<text
@@ -33,12 +33,12 @@
 				<view class="title">Order description</view>
 				<view style="color: #A8A8A8;font-size: 24rpx;line-height:46rpx;" v-html="explainText"></view>
 			</view>
-			<view class="cu-load load-modal" v-if="loadModal">
+			<view class="cu-load load-modal" v-if="loadModal" >
 				<!-- <video src="../../static/video/1596197044700795.mp4" autoplay loop muted :show-play-btn="false" :controls="false" objectFit="cover"></video> -->
 				<image src="../../static/images/Loading.gif" class="modal-image"></image>
 				<text>Matching grab orders...</text>
 			</view>
-			<view class="cu-modal" :class="modalName == 'Image' ? 'show' : ''">
+			<view class="cu-modal" :class="modalName == 'Image' ? 'show' : ''"  @tap.stop='noClick'>
 				<view class="cu-dialog order-details">
 					<image :src="goodsItem.goods_pic" mode="aspectFit"></image>
 					<view class="describe">
@@ -68,7 +68,7 @@
 				<text>{{confirmTitleItem}}</text>
 			</view>
 
-			<view class="cu-modal" :class="modalName == 'order-suc' ? 'show' : ''">
+			<view class="cu-modal" :class="modalName == 'order-suc' ? 'show' : ''" @tap.stop='noClick'>
 				<view class="cu-dialog order-suc">
 					<image src="../../static/images/order-suc.png"></image>
 					<view class="completed">order Completed</view>
@@ -116,6 +116,9 @@ export default {
 		this.explainText=data.data
 	},
 	methods: {
+		noClick(){
+			
+		},
 		BackPage() {
 			uni.navigateBack({
 				delta: 1
@@ -127,8 +130,8 @@ export default {
 		},
 		async LoadModal(e) {
 			this.loadModal = true;
-			const data=await this.$http.post('/api/order/mkorder');
-			setTimeout(() => {
+			setTimeout(async () => {
+				const data=await this.$http.post('/api/order/mkorder');
 				this.loadModal = false;
 				this.modalName = 'Image';
 				this.goodsItem=data.data
@@ -156,9 +159,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.noClick{
+	pointer-events: none;
+}
 .order-box {
 	font-family:Myriad Pro;
 	.tabber {
+		position: relative;
 		height: 365rpx;
 		background: url(../../static/images/Place-an-order.png);
 		background-size: cover;

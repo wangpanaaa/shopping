@@ -52,7 +52,7 @@
 			<view style="font-size: 24rpx;color: #A8A8A8;padding-top: 73rpx;padding-left: 28rpx;">Select member session </view>
 			<view style="font-size: 40rpx;color: #333;padding-top: 18rpx;padding-left: 32rpx;font-weight: bold;">Mission Hall </view>
 			<view class="etsy-list">
-				<view class="item-etsy" v-for="item of amazonList" :key='item.id' @tap="item.lock===0?navigateTo('/pages/order/orderGrabbing'):''">
+				<view class="item-etsy" v-for="item of amazonList" :key='item.id' @tap="showAlert(item.lock)">
 					<image :src="item.pic" class="etsy-image"></image>
 					<image src="../../static/images/lock.png" class="lock" v-if="item.lock===1" ></image>
 					<text class="etsy-text">{{item.subtitle}}</text>
@@ -114,7 +114,7 @@
 		
 		<view class="cu-modal drawer-modal justify-start" :class="modalName=='DrawerModalL'?'show':''" @tap="hideModal">
 			<view class="cu-dialog basis-xl" @tap.stop="" >
-				<view class="flex">
+				<view class="flex" @tap='navigateTo("/pages/personal/information")'>
 					<image :src="randomImg"></image>
 					<text class="basis-name">Hello, {{userInfo.username}}</text>
 				</view>
@@ -256,6 +256,18 @@
 			clearInterval(memSetInterval)
 		},
 		methods: {
+			showAlert(e){
+				if(e===0){
+					this.navigateTo('/pages/order/orderGrabbing')
+				}else{
+					uni.showToast({
+						icon:"none",
+						title:"Your balance is insufficient"
+					})
+				}
+				console.log(e)
+					// item.lock===0?navigateTo('/pages/order/orderGrabbing'):''
+			},
 			showModal(e) {
 				this.modalName = e.currentTarget.dataset.target
 			},

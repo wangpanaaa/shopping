@@ -2,7 +2,7 @@
 	<view class="cashoutContain">
 		<cu-custom bgColor="bg-black" :isBack="true">
 			<block slot="content">CASH OUT</block>
-			<block slot="right"><span class="iconfont icon-bangzhu"></span></block>
+			<!-- <block slot="right"><span class="iconfont icon-bangzhu"></span></block> -->
 		</cu-custom>
 		<view class="content">
 			<view class="head">
@@ -64,7 +64,7 @@ export default {
 				amount: this.amount
 			});
 			uni.showToast({
-				icon: 'success',
+				icon: 'none',
 				title: res.msg
 			});
 			uni.hideLoading()
