@@ -131,7 +131,7 @@
 				</view>
 				<view class="basis-list basis-border">
 					<view class="basis-item" style="font-weight: bold;">Explore</view>
-					<view class="basis-item " @tap='navigateTo("/pages/index/noticedetail")'>Notice</view>
+					<view class="basis-item " @tap='navigateTo("/pages/message/list")'>Notice</view>
 					<view class="basis-item " @click="navigateTo('/pages/accountDetail/index')">Account Details</view> 
 					<view class="basis-item " @click="navigateTo('/pages/rechargeRecord/index')">Recharge Record</view>
 					<view class="basis-item " @click="navigateTo('/pages/withdrawalRecord/index')">Withdrawal Record</view>

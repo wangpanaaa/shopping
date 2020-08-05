@@ -3,20 +3,14 @@
 		<cu-custom bgColor="bg-black" :isBack="true">
 			<block slot="content">Message list</block>
 		</cu-custom>
-		<view>
-			<view class="date">2020-07-30 17:48</view>
-			<view class="item">
+		<view v-for="(item,index) in listData" :key="index">
+			<view class="date">{{item.create_time}}</view>
+			<view class="item" @tap="topages(item.id)">
 				<view class="title">
-					<text class="textl">Information title </text>
+					<text class="textl">{{item.title}}</text>
 					<text class="cuIcon-right" style="color: #DCDDDD;"></text>
 				</view>
-				<view class="text-con">
-					Hollywood legend Olivia de Havilland, star of "Gone With the Wind", died on Sunday at the age of 104 at her home in
-					Paris. Publicist Lisa Goldberg said she died peacefully of natural causes.
-					The doe-eyed actress beloved to millions as the sainted Melanie Wilkes in "Gone With the Wind" also won two Oscars
-					and was key to improving Hollywood's contract system for actors.
-					De Havilland was the sister of fellow Oscar winner Joan Fontaine, with whom she had a troubled relationship.
-				</view>
+				<view class="text-con" v-html="item.content"></view>
 			</view>
 		</view>
 		
@@ -27,7 +21,21 @@
 <script>
 	export default {
 		data() {
-			return {}
+			return {
+				listData:[]
+			}
+		},
+		onLoad() {
+			this.$http.post('/api/config/notice').then(res=>{
+				this.listData=res.data
+			})
+		},
+		methods:{
+			topages(e){
+				uni.navigateTo({
+					url:'/pages/index/noticedetail?id='+e
+				})
+			}
 		}
 	}
 </script>
