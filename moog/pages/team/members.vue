@@ -4,8 +4,8 @@
 			<block slot="content">Team Report</block>
 			<block slot="right">
 				<view>
-					<span class="iconfont icon-baobiao" style="font-size: 40rpx;"></span>
-					<span class="iconfont icon-liebiao" style='margin:0 30rpx 0 47rpx;font-size: 38rpx;'></span>
+					<span class="iconfont icon-baobiao" style="font-size: 40rpx;" @tap='navigateTo("/pages/team/index")'></span>
+					<span class="iconfont icon-liebiao" style='margin:0 30rpx 0 47rpx;font-size: 38rpx;' @click="showModal"></span>
 				</view>
 			</block>
 		</cu-custom>
@@ -19,64 +19,148 @@
 					<span class="iconfont icon-riqi"></span>
 					<picker id="Before" :value="start_time" @change="chooseDate" start="2020-01-01" :end="today" mode="date">{{start_time}}</picker>
 					to
-					<picker id="After"  :value="end_time" @change="chooseDate" :start="start_time" :end="today" mode="date">{{end_time}}</picker>
+					<picker id="After" :value="end_time" @change="chooseDate" :start="start_time" :end="today" mode="date">{{end_time}}</picker>
 				</view>
 			</view>
 		</view>
-		 <view class="swiper-area">
-		 	<swiper :acceleration="false" :current="currentTabs" @change="change" @transition="swiperStart" @animationfinish="swiperEnd">
-		 		<swiper-item>
-		 			<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
-		 			 refresher-background="#f5f5f5" @scroll="scroll" @scrolltolower="loadMore" :refresher-triggered="tabs[0].data.triggered"
-		 			 :refresher-enabled="tabs[0].data.isTop" @scrolltoupper="toupper" @refresherrefresh="onRefresh" @refresherrestore="onRestore">
-		 				<view style="min-height:100%;padding-top: 20rpx;" v-if="true">
-		 				<view style="background: #0081FF;height: 40px;"  v-for="(item,index) in tabs[0].data.list" :key="tabs[0].name+item.id" >
-		 					{{index}}
-		 				</view>
-		 				</view>
-		 				<view class="cu-load" :class="tabs[0].data.bottom?'over':'loading'"></view>
-		 			</scroll-view>
-		 		</swiper-item>
-		 
-		 		<swiper-item>
-		 			<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
-		 			 refresher-background="#f5f5f5" @scroll="scroll" @scrolltolower="loadMore" :refresher-triggered="tabs[1].data.triggered"
-		 			 :refresher-enabled="tabs[1].data.isTop" @scrolltoupper="toupper" @refresherrefresh="onRefresh" @refresherrestore="onRestore">
-		 				<view style="min-height:100%;padding-top: 20rpx" v-if="true">
-							<view style="background: #0081FF;height: 40px;"  v-for="(item,index) in tabs[1].data.list" :key="tabs[1].name+item.id" >
-								{{index}}
+		<view class="swiper-area">
+			<swiper :acceleration="false" :current="currentTabs" @change="change" @transition="swiperStart" @animationfinish="swiperEnd">
+				<swiper-item>
+					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
+					 refresher-background="#f5f5f5" @scroll="scroll" @scrolltolower="loadMore" :refresher-triggered="tabs[0].data.triggered"
+					 :refresher-enabled="tabs[0].data.isTop" @scrolltoupper="toupper" @refresherrefresh="onRefresh" @refresherrestore="onRestore">
+						<view style="min-height:100%;padding-top: 20rpx;" v-if="true">
+							<view  class="cu-list menu-avatar" >
+								<view class="cu-item" v-for="(item,index) in tabs[0].data.list" :key="tabs[0].name+item.id" style="margin-bottom: 10rpx;">
+									<view class="cu-avatar round lg">
+										<image :src="headimglist[Math.floor(Math.random()*15)]" style="width: 100rpx;height: 100rpx;"></image>
+									</view>
+									<view class="content">
+										<view>
+											<view style="font-size:30rpx;font-family:Myriad Pro;margin-right: 19rpx;">{{item.username}}</view>
+											<view style="width: 126rpx;height: 40rpx;border-radius:5rpx;text-align: center;" :class="[item.level==1?'level1':item.level==2?'level2':'level3']">{{item.levelstr}}</view>
+										</view>
+										<view class=" flex justify-between" style="margin-top: 10px;">
+											<text class="iconfont icon-jj"></text>
+											<text style="font-size:26rpx;margin-top: 20rpx;">{{item.tel}}</text>
+										</view>
+
+									</view>
+									<view style="text-align: right;margin-right: 30rpx;">
+										<view style="font-family:Arial;font-size:34rpx;">{{item.balance}}</view>
+										<view style="font-size:26rpx;color: #A8A8A8;margin-top: 20rpx;">
+											{{item.create_time}}
+										</view>
+									</view>
+								</view>
 							</view>
-		 				</view> 
-		 				<view class="cu-load" :class="tabs[1].data.bottom?'over':'loading'"></view>
-		 			</scroll-view>
-		 		</swiper-item>
-		 
-		 		<swiper-item>
-		 			<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
-		 			 refresher-background="#f5f5f5" @scroll="scroll" @scrolltolower="loadMore" :refresher-triggered="tabs[2].data.triggered"
-		 			 :refresher-enabled="tabs[2].data.isTop" @scrolltoupper="toupper" @refresherrefresh="onRefresh" @refresherrestore="onRestore">
-		 				<view style="min-height:100%;padding-top: 20rpx" v-if="true">
-		 				<view style="background: #0081FF;height: 40px;"  v-for="(item,index) in tabs[2].data.list" :key="tabs[2].name+item.id" >
-		 					{{index}}
-		 				</view>
-		 				</view>
-		 				<view class="cu-load" :class="tabs[2].data.bottom?'over':'loading'"></view>
-		 			</scroll-view>
-		 		</swiper-item>
+						</view>
+						<view class="cu-load" :class="tabs[0].data.bottom?'over':'loading'"></view>
+					</scroll-view>
+				</swiper-item>
+
+				<swiper-item>
+					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
+					 refresher-background="#f5f5f5" @scroll="scroll" @scrolltolower="loadMore" :refresher-triggered="tabs[1].data.triggered"
+					 :refresher-enabled="tabs[1].data.isTop" @scrolltoupper="toupper" @refresherrefresh="onRefresh" @refresherrestore="onRestore">
+						<view style="min-height:100%;padding-top: 20rpx" v-if="true">
+							<view  class="cu-list menu-avatar" >
+								<view class="cu-item" v-for="(item,index) in tabs[1].data.list" :key="tabs[0].name+item.id" style="margin-bottom: 10rpx;">
+									<view class="cu-avatar round lg">
+										<image :src="headimglist[Math.floor(Math.random()*15)]" style="width: 100rpx;height: 100rpx;"></image>
+									</view>
+									<view class="content">
+										<view>
+											<view style="font-size:30rpx;font-family:Myriad Pro;margin-right: 19rpx;">{{item.username}}</view>
+											<view style="width: 126rpx;height: 40rpx;border-radius:5rpx;text-align: center;" :class="[item.level==1?'level1':item.level==2?'level2':'level3']">{{item.levelstr}}</view>
+										</view>
+										<view class=" flex justify-between" style="margin-top: 10px;">
+											<text class="iconfont icon-jj"></text>
+											<text style="font-size:26rpx;margin-top: 20rpx;">{{item.tel}}</text>
+										</view>
+								
+									</view>
+									<view style="text-align: right;margin-right: 30rpx;">
+										<view style="font-family:Arial;font-size:34rpx;">{{item.balance}}</view>
+										<view style="font-size:26rpx;color: #A8A8A8;margin-top: 20rpx;">
+											{{item.create_time}}
+										</view>
+									</view>
+								</view>
+							</view>
+						</view>
+						<view class="cu-load" :class="tabs[1].data.bottom?'over':'loading'"></view>
+					</scroll-view>
+				</swiper-item>
+
+				<swiper-item>
+					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
+					 refresher-background="#f5f5f5" @scroll="scroll" @scrolltolower="loadMore" :refresher-triggered="tabs[2].data.triggered"
+					 :refresher-enabled="tabs[2].data.isTop" @scrolltoupper="toupper" @refresherrefresh="onRefresh" @refresherrestore="onRestore">
+						<view style="min-height:100%;padding-top: 20rpx" v-if="true">
+							<view  class="cu-list menu-avatar" >
+								<view class="cu-item" v-for="(item,index) in tabs[2].data.list" :key="tabs[0].name+item.id" style="margin-bottom: 10rpx;">
+									<view class="cu-avatar round lg">
+										<image :src="headimglist[Math.floor(Math.random()*15)]" style="width: 100rpx;height: 100rpx;"></image>
+									</view>
+									<view class="content">
+										<view>
+											<view style="font-size:30rpx;font-family:Myriad Pro;margin-right: 19rpx;">{{item.username}}</view>
+											<view style="width: 126rpx;height: 40rpx;border-radius:5rpx;text-align: center;" :class="[item.level==1?'level1':item.level==2?'level2':'level3']">{{item.levelstr}}</view>
+										</view>
+										<view class=" flex justify-between" style="margin-top: 10px;">
+											<text class="iconfont icon-jj"></text>
+											<text style="font-size:26rpx;margin-top: 20rpx;">{{item.tel}}</text>
+										</view>
+								
+									</view>
+									<view style="text-align: right;margin-right: 30rpx;">
+										<view style="font-family:Arial;font-size:34rpx;">{{item.balance}}</view>
+										<view style="font-size:26rpx;color: #A8A8A8;margin-top: 20rpx;">
+											{{item.create_time}}
+										</view>
+									</view>
+								</view>
+							</view>
+						</view>
+						<view class="cu-load" :class="tabs[2].data.bottom?'over':'loading'"></view>
+					</scroll-view>
+				</swiper-item>
 				<swiper-item>
 					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
 					 refresher-background="#f5f5f5" @scroll="scroll" @scrolltolower="loadMore" :refresher-triggered="tabs[3].data.triggered"
 					 :refresher-enabled="tabs[3].data.isTop" @scrolltoupper="toupper" @refresherrefresh="onRefresh" @refresherrestore="onRestore">
 						<view style="min-height:100%;padding-top: 20rpx" v-if="true">
-						<view style="background: #0081FF;height: 40px;"  v-for="(item,index) in tabs[3].data.list" :key="tabs[3].name+item.id" >
-							{{index}}
-						</view>
+							<view  class="cu-list menu-avatar" >
+								<view class="cu-item" v-for="(item,index) in tabs[3].data.list" :key="tabs[0].name+item.id" style="margin-bottom: 10rpx;">
+									<view class="cu-avatar round lg">
+										<image :src="headimglist[Math.floor(Math.random()*15)]" style="width: 100rpx;height: 100rpx;"></image>
+									</view>
+									<view class="content">
+										<view>
+											<view style="font-size:30rpx;font-family:Myriad Pro;margin-right: 19rpx;">{{item.username}}</view>
+											<view style="width: 126rpx;height: 40rpx;border-radius:5rpx;text-align: center;" :class="[item.level==1?'level1':item.level==2?'level2':'level3']">{{item.levelstr}}</view>
+										</view>
+										<view class=" flex justify-between" style="margin-top: 10px;">
+											<text class="iconfont icon-jj"></text>
+											<text style="font-size:26rpx;margin-top: 20rpx;">{{item.tel}}</text>
+										</view>
+								
+									</view>
+									<view style="text-align: right;margin-right: 30rpx;">
+										<view style="font-family:Arial;font-size:34rpx;">{{item.balance}}</view>
+										<view style="font-size:26rpx;color: #A8A8A8;margin-top: 20rpx;">
+											{{item.create_time}}
+										</view>
+									</view>
+								</view>
+							</view>
 						</view>
 						<view class="cu-load" :class="tabs[3].data.bottom?'over':'loading'"></view>
 					</scroll-view>
 				</swiper-item>
-		 	</swiper>
-		 </view>
+			</swiper>
+		</view>
 		<view class="cu-modal drawer-modal justify-end drawer-zIndex" :class="modalName?'show':''" @tap="hideModal">
 			<view class="cu-dialog basis-90" @tap.stop="">
 				<view style="background-color: #FFFFFF;height: 100%;">
@@ -86,29 +170,32 @@
 					<view style="padding:0 30rpx;">
 						<view class="timeSelect">
 							<view class="timeSelect_title">
-								TIME SELECTION 
+								TIME SELECTION
 							</view>
-							<picker id='Before' mode="date" :value="start_time" start="2020-01-01" :end="today" @change="chooseDate" data-title='start'>
+							<picker id='Before' mode="date" :value="start_time" start="2020-01-01" :end="today" @change="chooseDate"
+							 data-title='start'>
 								<view class="timeSelect_start">
 									<span>Starting time</span>
-									<view class="input"><input type="text" v-model="start_time"  placeholder-class="placeholder" disabled placeholder="Please enter the start time" /></view>
+									<view class="input"><input type="text" v-model="start_time" placeholder-class="placeholder" disabled
+										 placeholder="Please enter the start time" /></view>
 								</view>
 							</picker>
-							<picker id='After'  mode="date" :value="end_time" :start="start_time" :end="today" @change="chooseDate" data-title='end'>
+							<picker id='After' mode="date" :value="end_time" :start="start_time" :end="today" @change="chooseDate"
+							 data-title='end'>
 								<view class="timeSelect_end">
 									<span> End Time</span>
 									<view class="input"><input type="text" v-model="end_time" placeholder-class="placeholder" disabled placeholder="Please enter the End time" /></view>
 								</view>
 							</picker>
-							<view class="selection ">
+							<!-- <view class="selection ">
 								State selection
 							</view>
 							<view class="btn-list flex">
-								
+
 								<view class="item" v-for="(item,index) in selectData" :key='index'>
 									<button type="default" class="bottom" @tap="handSelect(item)" :class="[selectClick==item?'active':'']">{{item}}</button>
 								</view>
-							</view>
+							</view> -->
 							<view class="btn-fixed flex">
 								<button type="default" class="bottom" style="margin-right: 25rpx;" @tap="hideModal">Cancel</button>
 								<button type="default" class="bottom" style="background-color: #FAA723;border: none;" @click="subClick">Confirm</button>
@@ -118,27 +205,29 @@
 				</view>
 			</view>
 		</view>
-		
+
 	</view>
 </template>
 
 <script>
 	import dateSelect from "pages/accountDetail/components/dateSelect.vue"
-		import {throttle} from "@/common/util.js";
+	import {
+		throttle
+	} from "@/common/util.js";
 	export default {
-		components:{
+		components: {
 			dateSelect
 		},
-		data(){
+		data() {
 			return {
-				start_time:'',//传递参数
-				end_time:'',//传递参数
-				today:'',
+				start_time: '', //传递参数
+				end_time: '', //传递参数
+				today: '',
 				tabs: [{
 						name: 'All',
 						left: '12.5%',
-						start_time:'',//传递参数
-						end_time:'',//传递参数
+						start_time: '', //传递参数
+						end_time: '', //传递参数
 						data: {
 							page: 1, //传递参数
 							count: 10, //传递参数
@@ -188,12 +277,30 @@
 						}
 					}
 				],
-			scrollViewHeight: '',
-			currentTabs: 0,
-			fetching:false,
-			modalName: '',
-			selectData:['Paid','Unpaid'],
-			selectClick:'',
+				scrollViewHeight: '',
+				currentTabs: 0,
+				fetching: false,
+				modalName: '',
+				selectData: ['Paid', 'Unpaid'],
+				selectClick: '',
+				headimglist:[
+					require('../../static/images/face/face1.png'),
+					require('../../static/images/face/face2.png'),
+					require('../../static/images/face/face3.png'),
+					require('../../static/images/face/face4.png'),
+					require('../../static/images/face/face5.png'),
+					require('../../static/images/face/face6.png'),
+					require('../../static/images/face/face7.png'),
+					require('../../static/images/face/face8.png'),
+					require('../../static/images/face/face9.png'),
+					require('../../static/images/face/face10.png'),
+					require('../../static/images/face/face11.png'),
+					require('../../static/images/face/face12.png'),
+					require('../../static/images/face/face13.png'),
+					require('../../static/images/face/face14.png'),
+					require('../../static/images/face/face15.png'),
+					require('../../static/images/face/face16.png')
+				],
 			}
 		},
 		created() {
@@ -208,12 +315,18 @@
 				this.scrollViewHeight = res.height;
 			});
 		},
-		
+
 		methods: {
+			navigateTo(url) {
+				uni.navigateTo({
+					url:url
+				})
+				
+			},
 			date() {
 				var date = new Date();
-			
-			this.end_time=this.today = date.getFullYear() +
+
+				this.end_time = this.today = date.getFullYear() +
 					"-" +
 					(date.getMonth() < 9 ?
 						"0" + (date.getMonth() + 1) :
@@ -226,7 +339,7 @@
 						"0" + (date.getMonth() + 1) :
 						date.getMonth() + 1) +
 					"-" + '01'
-			
+
 			},
 			chooseDate(e) {
 				console.log(e.target)
@@ -234,7 +347,7 @@
 					if (new Date(e.detail.value).getTime() - new Date(this.end_time).getTime() > 0) {
 						this.start_time = e.detail.value
 						this.end_time = e.detail.value
-			
+
 					} else {
 						this.start_time = e.detail.value
 					}
@@ -243,43 +356,43 @@
 						console.log(1)
 						this.start_time = e.detail.value
 						this.end_time = e.detail.value
-			
+
 					} else {
 						this.end_time = e.detail.value
 					}
 				}
 				this.fetchList()
 			},
-		
-			fetchList(){
+
+			fetchList() {
 				this.tabs.forEach((v, i) => {
 					let json
 					if (v.name === 'All') {
-						v.data.page=1
+						v.data.page = 1
 						json = {
 							page: v.data.page,
 							count: v.data.count,
-							start_time:this.start_time,
-							end_time:this.end_time
+							start_time: this.start_time,
+							end_time: this.end_time
 						}
 					} else {
-								v.data.page=1 
+						v.data.page = 1
 						json = {
 							page: v.data.page,
 							count: v.data.count,
 							type: v.data.type,
-							start_time:this.start_time,
-							end_time:this.end_time
+							start_time: this.start_time,
+							end_time: this.end_time
 						}
 					}
-					this.$http.post('/api/account/detail', json).then(data => {
+					this.$http.post('/api/user/team', json).then(data => {
 						v.data.list = data.data
-						if (data.data.length <v.data.count)v.data.bottom = true
+						if (data.data.length < v.data.count) v.data.bottom = true
 						if (v.name === 'All') uni.hideLoading()
 					})
 				})
 			},
-			
+
 			swiperStart(e) {
 				this.tabs[this.currentTabs].data.isTop = false
 			},
@@ -287,9 +400,9 @@
 				this.tabs[this.currentTabs].data.isTop = true
 			},
 			'onRefresh': throttle(function() {
-				if (this.fetching){
+				if (this.fetching) {
 					this.$msg('Please wait on')
-					 return
+					return
 				};
 				this.fetching = true;
 				this.refresh()
@@ -302,7 +415,7 @@
 					this.$nextTick(() => {
 						this.tabs[this.currentTabs].data.isTop = false
 					})
-		
+
 				} else {
 					this.$nextTick(() => {
 						this.tabs[this.currentTabs].data.isTop = true
@@ -323,41 +436,41 @@
 			},
 			loadMore() {
 				// 上拉加载
-				if (this.fetching){
+				if (this.fetching) {
 					this.$msg('Please wait on')
-					 return
+					return
 				};
-				if (this.tabs[this.currentTabs].data.bottom){
-					return 
+				if (this.tabs[this.currentTabs].data.bottom) {
+					return
 				}
-					this.fetching=true
-				 ++this.tabs[this.currentTabs].data.page
+				this.fetching = true
+					++this.tabs[this.currentTabs].data.page
 				let json
 				if (this.tabs[this.currentTabs].name === 'All') {
 					json = {
 						page: this.tabs[this.currentTabs].data.page,
 						count: this.tabs[this.currentTabs].data.count,
-						start_time:this.start_time,
-						end_time:this.end_time
+						start_time: this.start_time,
+						end_time: this.end_time
 					}
 				} else {
 					json = {
 						page: this.tabs[this.currentTabs].data.page,
 						count: this.tabs[this.currentTabs].data.count,
 						type: this.tabs[this.currentTabs].data.type,
-						start_time:this.start_time,
-						end_time:this.end_time
+						start_time: this.start_time,
+						end_time: this.end_time
 					}
 				}
-		
-				this.$http.post('/api/account/detail', json).then(data => {
+
+				this.$http.post('/api/user/team', json).then(data => {
 					this.fetching = false;
 					console.log(this.fetching)
 					this.tabs[this.currentTabs].data.list = this.tabs[this.currentTabs].data.list.concat(data.data)
 					console.log(this.tabs[this.currentTabs].data.list)
-					if (data.data.length <this.tabs[this.currentTabs].data.count) this.tabs[this.currentTabs].data.bottom = true
+					if (data.data.length < this.tabs[this.currentTabs].data.count) this.tabs[this.currentTabs].data.bottom = true
 				})
-		
+
 			},
 			refresh() {
 				// 下拉刷新,数据初始化，没有备份p、c的值，更改data的p、c值需要一起更改下面p、c的值
@@ -371,23 +484,23 @@
 					json = {
 						page: this.tabs[this.currentTabs].data.page,
 						count: this.tabs[this.currentTabs].data.count,
-						start_time:this.start_time,
-						end_time:this.end_time
+						start_time: this.start_time,
+						end_time: this.end_time
 					}
 				} else {
 					json = {
 						page: this.tabs[this.currentTabs].data.page,
 						count: this.tabs[this.currentTabs].data.count,
 						type: this.tabs[this.currentTabs].data.type,
-						start_time:this.start_time,
-						end_time:this.end_time
+						start_time: this.start_time,
+						end_time: this.end_time
 					}
 				}
 				this.fetching = true;
 				let beginTime = new Date().getTime()
-				this.$http.post('/api/account/detail', json).then(data => {
+				this.$http.post('/api/user/team', json).then(data => {
 					this.tabs[this.currentTabs].data.list = data.data
-					if (data.data.length <this.tabs[this.currentTabs].data.count) this.tabs[this.currentTabs].data.bottom = true
+					if (data.data.length < this.tabs[this.currentTabs].data.count) this.tabs[this.currentTabs].data.bottom = true
 					if (this.tabs[this.currentTabs].name === 'All') uni.hideLoading()
 				}).finally(r => {
 					//下拉刷新 计算接口响应时间，如果小于1s自己加延迟否则刷新组件会失效，框架导致
@@ -404,15 +517,15 @@
 						console.log('刷新大1秒');
 					}
 				})
-		
+
 			},
 			showModal(e) {
-		
+
 				this.modalName = true
 			},
 			hideModal(e) {
 				this.modalName = null
-				this.selectClick=''
+				this.selectClick = ''
 			},
 			$offset(selector) {
 				// 获取组件内元素的 offset 信息
@@ -425,10 +538,10 @@
 					.exec()
 				);
 			},
-			handSelect(data){
-				this.selectClick=data
+			handSelect(data) {
+				this.selectClick = data
 			},
-			subClick(){
+			subClick() {
 				this.fetchList()
 				this.hideModal()
 			}
@@ -437,6 +550,15 @@
 </script>
 
 <style lang="scss" scoped>
+	.level1{
+		background-color: #FFD557;
+	}
+	.level2{
+		background-color: #5792FF;
+	}
+	.level3{
+		background-color: #FF7757;
+	}
 	.team {
 		height: 100%;
 		display: flex;
@@ -444,42 +566,44 @@
 		box-sizing: border-box;
 		background-color: #f6f6f6;
 	}
+
 	.icon-riqi {
 		font-size: 30rpx;
 		margin-right: 10rpx;
 	}
-	
+
 	.date {
 		margin-top: 30rpx;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-	
+
 		picker {
 			padding: 10rpx;
 		}
 	}
+
 	.icon-liebiao {
 		font-size: 50rpx;
 		padding-right: 30rpx;
 	}
-	
+
 	.swiper-area {
 		flex: 1;
 		overflow: hidden;
-	
+
 		uni-swiper {
 			height: 100%;
 		}
 	}
-	
+
 	.nav {
 		padding: 30rpx;
 		height: 230rpx;
 		color: #FFFFFF;
 		background: rgba(34, 47, 62, 1);
 	}
-	
+
 	.head_tabs {
 		width: calc(100%);
 		box-shadow: 0px 6rpx 24rpx 8rpx rgba(0, 0, 0, 0.1);
@@ -488,7 +612,7 @@
 		display: flex;
 		align-items: center;
 		position: relative;
-	
+
 		span {
 			flex: 1;
 			color: rgba(168, 168, 168, 1);
@@ -496,7 +620,7 @@
 			display: inline-block;
 			text-align: center;
 		}
-	
+
 		.line {
 			width: 18rpx;
 			height: 10rpx;
@@ -507,19 +631,19 @@
 			transition: left .3s;
 			transform: translateX(-50%);
 		}
-	
+
 		.tabsChecked {
 			color: rgba(51, 51, 51, 1);
 			font-weight: bold;
 		}
 	}
-	
+
 	.drawer-zIndex {
 		z-index: 9999;
 		top: var(--status-bar-height); //覆盖样式;
 		text-align: left;
 	}
-	
+
 	.title {
 		height: 88rpx;
 		background: #222F3E;
@@ -528,9 +652,9 @@
 		color: rgba(255, 255, 255, 1);
 		font-size: 34rpx;
 		font-family: Myriad Pro;
-	
+
 	}
-	
+
 	.timeSelect {
 		&_title {
 			padding: 45rpx 0 66rpx 0rpx;
@@ -539,7 +663,7 @@
 			font-weight: bold;
 			color: rgba(51, 51, 51, 1);
 		}
-	
+
 		&_start,
 		&_end {
 			box-sizing: border-box;
@@ -548,11 +672,11 @@
 			font-family: Myriad Pro;
 			font-weight: bold;
 			display: flex;
-	
+
 			>span {
 				width: 200rpx;
 			}
-	
+
 			.input {
 				flex: 1;
 				padding: 0 30rpx;
@@ -560,6 +684,7 @@
 				border-bottom: 1px solid #dddede;
 				position: relative;
 				margin-bottom: 50rpx;
+
 				&::after {
 					content: '';
 					display: block;
@@ -573,14 +698,14 @@
 					right: 0;
 					bottom: 0;
 				}
-	
+
 				input {
 					font-size: 30rpx;
 					font-family: Myriad Pro;
 					font-weight: 400;
 					color: rgba(51, 51, 51, 1);
 				}
-	
+
 				.placeholder {
 					font-size: 26rpx;
 					font-family: Myriad Pro;
@@ -588,45 +713,50 @@
 					color: rgba(51, 51, 51, .4);
 				}
 			}
-	
+
 		}
-	
+
 	}
-	.selection{
-		font-family:Myriad Pro;
-		font-weight:bold;
-		line-height:40rpx;
+
+	.selection {
+		font-family: Myriad Pro;
+		font-weight: bold;
+		line-height: 40rpx;
 	}
-	.btn-list{
+
+	.btn-list {
 		margin-top: 44rpx;
 		flex-wrap: wrap;
 		justify-content: space-between;
+
 		.item {
-			.bottom{
+			.bottom {
 				margin-top: 20rpx;
-				width:294rpx;
-				height:110rpx;
+				width: 294rpx;
+				height: 110rpx;
 				line-height: 110rpx;
-				background:rgba(246,246,246,1);
-				border:1px solid rgba(220, 221, 221, 1);
-				border-radius:10rpx;
+				background: rgba(246, 246, 246, 1);
+				border: 1px solid rgba(220, 221, 221, 1);
+				border-radius: 10rpx;
 			}
-			.active{
+
+			.active {
 				color: #fff;
 				background-color: #222F3E;
 			}
 		}
 	}
-	.btn-fixed{
+
+	.btn-fixed {
 		position: fixed;
-		bottom:50rpx;
-		.bottom{
-			width:300rpx;
-			height:98rpx;
-			background:#fff;
-			border:1px solid #222F3E;
-			border-radius:5px;
+		bottom: 50rpx;
+
+		.bottom {
+			width: 300rpx;
+			height: 98rpx;
+			background: #fff;
+			border: 1px solid #222F3E;
+			border-radius: 5px;
 		}
 	}
-	
 </style>

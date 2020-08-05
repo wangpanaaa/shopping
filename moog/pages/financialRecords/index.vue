@@ -91,7 +91,6 @@
 				tabs: [{
 						name: 'Storage records',
 						left: '16.65%',
-						
 						data: {
 							page: 1, //传递参数
 							count: 10, //传递参数

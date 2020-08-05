@@ -79,7 +79,7 @@
 								<view class="input"><input type="text" v-model="end_time" placeholder-class="placeholder" disabled placeholder="Please enter the End time" /></view>
 							</view>
 						</picker>
-						<view class="selection ">
+						<!-- <view class="selection ">
 							State selection
 						</view>
 						<view class="btn-list flex">
@@ -87,7 +87,7 @@
 							<view class="item" v-for="(item,index) in selectData" :key='index'>
 								<button type="default" class="bottom" @tap="handSelect(item)" :class="[selectClick==item?'active':'']">{{item}}</button>
 							</view>
-						</view>
+						</view> -->
 						<view class="btn-fixed flex">
 							<button type="default" class="bottom" style="margin-right: 25rpx;" @tap="hideModal">Cancel</button>
 							<button type="default" class="bottom" style="background-color: #FAA723;border: none;" @click="subClick">Confirm</button>
