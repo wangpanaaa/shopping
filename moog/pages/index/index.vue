@@ -92,9 +92,9 @@
 					<view style="font-size: 30rpx;color: #333333;font-weight:bold;">Agent cooperation   </view>
 					<view style="font-size: 24rpx;color: #A8A8A8;width: 230rpx;margin: 20rpx auto;">We look forward to  your joining     </view>
 				</view>
-				<view class="us-item">
+				<view class="us-item" @tap="navigateTo('/pages/calculator/index')">
 					<image src="../../static/images/Calculate-revenue.png"></image>
-					<view style="font-size: 30rpx;color: #333333;font-weight:bold;">Calculate revenue   </view>
+					<view style="font-size: 30rpx;color: #333333;font-weight:bold;" >Calculate revenue   </view>
 					<view style="font-size: 24rpx;color: #A8A8A8;width: 280px;margin: 20rpx auto;">Earn commissions easily     </view>
 				</view>
 				<view class="us-item" @tap="navigateTo('/pages/index/noticedetail?id='+settings.rule)">

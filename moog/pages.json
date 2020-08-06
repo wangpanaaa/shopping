@@ -105,6 +105,10 @@
 		{
 			"path":"pages/financialRecords/index",
 			"style":{}
+		},
+		{
+			"path":"pages/calculator/index",
+			"style":{}
 		}
     ],
 	"globalStyle": {
