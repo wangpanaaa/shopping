@@ -9,11 +9,11 @@
 					</view>
 					<span class="iconfont icon-kefu" @tap='navigateTo("/pages/customerSerice/index")'></span>
 				</view>
-				<view class="title-text padding-116 padding-50">
+				<view class="title-text padding-116 padding-50" style="padding-bottom:16rpx;">
 					The new economy
 				</view>
 				<view class="title-text padding-50">Invite commissions</view>
-				<button class="cu-btn" style="margin-left: 50rpx;margin-top: 44rpx;" @tap='navigateTo("/pages/payment/financialManagement")'>Start the journey of wealth</button>
+				<button class="cu-btn" style="margin-left: 50rpx;margin-top: 34rpx;" @tap='navigateTo("/pages/payment/financialManagement")'>Start the journey of wealth</button>
 			</view>
 			<view class="flex box-list">
 					<view style="text-align: center;" @tap='navigateTo("/pages/payment/financialManagement")'>
@@ -50,7 +50,7 @@
 			</view>
 			
 			<view style="font-size: 24rpx;color: #A8A8A8;padding-top: 73rpx;padding-left: 28rpx;">Select member session </view>
-			<view style="font-size: 40rpx;color: #333;padding-top: 18rpx;padding-left: 32rpx;font-weight: bold;">Mission Hall </view>
+			<view style="font-size: 40rpx;color: #333;padding-top: 18rpx;padding-left: 32rpx;font-weight: bold;">MISSION Hall </view>
 			<view class="etsy-list">
 				<view class="item-etsy" v-for="item of amazonList" :key='item.id' @tap="showAlert(item.lock)">
 					<image :src="item.pic" class="etsy-image"></image>
@@ -61,11 +61,11 @@
 					</view>
 				</view>
 				
-			</view>
+			</view>	
 			
 			
 			<view style="font-size: 24rpx;color: #A8A8A8;padding-top: 73rpx;padding-left: 28rpx;">Three-level proxy model </view>
-			<view style="font-size: 40rpx;color: #333;padding-top: 18rpx;padding-left: 32rpx;font-weight: bold;">Member News </view>
+			<view style="font-size: 40rpx;color: #333;padding-left: 32rpx;font-weight: bold;">MEMBER NEWS </view>
 			<image :src="settings.ad_tiny" class="banner-image " ></image>
 			<view class="cu-list menu-avatar" style="padding: 10rpx 30rpx;height: 460rpx;" >
 				<view class="cu-item " style="border-radius: 10rpx;margin-bottom: 10rpx;"  v-for="(item,index) in memberNewArr" :key='index' >
@@ -74,7 +74,7 @@
 						<view class="text-grey">{{item.username}}</view>
 						<view class="text-gray text-sm flex justify-between">{{item.desc}}</view>
 					</view>
-					<view class="text-grey"> {{item.amount}}</view>
+					<view class="text-grey" style="width: 120rpx;"> {{item.amount}}</view>
 				</view>
 				
 			</view>
@@ -85,22 +85,22 @@
 				<view class="us-item" @tap="navigateTo('/pages/index/noticedetail?id='+settings.profile)">
 					<image src="../../static/images/company-profile.png"></image>
 					<view style="font-size: 30rpx;color: #333333;font-weight:bold;" >company profile </view>
-					<view style="font-size: 24rpx;color: #A8A8A8;width: 126px;margin: 20rpx 39rpx;">Professional grab order  platform  </view>
+					<view style="font-size: 24rpx;color: #A8A8A8;width: 280rpx;margin: 20rpx auto;">Professional grab order  platform  </view>
 				</view>
 				<view class="us-item" @tap="navigateTo('/pages/index/noticedetail?id='+settings.cooperation)">
 					<image src="../../static/images/Agent-cooperation.png"></image>
 					<view style="font-size: 30rpx;color: #333333;font-weight:bold;">Agent cooperation   </view>
-					<view style="font-size: 24rpx;color: #A8A8A8;width: 126px;margin: 20rpx 39rpx;">We look forward to  your joining     </view>
+					<view style="font-size: 24rpx;color: #A8A8A8;width: 230rpx;margin: 20rpx auto;">We look forward to  your joining     </view>
 				</view>
 				<view class="us-item">
 					<image src="../../static/images/Calculate-revenue.png"></image>
 					<view style="font-size: 30rpx;color: #333333;font-weight:bold;">Calculate revenue   </view>
-					<view style="font-size: 24rpx;color: #A8A8A8;width: 126px;margin: 20rpx 39rpx;">Earn commissions easily     </view>
+					<view style="font-size: 24rpx;color: #A8A8A8;width: 280px;margin: 20rpx auto;">Earn commissions easily     </view>
 				</view>
 				<view class="us-item" @tap="navigateTo('/pages/index/noticedetail?id='+settings.rule)">
 					<image src="../../static/images/Rule-description.png"></image>
 					<view style="font-size: 30rpx;color: #333333;font-weight:bold;">Rule description    </view>
-					<view style="font-size: 24rpx;color: #A8A8A8;width: 126px;margin: 20rpx 39rpx;">Keep your funds safe  </view>
+					<view style="font-size: 24rpx;color: #A8A8A8;width: 280rpx;margin: 20rpx auto;">Keep your funds safe  </view>
 				</view>
 			</view>
 			<view class="bottom-text">
@@ -109,6 +109,7 @@
 					<text style="font-size: 28rpx;" @tap="navigateTo('./settingLanguage')">EngLish</text>
 				</view>
 				<!-- <view style="font-size: 22rpx;text-align: center;margin-top: 33rpx;">Copyright © 2020. E-Nuggets All rights reserved.</view> -->
+				<view style="height: 40rpx;background-color: #222F3E;"></view>
 			</view>
 		</view>
 		
@@ -338,10 +339,14 @@
 	}
 	.box-list{
 		margin: -60rpx 20rpx 0 20rpx;
-		background: #fff;
+		background:rgba(255,255,255,1);
+		box-shadow:0px 7rpx 24rpx 8rpx rgba(0, 0, 0, 0.1);
+		opacity:0.96;
+		border-radius:5rpx;
 		height: 140rpx;
 		align-items: center;
 		justify-content: space-around;
+		
 		.icon-box{
 			width: 82rpx;
 			height: 64rpx;
@@ -356,6 +361,9 @@
 		margin: 30rpx 20rpx 0 20rpx;
 		background-color: #FAA41A;
 		color: #000;
+		box-shadow:0px 7rpx 24rpx 8rpx rgba(0, 0, 0, 0.1);
+		opacity:0.96;
+		border-radius:5rpx;
 	}
 	.icon-che{
 		font-size: 46rpx;
@@ -363,7 +371,8 @@
 	}
 	.banner-image{
 		height: 200rpx;
-		padding: 40rpx 30rpx 0 30rpx;
+		padding: 0 30rpx 0 30rpx;
+		margin-top:20rpx;
 		width: 100%;
 	}
 	.cu-item{
@@ -372,21 +381,23 @@
 	.advertisement{
 		height: 375rpx;
 		width: 100%;
-		padding: 34rpx 30rpx 0 30rpx;
+		padding: 0 30rpx 0 30rpx;
+		margin-top: 34rpx;
 	}
 	.us-list{
 		margin: 35rpx 30rpx 69rpx 30rpx;
 		flex-wrap: wrap;
 		justify-content: space-between;
 		.us-item{
+			width: 330rpx;
 			text-align: center;
 			background-color: #fff;
 			border-radius: 8rpx;
 			margin-bottom: 30rpx;
 			image{
-				width: 90rpx;
-				height: 90rpx;
-				margin: 29rpx 0 24rpx 0;
+				width: 180rpx;
+				height: 180rpx;
+				margin: 29rpx 0 22rpx 0;
 			}
 		}
 	}
@@ -402,8 +413,8 @@
 		}
 		image{
 			border-radius:50% ;
-			width: 18px;
-			height: 18px;
+			width: 35rpx;
+			height: 35rpx;
 			margin-right: 22rpx;
 		}
 	}
@@ -411,11 +422,13 @@
 		display: flex;
 		flex-wrap: wrap;
 		.item-etsy{
+			box-sizing: content-box;
 			margin-top: 30rpx;
 			position: relative;
-			width: 50%;
-			padding: 0 30rpx;
+			width: 330rpx;
+			padding: 0 0 0 30rpx;
 			.etsy-image{
+				width:330rpx;
 				height: 200rpx;
 			}
 			.lock{
@@ -437,6 +450,10 @@
 				font-size: 30rpx;
 			}
 		}
+	
+	.item-etsy:nth-child(2n+2){
+		padding: 0 30rpx;
+	}
 	}
 	.hidebox{
 		position: fixed;
