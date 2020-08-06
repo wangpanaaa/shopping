@@ -27,7 +27,7 @@
 					 refresher-background="#f5f5f5" @scroll="scroll" @scrolltolower="loadMore" :refresher-triggered="tabs[0].data.triggered"
 					 :refresher-enabled="tabs[0].data.isTop" @scrolltoupper="toupper" @refresherrefresh="onRefresh" @refresherrestore="onRestore">
 						<view style="min-height:100%;padding-top: 20rpx;" v-if="true">
-							<storageRecords v-for="item in tabs[0].data.list" :key="tabs[0].name+item.id" :item="item"></storageRecords>
+							<storageRecords v-for="item in tabs[0].data.list" :key="tabs[0].name+item.id" :item="item" @RollOut="commit"></storageRecords>
 						</view>
 						<view class="cu-load" :class="tabs[0].data.bottom?'over':'loading'"></view>
 					</scroll-view>
@@ -70,7 +70,7 @@
 									<view class="input"><input type="text" v-model="end_time" placeholder-class="placeholder" disabled placeholder="Please enter the End time" /></view>
 								</view>
 							</picker>
-							<view class="selection ">
+					<!-- 		<view class="selection ">
 								State selection
 							</view>
 							<view class="btn-list flex">
@@ -78,7 +78,7 @@
 								<view class="item" v-for="(item,index) in selectData" :key='index'>
 									<button type="default" class="bottom" @tap="handSelect(item)" :class="[selectClick==item?'active':'']">{{item}}</button>
 								</view>
-							</view>
+							</view> -->
 							<view class="btn-fixed flex">
 								<button type="default" class="bottom" style="margin-right: 25rpx;" @tap="hideModal">Cancel</button>
 								<button type="default" class="bottom" style="background-color: #FAA723;border: none;" @click="subClick">Confirm</button>
@@ -158,6 +158,13 @@
 		},
 
 		methods: {
+		async	commit(e){
+				let json={id:e.id}
+		  		uni.showLoading()
+				await	this.$http.post('/api/wmp_order/cashout', json)
+				uni.showToast()
+				e.statusattr='Depositing'
+			},
 			date() {
 				var date = new Date();
 

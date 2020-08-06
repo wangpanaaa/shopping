@@ -15,7 +15,7 @@
 			</view>
 			<text style=" font-size:28rpx;font-weight:bold;">₹ 25</text>
 		</view>
-		<view class="button" :class="{Dep:item.statusattr==='Extractable'?false:true}">
+		<view class="button" :class="{Dep:item.statusattr==='Extractable'?false:true}" @click="rollOut(item)">
 			 Roll-out
 		</view>
 	</view>
@@ -28,7 +28,15 @@ export default {
 			default: {}
 		}
 	},
-	created() {}
+	created() {},
+	methods:{
+		rollOut(item){
+			if(item.statusattr==='Extractable'){
+				this.$emit('RollOut',item)
+			}
+
+		}
+	}
 };
 </script>
 

@@ -102,7 +102,7 @@
 			// 	this.showRegister = false
 			// },
 			navigateTo(e) {
-				uni.navigateTo({
+				uni.redirectTo({
 					url:e
 				})
 			},
