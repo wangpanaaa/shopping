@@ -97,7 +97,10 @@
 	.bg-img {
 		color: #fff;
 		background-image: url(../../static/images/invite.png);
-		height: 526rpx;
+		height:476rpx;
+		/* #ifdef APP-PLUS */
+				height:calc(476rpx +  var(--status-bar-height));
+		/* #endif */
 
 		.flex {
 			padding-top: 20rpx;
@@ -115,12 +118,12 @@
 			text-align: center;
 			font-size: 50rpx;
 			font-weight: bold;
-			margin-top: 156rpx;
+			padding-top: 110rpx; 
 		}
 
 		.info-text {
 			text-align: center;
-			margin-top: 41rpx;
+			margin-top: 18rpx;
 			font-size: 30rpx;
 		}
 	}

@@ -353,7 +353,7 @@
 			transform: translate(-50%, -50%);
 			width: calc(100% - 45px);
 			box-shadow: 0px 6rpx 24rpx 8rpx rgba(0, 0, 0, 0.1);
-			border-radius: 23px;
+			border-radius: 6rpx;
 			background: rgba(255, 255, 255, .96);
 			height: 92rpx;
 			display: flex;

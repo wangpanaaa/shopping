@@ -25,9 +25,9 @@
 				<text style="font-size:30rpx;color: #12AC3D;">{{ userInfo.wmp_yesterday }}</text>
 			</view>
 		</view>
-		<view style="margin: 63rpx 0 36rpx 32rpx;font-size:30rpx;">Income standard</view>
+		<view style="margin: 63rpx 0 36rpx 32rpx;font-size:30rpx;font-weight: bold;">Income standard</view>
 		<radio-group class="days-list" @change="radioChange">
-			<view class="flex" v-for="(item, index) in IncomeList" :key="item.id" :class="[currentId == item.id?'':'opacitys']">
+			<view class="flex" v-for="(item, index) in IncomeList" :key="item.id" :class="[currentId == item.id?'opacitys':'']">
 				<view>
 					<view style="font-size:30rpx;font-weight:bold;">{{ item.wmp_name }}</view>
 					<view style="font-size: 26rpx;color: #FAA723;">{{ item.remark }}</view>
@@ -126,8 +126,11 @@ export default {
 	color: #fff;
 	background-image: url(../../static/images/financlal-management.png);
 	height: 360rpx;
+	/* #ifdef APP-PLUS */ 
+	height:calc(360rpx +  var(--status-bar-height));
+	/* #endif */
 	.flex {
-		padding-top: 20rpx;
+		padding-top: 10rpx;
 		align-items: center;
 		justify-content: space-between;
 	}
@@ -150,9 +153,6 @@ export default {
 		font-size: 50rpx;
 	}
 	.info-text {
-		/*  #ifdef H5  */
-			margin-top: 25rpx;
-		/*  #endif  */ 
 		text-align: center;
 		font-size: 26rpx;
 	}
@@ -163,7 +163,7 @@ export default {
 		font-size: 26rpx;
 		line-height: 78rpx;
 		justify-content: space-between;
-		border-bottom: 1px solid #dcdddd;
+		border-bottom: 1px dashed #dcdddd;
 	}
 }
 .days-list {
@@ -180,9 +180,11 @@ export default {
 		margin-bottom: 30rpx;
 		justify-content: space-evenly;
 		background-color: #ffffff;
+		opacity: 0.5;
 	}
 }
 .opacitys{
-	opacity: 0.5;
+	opacity: 1 !important;
+	border:2rpx solid rgba(250, 167, 35, 1);
 }
 </style>

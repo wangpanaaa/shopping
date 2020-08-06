@@ -1,16 +1,12 @@
 <template>
 	<view class="order-box" :class="[loadModal || orderConfirm ?'noClick':'']">
 		<view class="tabber">
-			<view style="display: flex;">
-				<text
-					class="cuIcon-back_android"
-					@tap="BackPage"
-				></text>
-				<view style="display: inline-block;width: 94%;font-size: 34rpx;">Place an order</view>
-			</view>
-			<view style="padding-top: 72rpx;font-size: 50rpx;color: #FFB745;">{{userInfo.balance}}</view>
-			<view style="font-size: 26rpx;padding-top: 25rpx;">Remaining available assets</view>
-			<view style="color: #A8A8A8;font-size: 26rpx;padding-top: 12rpx;">
+			<cu-custom :isBack="true">
+				<block slot="content">Place an order</block>
+			</cu-custom>
+			<view style="font-size: 50rpx;color: #FFB745;padding-top: 20rpx;">{{userInfo.balance}}</view>
+			<view style="font-size: 26rpx;padding-top: 8rpx;">Remaining available assets</view>
+			<view style="color: #A8A8A8;font-size: 26rpx;padding-top: 8rpx;">
 				Yesterday's earnings
 				<text style="color: #FFB745;">{{userInfo.commission_yesterday}}</text>
 			</view>
@@ -166,19 +162,21 @@ export default {
 	font-family:Myriad Pro;
 	.tabber {
 		position: relative;
-		height: 365rpx;
+		height: 355rpx;
+		/* #ifdef APP-PLUS */ 
+		height:calc(355rpx +  var(--status-bar-height));
+		/* #endif */
 		background: url(../../static/images/Place-an-order.png);
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
-		padding: 55rpx 0 0 30rpx;
 		color: #fff;
 		text-align: center;
 
 		.cuIcon-back_android {
 			font-size: 19px;
 		}
-	}
+	} 
 
 	.order-content {
 		margin: 30rpx;
@@ -186,7 +184,7 @@ export default {
 		.order-item {
 			height: 80rpx;
 			line-height: 80rpx;
-			border-bottom: 1px solid #dcdddd;
+			border-bottom: 1px dashed #dcdddd;
 			justify-content: space-between;
 		}
 

@@ -203,9 +203,8 @@ export default {
 		margin-top: 80rpx;
 		height: 110rpx;
 		background: linear-gradient(180deg, rgba(247, 222, 162, 1), rgba(240, 194, 80, 1));
-		border: 2rpx solid;
 		border-image: linear-gradient(170deg, rgba(172, 142, 66, 1), rgba(133, 108, 47, 1)) 2 2;
-		border-radius: 5rpx;
+		border-radius: 10rpx;
 		font-size: 34rpx;
 		font-family: Myriad Pro;
 		font-weight: 400;
@@ -213,7 +212,7 @@ export default {
 		line-height: 55px;
 		font-size: 36rpx;
 		color: #111111;
-
+    border: 1px solid rgb(143, 144, 144);
 		.icon-huabanbeifen12 {
 			font-size: 36rpx;
 			padding-right: 30rpx;

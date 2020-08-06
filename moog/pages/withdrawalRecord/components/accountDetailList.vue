@@ -7,10 +7,10 @@
 		<view class="title">
 			<view style="font-size:34rpx; color: #333333;font-weight: bold;">{{item.channel}} 
 			<span style="font-size:34rpx; color: #333333; font-weight: normal; margin-left: 28rpx;">{{item.amount}}</span></view>
-			 <span  style="font-size:26rpx; color: #333333;">{{item.remark}}</span>
+			 <span  style="font-size:26rpx; color: #333333;">{{item.channel}}</span>
 		</view>
 		<view class="memo" style=" color: #A8A8A8; ">
-			{{item.desc}}
+        Remarks: {{item.remark}}
 		</view>
 	</view>
 </template>
@@ -34,7 +34,7 @@
 		flex-direction: column;
 		height: 200rpx;
 		box-sizing: border-box;
-		padding: 24rpx;
+		padding: 30rpx;
 		box-sizing: border-box;
 		background: #FFFFFF;
 		display: flex;
@@ -53,7 +53,7 @@
 			}
 			.mount {
 				position: absolute;
-				right: 30rpx;
+				right: 0rpx;
 				top: 50%;
 				transform: translateY(-50%);
 				font-weight: bold;
@@ -63,6 +63,7 @@
 		}
 
 		.memo,.title {
+			margin-top: 12rpx;
 			font-size: 26rpx;
 			display: flex;
 			justify-content: space-between;

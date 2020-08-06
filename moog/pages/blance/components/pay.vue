@@ -207,8 +207,8 @@
 		width: 100%;
 		height: 108rpx;
 		background: linear-gradient(180deg, rgba(247, 222, 162, 1), rgba(240, 194, 80, 1));
-		border: 1rpx solid;
 		border-image: linear-gradient(170deg, rgba(172, 142, 66, 1), rgba(133, 108, 47, 1)) 1 1;
 		border-radius: 6rpx;
+	  border: 1px solid rgb(143, 144, 144);
 	}
 </style>

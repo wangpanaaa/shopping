@@ -311,6 +311,8 @@
 		.icon-mulu {
 			font-size: 64rpx;
 			padding:0 31rpx 0 30rpx;
+			position: relative;
+			top: 6rpx;
 		}
 		.icon-kefu{
 			font-size: 50rpx;
