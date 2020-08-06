@@ -1,8 +1,10 @@
 <template>
 	<view class="box">
-		<view class="title">WELCOME</view>
+		<cu-custom bgColor="bg-black" :isBack="true">
+			<block slot="content">CREATE ACCOUNT</block>
+		</cu-custom>
 		<view class="login flex">
-			<view class="text">LOGIN</view>
+			<view class="text">CREATE ACCOUNT</view>
 			<view class="language flex" @tap='navigateTo("/pages/index/settingLanguage")'>
 				<image src="../../static/images/britain.png" />
 				<text style="font-size:28rpx;font-family:Bahnschrift;font-weight:bold;">English</text>
@@ -11,16 +13,25 @@
 		<view class="from">
 			<view class="phone" style="margin-top: 46rpx;">
 				<view class="iconfont icon-zhanghao"></view>
-				<input v-model="loginData.username" class="password" placeholder="Enter your username" style="height:94rpx">
+				<input v-model="regData.username" class="password" placeholder="Enter your username" style="height:94rpx">
 			</view>
 			<view class="phone" style="margin-top: 20rpx;">
 				<view class="iconfont icon-mima"></view>
-				<input v-model="loginData.password" class="password" password placeholder="Entert password" style="height:94rpx">
+				<input v-model="regData.password" class="password" password placeholder="Set password" style="height:94rpx">
 			</view>
-			<view class="commit" @click="enter">
-				SIGN IN
+			<view class="phone" style="margin-top: 20rpx;">
+				<view class="iconfont icon-mima"></view>
+				<input v-model="regData.repwd" class="password" password placeholder="Enter the password again" style="height:94rpx">
 			</view>
-			<view class="register">Register a new <text style="text-decoration: underline;margin-left: 28rpx;" @tap='navigateTo("/pages/login/register")'>Sign up</text></view>
+			<view class="phone" style="margin-top: 20rpx;">
+				<view class="iconfont icon-mima"></view>
+				<input v-model="regData.agentid" class="password" placeholder="Entert password" style="height:94rpx">
+			</view>
+			
+			<view class="commit" @click="registerSub">
+				SIGN UP
+			</view>
+			<view class="register">Alredy have an account? <text style="text-decoration: underline;margin-left: 28rpx;" @tap='navigateTo("/pages/login/login")'>Sign in</text></view>
 		</view>
 	</view>
 </template>
@@ -28,8 +39,8 @@
 <script>
 	export default {
 		async onLoad() {
-			this.loginData.username=this.$store.state.username || ''
-			this.loginData.password=this.$store.state.password || ''
+			// this.loginData.username=this.$store.state.username || ''
+			// this.loginData.password=this.$store.state.password || ''
 			const {...data}=await this.$http.post('/api/config/getconfig')
 			uni.setStorageSync('settings',JSON.stringify(data.data))
 			this.settings=data.data
@@ -46,20 +57,20 @@
 		},
 		data() {
 			return {
-				loginData:{
-					username: '',
-					password: ''
-				},
+				// loginData:{
+				// 	username: '',
+				// 	password: ''
+				// },
 				settings:{},
 				// language: 'English',
 				// showAccountLogin: false,
 				// showRegister: false,
-				// regData:{
-				// 	username:'',
-				// 	pwd:'',
-				// 	repwd:'',
-				// 	agentid:'',
-				// }
+				regData:{
+					username:'',
+					pwd:'',
+					repwd:'',
+					agentid:'',
+				}
 			};
 		},
 		methods: {
@@ -73,16 +84,16 @@
 			// cancel(){
 			// 	this.showAccountLogin = false
 			// },
-			enter(){
-				if(!this.loginData.username || !this.loginData.password){
-					uni.showToast({
-						title:'Please complete the relevant information'
-					})
-					return
-				}
-				this.$store.dispatch('loginUser',this.loginData);
-				this.showAccountLogin = false
-			},
+			// enter(){
+			// 	if(!this.loginData.username || !this.loginData.password){
+			// 		uni.showToast({
+			// 			title:'Please complete the relevant information'
+			// 		})
+			// 		return
+			// 	}
+			// 	this.$store.dispatch('loginUser',this.loginData);
+			// 	this.showAccountLogin = false
+			// },
 			// forgot(){
 			// 	this.showAccountLogin = false
 			// 	this.showRegister = true
@@ -91,16 +102,16 @@
 			// 	this.showAccountLogin = false
 			// 	this.showRegister = false
 			// },
-			// registerSub(){
-			// 	if(!this.regData.username || !this.regData.pwd ||!this.regData.repwd){
-			// 		uni.showToast({
-			// 			title:'Please complete the relevant information'
-			// 		})
-			// 		return
-			// 	}
-			// 	this.$store.dispatch('register',this.regData);
-			// 	this.showRegister = false
-			// },
+			registerSub(){
+				if(!this.regData.username || !this.regData.pwd ||!this.regData.repwd){
+					uni.showToast({
+						title:'Please complete the relevant information'
+					})
+					return
+				}
+				this.$store.dispatch('register',this.regData);
+				this.showRegister = false
+			},
 			navigateTo(e) {
 				uni.navigateTo({
 					url:e
