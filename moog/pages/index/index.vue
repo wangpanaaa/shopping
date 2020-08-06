@@ -131,7 +131,7 @@
 					<view class="basis-item "  @tap="navigateTo('/pages/index/inviteFriend')">Invite Friends</view>
 				</view>
 				<view class="basis-list basis-border">
-					<view class="basis-item" style="font-weight: bold;">Explore</view>
+					<view class="basis-item noActive" style="font-weight: bold;">Explore</view>
 					<view class="basis-item " @tap='navigateTo("/pages/message/list")'>Notice</view>
 					<view class="basis-item " @click="navigateTo('/pages/accountDetail/index')">Account Details</view> 
 					<view class="basis-item " @click="navigateTo('/pages/rechargeRecord/index')">Recharge Record</view>
@@ -504,6 +504,9 @@
 			.basis-item:active{
 				background-color: #DCDDDD;
 				border-radius: 3rpx;
+			}
+			.noActive:active{
+					background-color: transparent;
 			}
 		}
 		.basis-border{

@@ -4,7 +4,7 @@
 			<cu-custom bgColor="bg-black" :isBack="true"><block slot="content">Personal information</block></cu-custom>
 			<view class="info">
 				<view class="img">
-					<image :src="userImg"></image>
+					<image :src="userImg" @click="previewImg(userImg)"></image>
 					<view @click="portrait = true" class="iconfont icon-xiugai"></view>
 				</view>
 				<text class="username">{{ userInfo.username }}</text>
@@ -68,7 +68,7 @@ export default {
 			card: '****888',
 			urlList: [
 				{
-					id: 1,
+					id: 1, 
 					img: require('../../static/images/face/face1.png')
 				},
 				{
@@ -144,6 +144,13 @@ export default {
 		this.userImg = uni.getStorageSync('randomImg');
 	},
 	methods: {
+		previewImg (arr, index) {
+		  uni.previewImage({
+		    current: index,
+		    urls: typeof arr == 'string' ? [arr] : arr,
+		    indicator: "number"
+		  })
+		},
 		topages(e) {
 			uni.navigateTo({
 				url: e
@@ -156,6 +163,7 @@ export default {
 		},
 		handClick(e) {
 			this.clickData = e;
+			this.previewImg(e.img)
 		}
 	}
 };
