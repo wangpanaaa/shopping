@@ -7,10 +7,10 @@
 			</block>
 		</cu-custom>
 		<view class="head">
-			<view class="head_title">
+<!-- 			<view class="head_title">
 				<p>This data is provided by Tesco </p>
 				<p>Grab Order Record </p>
-			</view>
+			</view> -->
 			<view class="head_bg">
 				<image src="../../static/images/recordHeadBg.png" mode=""></image>
 			</view>
@@ -318,7 +318,7 @@
 	}
 
 	.head {
-		padding: 24rpx 30rpx 0 30rpx;
+		padding: 0rpx 30rpx 0 30rpx;
 		position: relative;
 
 		&_title>p {

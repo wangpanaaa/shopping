@@ -114,7 +114,7 @@
 			height: 90rpx;
 			align-items: center;
 			justify-content: space-between;
-			border-bottom:1px solid #DCDDDD ;
+			border-bottom:1px solid #F1F1F1 ;
 		}
 	}
 </style>

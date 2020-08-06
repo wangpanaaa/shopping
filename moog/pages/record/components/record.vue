@@ -31,7 +31,7 @@
 			<view class="recordFoot_item">
 				<span>Estimated refund</span><span style="color: #ffb44e;font-size: 16px;font-weight: bold;">{{data.refund}}</span>
 			</view>
-			<view class="recordFoot_button" v-if="data.status==2">
+			<view class="recordFoot_button" v-if="data.status==0">
 				   <button type="default">Cancel</button>
 					 <button type="default" @click="submit">Submit</button>
 			</view>
@@ -62,7 +62,7 @@
 		methods:{
 			submit(){
 				uni.navigateTo({
-					url:"/pages/blance/index"
+					url:"/pages/order/orderGrabbing"
 				})
 			}
 		}

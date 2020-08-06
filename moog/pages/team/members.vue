@@ -1,6 +1,6 @@
 <template>
 	<view class="team">
-		<cu-custom bgColor="bg-black" :isBack="true">
+		<cu-custom bgColor="bg-black" :isBack="true" backRoute="/pages/index/index">
 			<block slot="content">Team Report</block>
 			<block slot="right">
 				<view>

@@ -49,12 +49,22 @@
 				type: String,
 				default: ''
 			},
+			backRoute: {
+				type: String,
+				default: ''
+			},
 		},
 		methods: {
 			BackPage() {
-				uni.navigateBack({
-					delta: 1
-				});
+			 if(this.backRoute){
+				 uni.navigateTo({
+				 	url:this.backRoute
+				 })
+			 }else{
+				 uni.navigateBack({
+				 	delta: 1
+				 });
+			 }
 			}
 		}
 	}

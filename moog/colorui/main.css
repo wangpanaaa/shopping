@@ -1027,7 +1027,7 @@ button.cuIcon.lg {
 }
 
 .cu-load.loading::after {
-	content: "加载中...";
+	content: "loading...";
 }
 
 .cu-load.over::before {
