@@ -17,15 +17,17 @@
 			</view>
 			<view class="phone" style="margin-top: 20rpx;">
 				<view class="iconfont icon-mima"></view>
-				<input v-model="regData.password" class="password" password placeholder="Set password" style="height:94rpx">
+				<input v-model="regData.password" class="password" :password="showPassword" placeholder="Set password" style="height:94rpx" maxlength="20">
+				<view class="iconfont xianshi" :class="[showPassword ? 'icon-xianshi' : 'icon-yincang']" @tap="changePassword"></view>
 			</view>
 			<view class="phone" style="margin-top: 20rpx;">
 				<view class="iconfont icon-mima"></view>
-				<input v-model="regData.repwd" class="password" password placeholder="Enter the password again" style="height:94rpx">
+				<input v-model="regData.repwd" class="password" :password="showRepwd" placeholder="Enter the password again" style="height:94rpx" maxlength="20">
+				<view class="iconfont xianshi" :class="[showRepwd ? 'icon-xianshi' : 'icon-yincang']" @tap="changeRepwd"></view>
 			</view>
 			<view class="phone" style="margin-top: 20rpx;">
 				<view class="iconfont icon-mima"></view>
-				<input v-model="regData.agentid" class="password" placeholder="Entert password" style="height:94rpx">
+				<input v-model="regData.agentid" class="password" placeholder="Entert then code" style="height:94rpx">
 			</view>
 			
 			<view class="commit" @click="registerSub">
@@ -62,6 +64,8 @@
 				// 	password: ''
 				// },
 				settings:{},
+				showRepwd:true,
+				showPassword:true,
 				// language: 'English',
 				// showAccountLogin: false,
 				// showRegister: false,
@@ -113,10 +117,16 @@
 				this.showRegister = false
 			},
 			navigateTo(e) {
-				uni.navigateTo({
+				uni.redirectTo({
 					url:e
 				})
 			},
+			changePassword() {
+			    this.showPassword = !this.showPassword;
+			},
+			changeRepwd(){
+				this.showRepwd = !this.showRepwd;
+			}
 		}
 	}
 </script>
@@ -166,9 +176,15 @@
 				margin-left: 35rpx;
 				margin-right: 37rpx;
 			}
+			.xianshi{
+				width: 56rpx;
+				height: 56rpx;
+				font-size: 48rpx;
+				margin-left: 0;
+				margin-right: 10rpx;
+			}
 			input{
 				width: 100%;
-				margin-right: 20rpx;
 			}
 			.enter{
 				display: flex;

@@ -15,7 +15,8 @@
 			</view>
 			<view class="phone" style="margin-top: 20rpx;">
 				<view class="iconfont icon-mima"></view>
-				<input v-model="loginData.password" class="password" password placeholder="Entert password" style="height:94rpx">
+				<input v-model="loginData.password" class="password" :password="showPassword" placeholder="Entert password" style="height:94rpx" maxlength="20">
+				<view class="iconfont xianshi" :class="[showPassword ? 'icon-xianshi' : 'icon-yincang']" @tap="changePassword"></view>
 			</view>
 			<view class="commit" @click="enter">
 				SIGN IN
@@ -50,6 +51,7 @@
 					username: '',
 					password: ''
 				},
+				showPassword:true,
 				settings:{},
 				// language: 'English',
 				// showAccountLogin: false,
@@ -73,6 +75,9 @@
 			// cancel(){
 			// 	this.showAccountLogin = false
 			// },
+			changePassword: function() {
+			    this.showPassword = !this.showPassword;
+			},
 			enter(){
 				if(!this.loginData.username || !this.loginData.password){
 					uni.showToast({
@@ -111,6 +116,7 @@
 </script>
 
 <style lang="scss" scoped>
+	
 	.title{
 		background-color: #000;
 		text-align: center;
@@ -149,15 +155,22 @@
 			align-items: center;
 			justify-items: center;
 			margin-top: 25rpx;
+			
 			.iconfont{
 				width:35rpx;
 				height:40rpx;
 				margin-left: 35rpx;
 				margin-right: 37rpx;
 			}
+			.xianshi{
+				width: 56rpx;
+				height: 56rpx;
+				font-size: 48rpx;
+				margin-left: 0;
+				margin-right: 10rpx;
+			}
 			input{
 				width: 100%;
-				margin-right: 20rpx;
 			}
 			.enter{
 				display: flex;

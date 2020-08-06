@@ -155,7 +155,7 @@
 			<view class="cu-dialog">
 				<view class="bg-img">
 					<view class="cu-bar justify-end text-white">
-						<view class="action" @tap="hideModal">
+						<view class="action" @tap="NoticeFlag = false">
 							<text class="cuIcon-close "></text>
 						</view>
 					</view>
@@ -217,9 +217,9 @@
 		},
 		async onLoad() {
 			//获取公告
-			const notices=await this.$http.post('/api/config/noticedetail')
-			this.noticedetail=notices.data
-			if(this.noticedetail.content){
+			const notices=await this.$http.post('/api/config/notice',{'count':1})
+			if(notices.data.length>0){
+				this.noticedetail=notices.data[0]
 				this.NoticeFlag=true
 			}
 			
@@ -277,6 +277,7 @@
 			},
 			navigateTo(url,e) {
 				clearInterval(memSetInterval)
+				this.hideModal()
 				uni.navigateTo({
 					url:url
 				})
