@@ -1,6 +1,8 @@
 <template>
 	<view class="box">
-		<view class="title">WELCOME</view>
+		<cu-custom bgColor="bg-black title">
+			<block slot="content">WELCOME</block>
+		</cu-custom>
 		<view class="login flex">
 			<view class="text">LOGIN</view>
 			<view class="language flex" @tap='navigateTo("/pages/index/settingLanguage")'>

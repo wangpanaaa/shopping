@@ -1,6 +1,6 @@
 <template>
 	<view class="box">
-		<cu-custom bgColor="bg-black" :isBack="true">
+		<cu-custom bgColor="bg-black" :isBack="true" backRoute="/pages/login/login">
 			<block slot="content">CREATE ACCOUNT</block>
 		</cu-custom>
 		<view class="login flex">
