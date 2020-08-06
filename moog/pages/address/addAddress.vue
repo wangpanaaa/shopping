@@ -74,7 +74,7 @@ export default {
 			uni.navigateBack();
 			setTimeout(() => {
 				uni.showToast({
-					icon: 'success',
+					icon: 'none',
 					title: res.msg
 				});
 			}, 1000);
@@ -92,7 +92,7 @@ export default {
 			uni.navigateBack();
 			setTimeout(() => {
 				uni.showToast({
-					icon: 'success',
+					icon: 'none',
 					title: res.msg
 				});
 			}, 1000);
