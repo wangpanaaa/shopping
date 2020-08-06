@@ -5,7 +5,7 @@
 			<view class="info">
 				<view class="img">
 					<image :src="userImg" @click="previewImg(userImg)"></image>
-					<view @click="portrait = true" class="iconfont icon-xiugai"></view>
+					<image class="xiugai" src="../../static/images/xiugai.png" mode="aspectFill"  @click="portrait = true"></image>
 				</view>
 				<text class="username">{{ userInfo.username }}</text>
 				<text class="code">Invitation code: {{ userInfo.uid }}</text>
@@ -195,8 +195,9 @@ export default {
 					border-radius: 50%;
 				}
 
-				.iconfont {
-					font-size: 50rpx;
+				.xiugai {
+					width: 50rpx;
+					height: 50rpx;
 					color: #faa81e;
 					position: absolute;
 					bottom: 0;
