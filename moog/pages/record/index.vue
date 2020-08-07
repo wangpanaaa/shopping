@@ -1,5 +1,5 @@
 <template>
-	<view class="recordCotain">
+	<view class="recordCotain" :class="[orderConfirm ?'noClick':'']">
 		<cu-custom bgColor="bg-black" :isBack="true">
 			<block slot="content">Grab Order Record</block>
 			<block slot="right">
@@ -65,6 +65,36 @@
 				</swiper-item>
 			</swiper>
 		</view>
+		
+		<view class="cu-load load-modal" v-if="orderConfirm">
+			<!-- <video src="../../static/video/1596197044700795.mp4" autoplay loop muted :show-play-btn="false" :controls="false" objectFit="cover"></video> -->
+			<image src="../../static/images/gif2.gif" class="modal-image"></image>
+			<text>
+				{{ confirmTitleItem }}
+				<text class="dotting"></text>
+			</text>
+		</view>
+		
+		<view class="cu-modal" :class="modalName == 'order-suc' ? 'show' : ''" @tap.stop="noClick">
+			<view class="cu-dialog order-suc">
+				<image src="../../static/images/order-suc.png"></image>
+				<view class="completed">order Completed</view>
+				<view class="order-suc-item">
+					<text>Total order amount</text>
+					<text>{{goodsItem.price}}</text>
+				</view>
+				<view class="order-suc-item">
+					<text>Commission</text>
+					<text>{{goodsItem.commission}}</text>
+				</view>
+				<view class="order-suc-item">
+					<text>Estimated refund</text>
+					<text style="font-size: 34rpx;color: #FFB745;font-weight: bold;">{{goodsItem.refund}}</text>
+				</view>
+				<view class="flex flex-direction"><button class="cu-btn" @tap="hidwModalName">Confirm</button></view>
+			</view>
+		</view>
+		
 	</view>
 </template>
 
@@ -83,6 +113,15 @@
 		},
 		data() {
 			return {
+				
+				current: 0,
+				modalName: null,
+				orderConfirm: false,
+				confirmTitle: ['Ordering', 'Filling in the receiving information', 'Payment successful', 'Order submission', 'Writing comments', 'Order completed'],
+				confirmTitleItem: 'Ordering',
+				goodsItem:{},
+				
+				
 				tabs: [{
 						name: 'All',
 						left: '8.5%',
@@ -162,9 +201,44 @@
 					if (v.name === 'All') uni.hideLoading()
 				})
 			})
-			uni.$on('onRefresh',()=>{
-				this.onRefresh()
+			uni.$on('onCancels',data=>{
+				uni.showLoading()
+				this.$http.post('/api/order/confirm', { orderid: data.data.id, status: 2 }).then(res => {
+					uni.hideLoading()
+					if (res.code === 0) {
+						uni.showToast({
+							icon: 'none',
+							title: res.msg
+						});
+						this.onRefresh()
+					}
+				});
 			})
+			
+			uni.$on('onSubmits',data=>{
+				this.current = 0;
+				this.orderConfirm = true;
+				this.goodsItem=data.data
+				let times = setInterval(() => {
+					if(++this.current<6){
+						this.confirmTitleItem=this.confirmTitle[this.current]
+					}else{
+						this.orderConfirm = false;
+						this.modalName = 'order-suc';
+						clearInterval(times)
+						this.$http.post('/api/order/confirm',{orderid:data.data.id,status:1}).then(res=>{
+							if (res.code == 0) {
+								uni.showToast({
+									icon: 'none',
+									title: res.msg
+								});
+							}
+							this.$store.dispatch('getUserUpdate');
+						})
+					}
+				}, Math.floor(Math.random() * 4 + 4) * 500);
+			})
+			
 		},
 		mounted() {
 			this.$offset(".swiper-area").then(res => {
@@ -175,6 +249,13 @@
 			});
 		},
 		methods: {
+			noClick(){
+				
+			},
+			hidwModalName(){
+				this.modalName=null;
+				this.onRefresh()
+			},
 			swiperStart(e) {
 				this.tabs[this.currentTabs].data.isTop = false
 			},
@@ -308,6 +389,9 @@
 </script>
 
 <style lang="less" scoped>
+	.noClick{
+		pointer-events: none;
+	}
 	.recordCotain {
 		height: 100%;
 		background-color: #f6f6f6;
@@ -319,7 +403,9 @@
 		font-size: 50rpx;
 		padding-right: 30rpx;
 	}
-
+	.cu-modal.show{
+		z-index: 9999;
+	}
 	.head {
 		padding: 0rpx 30rpx 0 30rpx;
 		position: relative;
@@ -394,4 +480,98 @@
 			height: 100%;
 		}
 	}
+	.cu-load.load-modal uni-image {
+		width: 100%;
+		height: 150px;
+	}
+	
+	.cu-load.load-modal::after {
+		display: none;
+	}
+	
+	.cu-load.load-modal {
+		width: auto;
+		height: 380rpx;
+		margin-left: 75rpx;
+		margin-right: 75rpx;
+		padding-top: 10rpx;
+		text {
+			font-size: 30rpx;
+			font-family: Myriad Pro;
+			margin-bottom: 20rpx;
+		}
+	}
+	
+	.order-suc {
+		width: auto;
+		margin-left: 75rpx;
+		margin-right: 75rpx;
+		image {
+			margin: 62rpx 125rpx 0 125rpx;
+			width: 350rpx;
+			height: 260rpx;
+		}
+		.completed {
+			font-size: 38rpx;
+			font-weight: bold;
+			padding: 40rpx 0;
+			margin: 0 31rpx 60rpx 31rpx;
+			border-bottom: 1px solid #dcdddd;
+		}
+		.order-suc-item {
+			display: flex;
+			justify-content: space-between;
+			margin: 0 42rpx;
+			line-height: 47rpx;
+			font-size: 26rpx;
+			font-family: Myriad Pro;
+		}
+		.flex-direction {
+			margin: 43rpx 40rpx 50rpx 40rpx;
+		}
+		.cu-btn {
+			height: 84rpx;
+			background-color: #faa723;
+			font-family: Myriad Pro;
+			font-size: 34rpx;
+		}
+	}
+	.dotting {
+		display: inline-block;
+		min-width: 2px;
+		min-height: 2px;
+		box-shadow: 2px 0 currentColor, 6px 0 currentColor, 10px 0 currentColor;
+		animation: dot 2s infinite step-start both;
+		vertical-align: bottom;
+	}
+	.dotting::before {
+		content: '';
+	}
+	:root .dotting {
+		margin-right: 8px;
+	} /* IE9+,FF,CH,OP,SF */
+	
+	@-webkit-keyframes dot {
+		25% {
+			box-shadow: none;
+		}
+		50% {
+			box-shadow: 2px 0 currentColor;
+		}
+		75% {
+			box-shadow: 2px 0 currentColor, 6px 0 currentColor;
+		}
+	}
+	@keyframes dot {
+		25% {
+			box-shadow: none;
+		}
+		50% {
+			box-shadow: 2px 0 currentColor;
+		}
+		75% {
+			box-shadow: 2px 0 currentColor, 6px 0 currentColor;
+		}
+	}
+	
 </style>
