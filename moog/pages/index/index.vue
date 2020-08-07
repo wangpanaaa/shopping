@@ -243,13 +243,6 @@
 		},
 		async onLoad() {
 			
-			//获取公告
-			const notices=await this.$http.post('/api/config/notice',{'count':1})
-			if(notices.data.length>0){
-				this.noticedetail=notices.data[0]
-				this.NoticeFlag=true
-			}
-			
 			//更新用户信息
 			this.$store.dispatch('getUserUpdate');
 			const {...data}=await this.$http.post('/api/order/mall')
@@ -279,6 +272,14 @@
 					item.headimg=this.headimglist[Math.floor(Math.random()*15)]
 				})
 			},10000)
+			this.signTime(async()=>{
+				//获取公告
+				const notices=await this.$http.post('/api/config/notice',{'count':1})
+				if(notices.data.length>0){
+					this.noticedetail=notices.data[0]
+					this.NoticeFlag=true
+				}	 
+			})
 		},
 		onHide() {
 			clearInterval(memSetInterval)
@@ -293,15 +294,29 @@
 			},
 			onNoticeFlag(){
 				this.NoticeFlag = false
-				let days=uni.getStorageSync('days')
-				if(!days){
-					this.incomeFlag=true
-					uni.setStorageSync('days',new Date())
-					this.$http.post('/api/user/teamreport',{type:2}).then(res=>{
-						this.teamreport=res.data
-					})
-				}
+				this.incomeFlag=true
+				this.$http.post('/api/user/teamreport',{type:2}).then(res=>{
+					this.teamreport=res.data
+				})
+						
 			},
+			signTime (fn) {
+			      let date = new Date()
+			      let times = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+			      let loginUser = uni.getStorageSync("userInfo").uuid //账号
+						console.log(loginUser)
+							console.log(333333333)
+			      let todayLogin = uni.getStorageSync('todayLogin') || {}  //获取此设备所有登记记录
+			      if (todayLogin[loginUser] != times) {    //如果此设备的登录时间不是当天 发出请求
+			    //写代码
+								console.log(333333333)
+							if(fn)fn()
+			     //写代码
+			        //重新给用户id登记时间
+			        todayLogin[loginUser] = times
+			        uni.setStorageSync('todayLogin', todayLogin)
+			      }
+			    },
 			showAlert(e){
 				if(e===0){
 					this.navigateTo('/pages/order/orderGrabbing')
