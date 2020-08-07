@@ -155,7 +155,7 @@
 			<view class="cu-dialog">
 				<view class="bg-img">
 					<view class="cu-bar justify-end text-white">
-						<view class="action" @tap="NoticeFlag = false">
+						<view class="action" @tap="onNoticeFlag">
 							<text class="cuIcon-close "></text>
 						</view>
 					</view>
@@ -163,7 +163,30 @@
 				<view class="title">{{noticedetail.title}}</view>
 				<view class="conten" v-html="noticedetail.content">                 
 				</view>
-				<view class="flex flex-direction"><button class="cu-btn" @tap="NoticeFlag = false">Confirm</button></view>
+				<view class="flex flex-direction"><button class="cu-btn" @tap="onNoticeFlag">Confirm</button></view>
+			</view>
+		</view>
+		
+		<view class="cu-modal notice-dal" :class="incomeFlag==true?'show':''">
+			<view class="notice-img"  v-if="teamreport">
+				<text class="iconfont icon-guanbi" @tap="incomeFlag=false"></text>
+				<image  src="../../static/images/incomeImg.png"  mode="aspectFit"></image>
+				<view class="box">
+					<view class="text-ABC" style="font-size:38rpx;font-family:Bahnschrift;font-weight:bold;">Yesterday's agency income</view>
+					<view style="margin-top: 43rpx;" class="item">
+						<text style="font-size:30rpx;">{{teamreport.charge[2].name}}</text>
+						<text style="font-size:34rpx;font-family:Arial;">{{teamreport.charge[2].value}}</text>
+					</view>
+					<view style="margin-top: 40rpx;" class="item">
+						<text style="font-size:30rpx;">{{teamreport.team[1].name}}</text>
+						<text style="font-size:34rpx;font-family:Arial;">{{teamreport.team[1].value}}</text>
+					</view>
+					<view style="margin-top: 38rpx;" class="item">
+						<text style="font-size:30rpx;">{{teamreport.team[2].name}}</text>
+						<text style="font-size:34rpx;font-family:Arial;color: #E9611B;">{{teamreport.team[2].value}}</text>
+					</view>
+					<view class="flex flex-direction" style="margin-top: 70rpx;"><button class="cu-btn" @tap='toInviteMore' style="background-color: #FAA723;">Invite to Get More</button></view>
+				</view>
 			</view>
 		</view>
 		
@@ -186,7 +209,9 @@
 				settings:'',
 				memberNew:[],
 				NoticeFlag:false,
+				incomeFlag:false,
 				noticedetail:{},
+				teamreport:'',
 				current:0,
 				randomImg:'',
 				headimglist:[
@@ -207,7 +232,8 @@
 					require('../../static/images/face/face15.png'),
 					require('../../static/images/face/face16.png')
 				],
-				memberNewArr:[]
+				memberNewArr:[],
+				
 			}
 		},
 		computed: {
@@ -216,6 +242,7 @@
 			}
 		},
 		async onLoad() {
+			
 			//获取公告
 			const notices=await this.$http.post('/api/config/notice',{'count':1})
 			if(notices.data.length>0){
@@ -257,6 +284,24 @@
 			clearInterval(memSetInterval)
 		},
 		methods: {
+			toInviteMore(){
+				this.incomeFlag=false
+				uni.setStorageSync('incomeFlag',this.incomeFlag)
+				uni.navigateTo({
+					url:'/pages/index/inviteFriend'
+				})
+			},
+			onNoticeFlag(){
+				this.NoticeFlag = false
+				let days=uni.getStorageSync('days')
+				if(!days){
+					this.incomeFlag=true
+					uni.setStorageSync('days',new Date())
+					this.$http.post('/api/user/teamreport',{type:2}).then(res=>{
+						this.teamreport=res.data
+					})
+				}
+			},
 			showAlert(e){
 				if(e===0){
 					this.navigateTo('/pages/order/orderGrabbing')
@@ -266,8 +311,6 @@
 						title:"Your balance is insufficient"
 					})
 				}
-				console.log(e)
-					// item.lock===0?navigateTo('/pages/order/orderGrabbing'):''
 			},
 			showModal(e) {
 				this.modalName = e.currentTarget.dataset.target
@@ -512,6 +555,43 @@
 		}
 		.basis-border{
 			border-bottom:5rpx solid #DCDDDD ;
+		}
+	}
+	.notice-img{
+		position: relative;
+		display: inline-block;
+		vertical-align: middle;
+		margin-left: auto;
+		margin-right: auto;
+		width: 300px;
+		max-width: 100%;
+		border-radius: 5px;
+		overflow: hidden;
+		image{
+			height: 362rpx;
+			background:none
+		}
+		.icon-guanbi{
+			position: absolute;
+			width:58rpx;
+			height:58rpx;
+			background:rgba(255,255,255,1);
+			border-radius:50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			right: 0;
+			top: 20px;
+			z-index: 999;
+		}
+		.box{
+			background-color: #fff;
+			margin-top: -20rpx;
+			padding: 24rpx 35rpx 0 35rpx;
+			.item{
+				display: flex;
+				justify-content: space-between;
+			}
 		}
 	}
 	.notice-dal{
