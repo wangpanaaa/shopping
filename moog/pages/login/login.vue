@@ -83,6 +83,7 @@
 			enter(){
 				if(!this.loginData.username || !this.loginData.password){
 					uni.showToast({
+						icon:'none',
 						title:'Please complete the relevant information'
 					})
 					return

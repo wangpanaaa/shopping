@@ -4,7 +4,7 @@
 			<block slot="content">Team Report</block>
 			<block slot="right">
 				<view>
-					<span class="iconfont icon-tuandui" style="font-size: 40rpx;padding: 20rpx;" @tap='topages("/pages/team/members")'></span>
+					<!-- <span class="iconfont icon-tuandui" style="font-size: 40rpx;padding: 20rpx;" @tap='topages("/pages/team/members")'></span> -->
 					<span class="iconfont icon-liebiao" style='margin:0 30rpx 0 47rpx;font-size: 38rpx;'></span>
 				</view>
 			</block>
@@ -19,21 +19,22 @@
 					<span class="iconfont icon-riqi"></span>
 					<picker id="Before" :value="start_time" @change="chooseDate" start="2020-01-01" :end="today" mode="date">{{start_time}}</picker>
 					to
-					<picker id="After"  :value="end_time" @change="chooseDate" :start="start_time" :end="today" mode="date">{{end_time}}</picker>
+					<picker id="After" :value="end_time" @change="chooseDate" :start="start_time" :end="today" mode="date">{{end_time}}</picker>
 				</view>
 			</view>
-		</view> 
- <view class="swiper-area">
- 	<swiper :acceleration="false" :current="currentTabs" @change="change">
- 		<swiper-item :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }"  v-for="(value,index) in tabs" :key="index">
- 			<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }">
- 				<view style="min-height:100%;padding-top: 20rpx;" v-if="true">
- 					<teamList  :charge="value.charge" :team="value.team" ></teamList>
- 				</view>
- 			</scroll-view>
- 		</swiper-item>
- 	</swiper>
- </view>
+		</view>
+		
+		<view class="swiper-area">
+			<swiper :acceleration="false" :current="currentTabs" @change="change">
+				<swiper-item :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" v-for="(value,index) in tabs" :key="index">
+					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }">
+						<view style="min-height:100%;padding-top: 20rpx;" v-if="true">
+							<teamList :charge="value.list"></teamList>
+						</view>
+					</scroll-view>
+				</swiper-item>
+			</swiper>
+		</view>
 
 	</view>
 </template>
@@ -41,56 +42,56 @@
 <script>
 	import teamList from "./compoments/teamList.vue"
 	export default {
-		components:{
+		components: {
 			teamList
 		},
-		data(){
+		data() {
 			return {
 				tabs: [{
 						name: 'All',
-						left: '10%',
-						type:'',
+						left: '5%',
+						type: '',
 						team: [], //返回参数
-						charge:[]
+						list: []
 					},
 					{
 						name: 'TODAY',
-						left: '30%',
-						type:1,
+						left: '20%',
+						type: 1,
 						team: [], //返回参数
-						charge:[]
+						list: []
 					},
 					{
 						name: 'YESTERDAY',
-						left: '50%',
-						type:2,
+						left: '45%',
+						type: 2,
 						team: [], //返回参数
-						charge:[]
+						list: []
 					},
 					{
 						name: 'WEEK',
-						left: '70%',
-						type:3,
+						left: '69%',
+						type: 3,
 						team: [], //返回参数
-						charge:[]
+						list: []
 					},
 					{
 						name: 'MONTH',
-						left: '90%',
-						type:5,
+						left: '88%',
+						type: 5,
 						team: [], //返回参数
-						charge:[]
+						list: []
 					}
 				],
-				start_time:'',//传递参数
-				end_time:'',//传递参数
-				today:'',
+				start_time: '', //传递参数
+				end_time: '', //传递参数
+				today: '',
 				scrollViewHeight: '',
 				currentTabs: 0,
-				fetching:false,
+				fetching: false,
 			}
 		},
-	
+
 		onLoad() {
 			this.date()
 			this.fetchList()
@@ -107,27 +108,27 @@
 			change(e) {
 				// swiper index 变化时触发
 				this.currentTabs = e.detail.current;
-		
+
 			},
-			fetchList(){
+			fetchList() {
 				this.tabs.forEach((v, i) => {
-					let json= {
-							type: v.type,
-							start_time:this.start_time,
-							end_time:this.end_time
-						}
-						if(!json.type) delete json.type
+					let json = {
+						type: v.type,
+						start_time: this.start_time,
+						end_time: this.end_time
+					}
+					if (!json.type) delete json.type
 					this.$http.post('/api/user/teamreport', json).then(data => {
-						v.team = data.data.team
-						v.charge = data.data.charge
+						// v.team = data.data.team
+						v.list = data.data.list
 						if (v.name === 'All') uni.hideLoading()
 					})
 				})
 			},
 			date() {
 				var date = new Date();
-			
-			this.end_time=this.today = date.getFullYear() +
+
+				this.end_time = this.today = date.getFullYear() +
 					"-" +
 					(date.getMonth() < 9 ?
 						"0" + (date.getMonth() + 1) :
@@ -140,7 +141,7 @@
 						"0" + (date.getMonth() + 1) :
 						date.getMonth() + 1) +
 					"-" + '01'
-			
+
 			},
 			chooseDate(e) {
 				console.log(e.target)
@@ -148,7 +149,7 @@
 					if (new Date(e.detail.value).getTime() - new Date(this.end_time).getTime() > 0) {
 						this.start_time = e.detail.value
 						this.end_time = e.detail.value
-			
+
 					} else {
 						this.start_time = e.detail.value
 					}
@@ -157,7 +158,7 @@
 						console.log(1)
 						this.start_time = e.detail.value
 						this.end_time = e.detail.value
-			
+
 					} else {
 						this.end_time = e.detail.value
 					}
@@ -165,7 +166,7 @@
 				this.fetchList()
 			},
 
-			
+
 			$offset(selector) {
 				// 获取组件内元素的 offset 信息
 				return new Promise(resolve =>
@@ -177,9 +178,9 @@
 					.exec()
 				);
 			},
-			topages(e){
+			topages(e) {
 				uni.navigateTo({
-					url:e
+					url: e
 				})
 			}
 		}
@@ -187,19 +188,21 @@
 </script>
 
 <style lang="scss" scoped>
-.team {
+	.team {
 		height: 100%;
 		display: flex;
 		flex-direction: column;
 		box-sizing: border-box;
 		background-color: #f6f6f6;
 	}
+
 	.nav {
 		padding: 30rpx;
 		height: 230rpx;
 		color: #FFFFFF;
 		background: rgba(34, 47, 62, 1);
 	}
+
 	.swiper-area {
 		flex: 1;
 		overflow: hidden;
@@ -217,9 +220,9 @@
 		display: flex;
 		align-items: center;
 		position: relative;
-
+		justify-content: space-around;
 		span {
-			flex: 1;
+			// flex: 1;
 			color: rgba(168, 168, 168, 1);
 			font-size: 28rpx;
 			display: inline-block;
@@ -242,16 +245,18 @@
 			font-weight: bold;
 		}
 	}
-  .date {
-  	margin-top: 30rpx;
-  	display: flex;
-  	justify-content: center;
-  	align-items: center;
-  
-  	picker {
-  		padding: 10rpx;
-  	}
-  }
+
+	.date {
+		margin-top: 30rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		picker {
+			padding: 10rpx;
+		}
+	}
+
 	.timeSelect {
 		&_title {
 			padding: 45rpx 0 66rpx 0rpx;
@@ -281,6 +286,7 @@
 				border-bottom: 1px solid #dddede;
 				position: relative;
 				margin-bottom: 50rpx;
+
 				&::after {
 					content: '';
 					display: block;

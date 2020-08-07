@@ -109,6 +109,7 @@
 			registerSub(){
 				if(!this.regData.username || !this.regData.pwd ||!this.regData.repwd){
 					uni.showToast({
+						icon:"none",
 						title:'Please complete the relevant information'
 					})
 					return

@@ -3,7 +3,7 @@
 		<view class="tabber">
 			<view style="display: flex;">
 				<text
-					class="cuIcon-back_android"
+					class="cuIcon-back"
 					@tap="BackPage"
 				></text>
 				<view style="display: inline-block;width: 94%;font-size: 34rpx;">Place an order</view>
@@ -153,11 +153,9 @@ export default {
 			this.loadModal = true;
 			const data=await this.$http.post('/api/order/mkorder');
 			if(!data.data){
-				setTimeout(() => {
-					this.loadModal = false;
-					this.modalName = 'noData';
-					this.noData=data.msg
-				}, 5000);
+				this.loadModal = false;
+				this.modalName = 'noData';
+				this.noData=data.msg
 			}else{
 				setTimeout(() => {
 					this.loadModal = false;
@@ -205,7 +203,7 @@ export default {
 		color: #fff;
 		text-align: center;
 
-		.cuIcon-back_android {
+		.cuIcon-back{
 			font-size: 19px;
 		}
 	}

@@ -4,7 +4,7 @@
 		<view class="bg-img">
 			<status></status>
 			<view class="flex">
-				<text class="iconfont icon-fanhui1 left-icon" @tap="BackPage"></text>
+				<text class="iconfont icon-fanhui left-icon" @tap="BackPage"></text>
 				<text class="title">Financial management</text>
 				<span class="iconfont icon-tixian1 r-icon" @tap="navigateTo('/pages/financialRecords/index')"></span>
 			</view>
