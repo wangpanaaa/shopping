@@ -162,6 +162,9 @@
 					if (v.name === 'All') uni.hideLoading()
 				})
 			})
+			uni.$on('onRefresh',()=>{
+				this.onRefresh()
+			})
 		},
 		mounted() {
 			this.$offset(".swiper-area").then(res => {

@@ -153,9 +153,11 @@ export default {
 			this.loadModal = true;
 			const data=await this.$http.post('/api/order/mkorder');
 			if(!data.data){
-				this.loadModal = false;
-				this.modalName = 'noData';
-				this.noData=data.msg
+				setTimeout(() => {
+					this.loadModal = false;
+					this.modalName = 'noData';
+					this.noData=data.msg
+				}, 5000);
 			}else{
 				setTimeout(() => {
 					this.loadModal = false;

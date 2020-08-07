@@ -108,7 +108,12 @@ export default {
 			//#endif
 			uni.onSocketOpen(function (res) {
 			  console.log('WebSocket连接已打开！');
+			  uni.sendSocketMessage({
+			        'type': 'login',
+			  	  'token':uni.getStorageSync('token')
+			  });
 			});
+			
 			uni.onSocketMessage(function (res) {
 				if(res.data){
 					let data=JSON.parse(res.data)
@@ -120,6 +125,9 @@ export default {
 							confirmText:'OK',
 						    success: function (res) {
 						        if (res.confirm) {
+									uni.onSocketClose(function (res) {
+									  console.log('支付成功。WebSocket 已关闭！');
+									});
 						            uni.redirectTo({
 						                url: '/pages/index/index'
 						            });
