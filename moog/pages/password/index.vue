@@ -3,26 +3,25 @@
 		<cu-custom bgColor="bg-black" :isBack="true">
 			<block slot="content">Password Management</block>
 		</cu-custom>
-		<form class="main" @submit="formSubmit">
+		<form class="main" >
 			<view class="text">Get verification code via mobile phone</view>
 			<view class="verification">VERIFOCATION</view>
 			<view class="content">
-				<view class="iconfont icon-jj"></view>
-				<input name='tel' placeholder-class='inputP' placeholder='Please enter your mobile phone number' />
-			</view>
-			<view class="content2">
-				<view class="code">
-					<view class="iconfont icon-dentifyingcode"></view>
-					<input placeholder-class='inputP' placeholder="Please enter verification code" name='smscode' />
-				</view>
-				<button>Send</button>
+				<view class="iconfont icon-mima"></view>
+				<input name='pwd' v-model="passwd" placeholder-class='inputP':password="showPasswd" placeholder='Please enter your mobile phone number' />
+				<view class="iconfont xianshi" :class="[showPasswd ? 'icon-xianshi' : 'icon-yincang']" @tap="showPasswd=!showPasswd"></view>
 			</view>
 			<view class="content">
 				<view class="iconfont icon-mima"></view>
-				<input name='pwd' placeholder-class='inputP' placeholder='Please enter your mobile phone number' />
-				<view class="iconfont"></view>
+				<input name='pwd' v-model="newPasswd" placeholder-class='inputP' :password="shownewPasswd" placeholder='Please enter your mobile phone number' />
+				<view class="iconfont xianshi" :class="[shownewPasswd ? 'icon-xianshi' : 'icon-yincang']" @tap="shownewPasswd=!shownewPasswd"></view>
 			</view>
-			<button form-type="submit">Confirm<view class="iconfont icon-huabanbeifen12"></view></button>
+			<view class="content">
+				<view class="iconfont icon-mima"></view>
+				<input name='pwd' v-model="reNewpwd" placeholder-class='inputP' :password="showReNewpwd" placeholder='Please enter your mobile phone number' />
+				<view class="iconfont xianshi" :class="[showReNewpwd ? 'icon-xianshi' : 'icon-yincang']" @tap="showReNewpwd=!showReNewpwd"></view>
+			</view>
+			<button form-type="submit" @tap="formSubmit">Confirm<view class="iconfont icon-huabanbeifen12"></view></button>
 		</form>
 	</view>
 </template>
@@ -31,12 +30,40 @@
 	export default {
 		data() {
 			return {
-
+				showPasswd:true,
+				shownewPasswd:true,
+				showReNewpwd:true,
+				newPasswd:'',
+				reNewpwd:'',
+				passwd:'',
 			}
 		},
 		methods: {
-			formSubmit(e) {
-				console.log(e)
+			formSubmit() {
+				if(!this.passwd && !this.reNewpwd && !this.newPasswd){
+					uni.showToast({
+						icon:'none',
+						title:'Please complete the relevant information'
+					})
+					return
+				}
+				let json={
+					pwd:this.newPasswd,
+					repwd:this.reNewpwd,
+					oldpwd:this.passwd
+				}
+				this.$http.post('/api/login/resetPwd',json).then(res=>{
+					uni.setStorageSync('token',res.data.token)
+					uni.navigateBack({
+						delta:1
+					})
+					setTimeout(()=>{
+						uni.showToast({
+							icon:'none',
+							title:res.msg
+						})
+					},500)
+				})
 			},
 		}
 	}
@@ -102,6 +129,13 @@
 				.iconfont {
 					font-size: 40rpx;
 					padding: 0 25rpx;
+				}
+				.xianshi{
+					width: 56rpx;
+					height: 56rpx;
+					font-size: 56rpx;
+					margin-left: 0;
+					margin-right: 30rpx;
 				}
 			}
 

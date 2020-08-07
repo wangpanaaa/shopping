@@ -28,13 +28,13 @@
 						<view class="iconfont icon-huabanbeifen12"></view>
 					</view>
 				</view>
-				<!-- <view class="cell" @click="topages('/pages/password/index')">
+				<view class="cell" @click="topages('/pages/password/index')">
 					<view class="left">
 						<view class="iconfont icon-mima"></view>
 						<text>Password Management</text>
 					</view>
 					<view class="right"><view class="iconfont icon-huabanbeifen12"></view></view>
-				</view> -->
+				</view>
 				<view class="cell" @click="topages('/pages/address/address')">
 					<view class="left">
 						<view class="iconfont icon-dizhi"></view>

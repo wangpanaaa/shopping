@@ -36,7 +36,8 @@
 			<view class="cu-load load-modal" v-if="loadModal" >
 				<!-- <video src="../../static/video/1596197044700795.mp4" autoplay loop muted :show-play-btn="false" :controls="false" objectFit="cover"></video> -->
 				<image src="../../static/images/Loading.gif" class="modal-image"></image>
-				<text>Matching grab orders...</text>
+				<text>Matching grab orders<text class="dotting"></text></text>
+				
 			</view>
 			<view class="cu-modal" :class="modalName == 'Image' ? 'show' : ''"  @tap.stop='noClick'>
 				<view class="cu-dialog order-details">
@@ -62,10 +63,24 @@
 					</view>
 				</view>
 			</view>
+			<view class="cu-modal" :class="modalName == 'noData' ? 'show' : ''" >
+				<view class="cu-dialog order-details">
+					<view class="icons"><text class="iconfont icon-guanbi" @tap="modalName=''"></text></view>
+					<image src="../../static/images/order-no-data.png" mode="aspectFit" style="width: 218rpx;height: 218rpx;"></image>
+					<view style="padding: 0 87rpx;font-size:34rpx;font-family:Myriad Pro;">
+						{{noData}}
+					</view>
+					<view class="flex" style="margin-top: 74rpx;">
+						<button class="cu-btn cancel" @tap="navigateTo('/pages/index/inviteFriend')">Invite</button>
+						<button class="cu-btn submit" @tap="navigateTo('/pages/blance/index')">top-up</button>
+					</view>
+				</view>
+			</view>
 			<view class="cu-load load-modal" v-if="orderConfirm">
 				<!-- <video src="../../static/video/1596197044700795.mp4" autoplay loop muted :show-play-btn="false" :controls="false" objectFit="cover"></video> -->
 				<image src="../../static/images/gif2.gif" class="modal-image"></image>
-				<text>{{confirmTitleItem}}</text>
+				<text>{{confirmTitleItem}}<text class="dotting"></text></text>
+				
 			</view>
 
 			<view class="cu-modal" :class="modalName == 'order-suc' ? 'show' : ''" @tap.stop='noClick'>
@@ -101,9 +116,10 @@ export default {
 			orderConfirm: false,
 			goodsItem:{},
 			explainText:'',
-			confirmTitle:['Ordering...','Filling in the receiving information...','Payment successful...','Order submission...','Writing comments...','Order completed...'],
+			confirmTitle:['Ordering','Filling in the receiving information','Payment successful','Order submission','Writing comments','Order completed'],
 			confirmTitleItem:'Ordering',
-			current:0
+			current:0,
+			noData:'',
 		};
 	},
 	computed: {
@@ -116,6 +132,11 @@ export default {
 		this.explainText=data.data
 	},
 	methods: {
+		navigateTo(url){
+			uni.redirectTo({
+				url:url
+			})
+		},
 		noClick(){
 			
 		},
@@ -129,13 +150,14 @@ export default {
 			await this.$http.post('/api/order/confirm',{orderid:this.goodsItem.orderid,status:2})
 		},
 		async LoadModal(e) {
-			// this.loadModal = true;
+			this.loadModal = true;
 			const data=await this.$http.post('/api/order/mkorder');
-			console.log(data)
 			if(!data.data){
-				
+				this.loadModal = false;
+				this.modalName = 'noData';
+				this.noData=data.msg
 			}else{
-				setTimeout(async () => {
+				setTimeout(() => {
 					this.loadModal = false;
 					this.modalName = 'Image';
 					this.goodsItem=data.data
@@ -237,6 +259,21 @@ export default {
 		margin-bottom: 20rpx;
 	}
 }
+.icons{
+	display: flex;
+	justify-content: flex-end;
+}
+
+.icon-guanbi{
+	width: 60rpx;
+	height: 60rpx;
+	background-color: rgb(255, 255, 255);
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 10rpx 10rpx 0 0;
+}
 
 .cu-load.load-modal::after {
 	display: none;
@@ -324,5 +361,24 @@ export default {
 		font-family: Myriad Pro;
 		font-size: 34rpx;
 	}
+}
+.dotting {
+    display: inline-block; min-width: 2px; min-height: 2px;
+    box-shadow: 2px 0 currentColor, 6px 0 currentColor, 10px 0 currentColor; 
+    animation: dot 2s infinite step-start both;
+	vertical-align: bottom;
+}
+.dotting::before { content: ''; }
+:root .dotting { margin-right: 8px; } /* IE9+,FF,CH,OP,SF */
+
+@-webkit-keyframes dot {
+    25% { box-shadow: none; }
+    50% { box-shadow: 2px 0 currentColor; }
+    75% { box-shadow: 2px 0 currentColor, 6px 0 currentColor; }
+}
+@keyframes dot {
+    25% { box-shadow: none; }
+    50% { box-shadow: 2px 0 currentColor; }
+    75% { box-shadow: 2px 0 currentColor, 6px 0 currentColor; }
 }
 </style>
