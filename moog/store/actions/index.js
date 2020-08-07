@@ -33,9 +33,12 @@ export default {
 	},
 	loginOut(state){
 		state.userInfo=null
+	 let todayLogin = uni.getStorageSync('todayLogin') || {} 
 		uni.clearStorageSync()
+		uni.setStorageSync('todayLogin', todayLogin)
 		uni.reLaunch({
 			url:'/pages/login/login'
 		})
+		
 	}
 }

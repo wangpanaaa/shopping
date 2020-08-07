@@ -272,14 +272,16 @@
 					item.headimg=this.headimglist[Math.floor(Math.random()*15)]
 				})
 			},10000)
-			this.signTime(async()=>{
-				//获取公告
-				const notices=await this.$http.post('/api/config/notice',{'count':1})
-				if(notices.data.length>0){
-					this.noticedetail=notices.data[0]
-					this.NoticeFlag=true
-				}	 
-			})
+		  setTimeout(()=>{
+				this.signTime(async()=>{
+					//获取公告
+					const notices=await this.$http.post('/api/config/notice',{'count':1})
+					if(notices.data.length>0){
+						this.noticedetail=notices.data[0]
+						this.NoticeFlag=true
+					}	 
+				})
+			},3000)
 		},
 		onHide() {
 			clearInterval(memSetInterval)
@@ -304,9 +306,12 @@
 			      let date = new Date()
 			      let times = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
 			      let loginUser = JSON.parse(uni.getStorageSync("userInfo")).uid//账号
+						console.log(loginUser)
 			      let todayLogin = uni.getStorageSync('todayLogin') || {}  //获取此设备所有登记记录
 			      if (todayLogin[loginUser] != times) {    //如果此设备的登录时间不是当天 发出请求
+			    //写代码
 							if(fn)fn()
+			     //写代码
 			        //重新给用户id登记时间
 			        todayLogin[loginUser] = times
 			        uni.setStorageSync('todayLogin', todayLogin)
