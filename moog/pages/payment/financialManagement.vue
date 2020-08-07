@@ -28,7 +28,7 @@
 		<view style="margin: 63rpx 0 36rpx 32rpx;font-size:30rpx;font-weight: bold;">Income standard</view>
 		<radio-group class="days-list" @change="radioChange">
 			<view class="flex" v-for="(item, index) in IncomeList" :key="item.id" :class="[currentId == item.id?'opacitys':'']" @click="currentId=item.id">
-				<view style="position: relative;top: -3rpx;">
+				<view style="position: relative;top: -3rpx;"> 
 					<view style="font-size:30rpx;font-weight:bold;">{{ item.wmp_name }}</view>
 					<view style="font-size: 26rpx;color: #FAA723; margin-top: -8rpx;">{{ item.remark }}</view>
 				</view>
@@ -48,7 +48,7 @@
 				@tap='subTransinto'
 				class="cu-btn lg"
 				style="background:linear-gradient(180deg,rgba(247,222,162,1),rgba(240,194,80,1));
-border:2px solid;height:110rpx;border: 1px solid rgb(143, 144, 144);"
+				border:2px solid;height:110rpx;border: 1px solid rgb(143, 144, 144);"
 			>
 				Transfer Into
 			</button>
