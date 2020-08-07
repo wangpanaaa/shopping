@@ -108,9 +108,12 @@ export default {
 			//#endif
 			uni.onSocketOpen(function (res) {
 			  console.log('WebSocket连接已打开！');
+			  let json={
+				  type: 'login',
+				  token:uni.getStorageSync('token')
+			  }
 			  uni.sendSocketMessage({
-			        'type': 'login',
-			  	  'token':uni.getStorageSync('token')
+			      data:JSON.stringify(json)
 			  });
 			});
 			
@@ -118,6 +121,7 @@ export default {
 				if(res.data){
 					let data=JSON.parse(res.data)
 					if(data.type==='pay_success'){
+						uni.closeSocket()
 						uni.showModal({
 						    title: '',
 						    content: 'Payment successful',
@@ -125,9 +129,6 @@ export default {
 							confirmText:'OK',
 						    success: function (res) {
 						        if (res.confirm) {
-									uni.onSocketClose(function (res) {
-									  console.log('支付成功。WebSocket 已关闭！');
-									});
 						            uni.redirectTo({
 						                url: '/pages/index/index'
 						            });
@@ -137,6 +138,11 @@ export default {
 					}
 				}
 			});
+		},
+		sendSocketMessage(msg) {
+		  uni.sendSocketMessage({
+		    data: msg
+		  });
 		}
 	}
 };
