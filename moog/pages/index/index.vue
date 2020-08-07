@@ -303,15 +303,10 @@
 			signTime (fn) {
 			      let date = new Date()
 			      let times = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
-			      let loginUser = uni.getStorageSync("userInfo").uuid //账号
-						console.log(loginUser)
-							console.log(333333333)
+			      let loginUser = JSON.parse(uni.getStorageSync("userInfo")).uid//账号
 			      let todayLogin = uni.getStorageSync('todayLogin') || {}  //获取此设备所有登记记录
 			      if (todayLogin[loginUser] != times) {    //如果此设备的登录时间不是当天 发出请求
-			    //写代码
-								console.log(333333333)
 							if(fn)fn()
-			     //写代码
 			        //重新给用户id登记时间
 			        todayLogin[loginUser] = times
 			        uni.setStorageSync('todayLogin', todayLogin)
