@@ -170,7 +170,7 @@
 		<view class="cu-modal notice-dal" :class="incomeFlag==true?'show':''">
 			<view class="notice-img"  v-if="teamreport">
 				<text class="iconfont icon-guanbi" @tap="incomeFlag=false"></text>
-				<image  src="../../static/images/incomeImg.png"  mode="aspectFit"></image>
+				<image  src="../../static/images/incomeImg.png"></image>
 				<view class="box">
 					<view class="text-ABC" style="font-size:38rpx;font-family:Bahnschrift;font-weight:bold;">Yesterday's agency income</view>
 					<view style="margin-top: 43rpx;" class="item">
@@ -583,6 +583,7 @@
 		border-radius: 5px;
 		overflow: hidden;
 		image{
+			width: 100%;
 			height: 362rpx;
 			background:none
 		}

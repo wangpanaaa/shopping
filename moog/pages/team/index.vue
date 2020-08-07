@@ -118,7 +118,7 @@
 						end_time: this.end_time
 					}
 					if (!json.type) delete json.type
-					this.$http.post('/api/user/teamreport', json).then(data => {
+					this.$http.post('/api/user/teamstatistics', json).then(data => {
 						// v.team = data.data.team
 						v.list = data.data.list
 						if (v.name === 'All') uni.hideLoading()
