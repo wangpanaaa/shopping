@@ -27,10 +27,10 @@
 		</view>
 		<view style="margin: 63rpx 0 36rpx 32rpx;font-size:30rpx;font-weight: bold;">Income standard</view>
 		<radio-group class="days-list" @change="radioChange">
-			<view class="flex" v-for="(item, index) in IncomeList" :key="item.id" :class="[currentId == item.id?'opacitys':'']">
-				<view>
+			<view class="flex" v-for="(item, index) in IncomeList" :key="item.id" :class="[currentId == item.id?'opacitys':'']" @click="currentId=item.id">
+				<view style="position: relative;top: -3rpx;">
 					<view style="font-size:30rpx;font-weight:bold;">{{ item.wmp_name }}</view>
-					<view style="font-size: 26rpx;color: #FAA723;">{{ item.remark }}</view>
+					<view style="font-size: 26rpx;color: #FAA723; margin-top: -8rpx;">{{ item.remark }}</view>
 				</view>
 				<radio class="red margin-left-sm" color="#222F3E" :checked="currentId === item.id" :value="item.id.toString()"></radio>
 			</view>
@@ -181,6 +181,13 @@ export default {
 		justify-content: space-evenly;
 		background-color: #ffffff;
 		opacity: 0.5;
+		display: flex;
+		align-items: center;
+		padding:0 24rpx;
+		&>view{
+			flex: 1;
+			text-align: center;
+		}
 	}
 }
 .opacitys{

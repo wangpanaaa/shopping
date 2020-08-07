@@ -49,28 +49,28 @@
 				tabs: [{
 						name: 'All',
 						left: '10%',
-						type:1,
+						type:'',
 						team: [], //返回参数
 						charge:[]
 					},
 					{
 						name: 'TODAY',
 						left: '30%',
-						type:2,
+						type:1,
 						team: [], //返回参数
 						charge:[]
 					},
 					{
 						name: 'YESTERDAY',
 						left: '50%',
-						type:3,
+						type:2,
 						team: [], //返回参数
 						charge:[]
 					},
 					{
 						name: 'WEEK',
 						left: '70%',
-						type:4,
+						type:3,
 						team: [], //返回参数
 						charge:[]
 					},
@@ -116,6 +116,7 @@
 							start_time:this.start_time,
 							end_time:this.end_time
 						}
+						if(!json.type) delete json.type
 					this.$http.post('/api/user/teamreport', json).then(data => {
 						v.team = data.data.team
 						v.charge = data.data.charge

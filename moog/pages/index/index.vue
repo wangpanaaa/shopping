@@ -530,7 +530,7 @@
 			margin: 0 20rpx 52rpx 20rpx;
 			line-height:40rpx;
 			font-size:24rpx;
-			text-align: left;
+			text-align: justify;
 		}
 		.flex{
 			align-items: center;

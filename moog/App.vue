@@ -34,13 +34,14 @@
 				};
 				//重写toast方法如果内容为 ‘再按一次退出应用’ 就隐藏应用，其他正常toast
 				plus.nativeUI.toast = (function(str) {
-					if (str == 'Press again to exit the app') {
+					if (str == 'Press again to hide the app') {
 						main.moveTaskToBack(false); 
 						return false;   
 					} else {
 						uni.showToast({
-							title: 'Press again to exit the app',
+							title: 'Press again to hide the app',
 							icon: 'none',
+							duration:2000
 						})
 					}
 				}); 
