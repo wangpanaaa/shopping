@@ -3,7 +3,7 @@
 		<view class="cu-list menu-avatar" v-for="(item,index) in charge" :key='index'>
 			<view class="title">
 				<view>{{item.title}}</view>
-				<view class="ratio" v-if="item.ratio">{{item.ratio}}</view>
+				<view class="ratio" :class="[item.title=='First'?'first':item.title=='Secondary'?'secondary':'tertiary']" v-if="item.ratio">Ratio {{item.ratio}}</view>
 			</view>
 			<view class="flex items">
 				<view class="teams">
@@ -72,9 +72,18 @@
 
 	.ratio {
 		font-size: 26rpx;
-		background: rgba(246, 196, 44, 1);
+		
 		border-radius: 5px;
 		padding: 5rpx 16rpx;
+	}
+	.first{
+		background-color: #F6C42C;
+	}
+	.secondary{
+		background-color: #5792FF;
+	}
+	.tertiary{
+		background-color: #FF7757;
 	}
 
 	.title {
