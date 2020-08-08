@@ -37,7 +37,7 @@
 					if (str == 'Press again to hide the app') {
 						main.moveTaskToBack(false); 
 						return false;   
-					} else {
+					} else if(str=='再按一次退出应用'){
 						uni.showToast({
 							title: 'Press again to hide the app',
 							icon: 'none',
