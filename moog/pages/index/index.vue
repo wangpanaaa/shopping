@@ -78,8 +78,14 @@
 				</view>
 				
 			</view>
-			<image :src="settings.ad_max" class="advertisement"></image>
-			<view style="font-size: 24rpx;color: #A8A8A8;padding-top: 73rpx;padding-left: 28rpx;">Professional grab order platform  </view>
+			<view class="swiper-area">
+				<swiper :autoplay="true" :interval="3000" :duration="1000">
+					<swiper-item  class="advertisement" v-for="(value,index) in settings.ad_max" :key="index">
+						<view style="padding: 0 30rpx 0 30rpx;height: 100%;"><image :src="value"></image></view>	
+					</swiper-item>
+				</swiper>
+			</view>
+			<view style="font-size: 24rpx;color: #A8A8A8;padding-top: 48rpx;padding-left: 28rpx;">Professional grab order platform  </view>
 			<view style="font-size: 40rpx;color: #333;padding-top: 18rpx;padding-left: 32rpx;font-weight: bold;">ABOUT US  </view>
 			<view class="us-list flex">
 				<view class="us-item" @tap="navigateTo('/pages/index/noticedetail?id='+settings.profile)">
@@ -437,11 +443,13 @@
 	.advertisement{
 		height: 375rpx;
 		width: 100%;
-		padding: 0 30rpx 0 30rpx;
-		margin-top: 34rpx;
+		 image{
+			 width: 100%;
+			 height: 100%;
+		 }
 	}
 	.us-list{
-		margin: 35rpx 30rpx 69rpx 30rpx;
+		margin: 35rpx 30rpx 61rpx 30rpx;
 		flex-wrap: wrap;
 		justify-content: space-between;
 		.us-item{
@@ -622,6 +630,8 @@
 			line-height:40rpx;
 			font-size:24rpx;
 			text-align: justify;
+			max-height: 280rpx;
+			overflow: scroll;
 		}
 		.flex{
 			align-items: center;
@@ -632,6 +642,13 @@
 			margin-bottom: 40rpx;
 			font-size:34rpx;
 			font-family:Myriad Pro;
+		}
+	}
+	.swiper-area {
+		margin-top: 24rpx;
+		height: 375rpx;
+		uni-swiper {
+			height: 100%;
 		}
 	}
 </style>

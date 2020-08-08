@@ -46,7 +46,12 @@
 					}
 				}); 
 		// #endif
-
+     const token = uni.getStorageSync('token');
+     if(token){
+     		uni.redirectTo({
+     			url:'../index/index'
+     		})
+     }
 		},
 		onShow: function() {
 			console.log('App Show');
