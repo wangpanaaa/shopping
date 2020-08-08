@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<cu-custom bgColor="bg-black" :isBack="true">
-			<block slot="content">{{$t('index').navTitle}}</block>
+			<block slot="content">LANGUAGE</block>
 		</cu-custom>
 		<view class="language-box">
 			<view class="preferred">Choose your preferred language  </view>

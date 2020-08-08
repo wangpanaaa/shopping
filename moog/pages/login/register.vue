@@ -17,7 +17,7 @@
 			</view>
 			<view class="phone" style="margin-top: 20rpx;">
 				<view class="iconfont icon-mima"></view>
-				<input v-model="regData.password" class="password" :password="showPassword" placeholder="Set password" style="height:94rpx" maxlength="20">
+				<input v-model="regData.pwd" class="password" :password="showPassword" placeholder="Set password" style="height:94rpx" maxlength="20">
 				<view class="iconfont xianshi" :class="[showPassword ? 'icon-xianshi' : 'icon-yincang']" @tap="changePassword"></view>
 			</view>
 			<view class="phone" style="margin-top: 20rpx;">
@@ -107,7 +107,7 @@
 			// 	this.showRegister = false
 			// },
 			registerSub(){
-				if(!this.regData.username || !this.regData.pwd ||!this.regData.repwd){
+				if(!this.regData.username && !this.regData.pwd &&!this.regData.repwd){
 					uni.showToast({
 						icon:"none",
 						title:'Please complete the relevant information'
