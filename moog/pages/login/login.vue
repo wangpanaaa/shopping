@@ -41,7 +41,7 @@
 				uni.showLoading()
 				setTimeout(()=>{
 					uni.hideLoading()
-					uni.redirectTo({
+					uni.reLaunch({
 						url:'../index/index'
 					})
 				},500)

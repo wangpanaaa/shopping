@@ -109,6 +109,10 @@
 		{
 			"path":"pages/calculator/index",
 			"style":{}
+		},
+		{
+			"path":"pages/noneNet/index",
+			"style": {}
 		}
     ],
 	"globalStyle": {

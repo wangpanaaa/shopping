@@ -16,7 +16,7 @@ const http = new Request()
 http.setConfig((config) => { /* 设置全局配置 */
 	let baseURL = url
 	// #ifdef H5
-	baseURL = '/'
+	baseURL = '/' 
 	// #endif
 	config.baseURL = baseURL
 	config.header = {
