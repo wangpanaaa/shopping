@@ -2,12 +2,20 @@
 	<view class="box">
 		
 		<view class="bg-img">
-			<status></status>
+<!-- 			<status></status>
 			<view class="flex">
 				<text class="iconfont icon-fanhui left-icon" @tap="BackPage"></text>
 				<text class="title">Financial management</text>
 				<span class="iconfont icon-tixian1 r-icon" @tap="navigateTo('/pages/financialRecords/index')"></span>
-			</view>
+			</view> --> 
+			<cu-custom :isBack="true">
+				<block slot="content">Financial management</block>
+				<block slot="right">
+					<view>
+				<span class="iconfont icon-tixian1 r-icon" @tap="navigateTo('/pages/financialRecords/index')"></span>
+					</view>
+				</block>
+			</cu-custom>
 			<view class="count">{{ userInfo.wmp_balance }}</view>
 			<view class="info-text">Financial amount</view>
 		</view>
@@ -136,7 +144,7 @@ export default {
 	}
 	.left-icon {
 		margin-left: 30rpx;
-		font-size: 38rpx;
+		font-size: 36rpx;
 		padding: 10rpx;
 	}
 	.title {

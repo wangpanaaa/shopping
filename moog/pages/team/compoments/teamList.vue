@@ -9,7 +9,7 @@
 				<view class="teams">
 					<view class="flex border-r" style="justify-content: space-between;">
 						<view>Number of teams</view>
-						<view>100</view>
+						<view>{{item.teams_num}}</view>
 					</view>
 					<view class="flex border-r" style="justify-content: space-between;">
 						<view>Team runimg</view>

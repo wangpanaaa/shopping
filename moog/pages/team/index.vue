@@ -5,7 +5,7 @@
 			<block slot="right">
 				<view>
 					<!-- <span class="iconfont icon-tuandui" style="font-size: 40rpx;padding: 20rpx;" @tap='topages("/pages/team/members")'></span> -->
-					<span class="iconfont icon-liebiao" style='margin:0 30rpx 0 47rpx;font-size: 38rpx;'></span>
+			<!-- 		<span class="iconfont icon-liebiao" style='margin:0 30rpx 0 47rpx;font-size: 38rpx;'></span> -->
 				</view>
 			</block>
 		</cu-custom>

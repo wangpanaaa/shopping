@@ -9,11 +9,19 @@
 			<view class="info-text">Take a commission</view>
 		</view>
 		<view class="invitation">
-			<view style="font-size:80rpx;color: #FAA723;margin-top: 44rpx;">{{userInfo.invite_earnings}}</view>
 			<view style="font-size:34rpx;border-bottom:1px dashed #ccc ;margin: 0 40rpx;padding-bottom: 37rpx;">Invitation to
 				experience money</view>
-			<image :src="invitationSrc" style="margin-top: 27rpx;"></image>
-			<view style="font-size:34rpx;color: #A8A8A8;margin-top: 20rpx;">Invite code: <text style="margin-left: 20rpx;color: #333;">{{userInfo.uid}}</text></view>
+			<view class="share">
+				<view class="share_text">
+
+					Share with friends and get more orders.
+					Your friends download and use well can also earn a high amount of brush single income. Because of your
+					recommendation, if your friend gets 100 rupees, you can also get 16%, that is, 16 rupees.
+					Make money together !
+
+				</view>
+				<view style="font-size:34rpx;color: #A8A8A8;margin-top: 20rpx;">Invite code: <text style="margin-left: 20rpx;color: #333;font-weight: bold;">{{userInfo.uid}}</text></view>
+			</view>
 		</view>
 		<view class="padding flex flex-direction">
 			<button @tap="copyLinks" class="cu-btn lg" style="background:linear-gradient(180deg,rgba(247,222,162,1),rgba(240,194,80,1));
@@ -42,8 +50,8 @@
 			}
 		},
 		computed: {
-			userInfo:function (){
-				return this.$store.state.userInfo  || JSON.parse(uni.getStorageSync('userInfo'))
+			userInfo: function() {
+				return this.$store.state.userInfo || JSON.parse(uni.getStorageSync('userInfo'))
 			}
 		},
 		mounted() {
@@ -61,28 +69,42 @@
 					data: this.userInfo.invite_link,
 					success: function() {
 						uni.showToast({
-							title:"Copy successful"
+							title: "Copy successful"
 						})
 					}
 				});
+				uni.shareWithSystem({
+					type: "text",
+					summary: 'Just one mobile phone, you can get income every day, join to make money',
+					href: this.invitationSrc,
+					// imageUrl:"../../static/logo.png",
+					success() {
+						console.log('分享成功');
+						// 分享完成，请注意此时不一定是成功分享
+					},
+					fail() {
+						console.log('分享失败');
+						// 分享失败  
+					}
+				})
 				//#endif
 				// #ifdef H5
-					this.copyArticle(this.userInfo.invite_link)
-					uni.showToast({
-						title:"Copy successful"
-					})
+				this.copyArticle(this.userInfo.invite_link)
+				uni.showToast({
+					title: "Copy successful"
+				})
 				// #endif
 			},
 			copyArticle(content) {
-			  let input = document.createElement("input")
-			  input.value = content
-			  input.readOnly = "readOnly"
-			  document.body.appendChild(input)
-			  input.select() // 选择对象
-			  input.setSelectionRange(0, content.length) //核心
-			  let result = document.execCommand("Copy") // 执行浏览器复制命令
-			  input.remove()
-			  return result
+				let input = document.createElement("input")
+				input.value = content
+				input.readOnly = "readOnly"
+				document.body.appendChild(input)
+				input.select() // 选择对象
+				input.setSelectionRange(0, content.length) //核心
+				let result = document.execCommand("Copy") // 执行浏览器复制命令
+				input.remove()
+				return result
 			}
 
 		}
@@ -97,9 +119,9 @@
 	.bg-img {
 		color: #fff;
 		background-image: url(../../static/images/invite.png);
-		height:476rpx;
+		height: 476rpx;
 		/* #ifdef APP-PLUS */
-				height:calc(476rpx +  var(--status-bar-height));
+		height: calc(476rpx + var(--status-bar-height));
 		/* #endif */
 
 		.flex {
@@ -118,7 +140,7 @@
 			text-align: center;
 			font-size: 50rpx;
 			font-weight: bold;
-			padding-top: 110rpx; 
+			padding-top: 110rpx;
 		}
 
 		.info-text {
@@ -135,10 +157,20 @@
 		background-color: #fff;
 		border: 1px solid #ccc;
 		border-radius: 10rpx;
+		padding: 40rpx 0 60rpx 0;
+		flex-direction: column;
+		display: flex;
 
-		image {
-			width: 220rpx;
-			height: 218rpx;
+		.share {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			&_text{
+				text-align: center;
+				padding: 50rpx 40rpx;
+				text-indent: 1rem;
+			}
 		}
 	}
 </style>

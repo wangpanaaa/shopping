@@ -1601,9 +1601,9 @@ button.cuIcon.lg {
 	line-height: 60upx;
 	cursor: none;
 	pointer-events: none;
-	text-overflow: ellipsis;
+/* 	text-overflow: ellipsis; */
 	white-space: nowrap;
-	overflow: hidden;
+/* 	overflow: hidden; */
 }
 
 .cu-bar.ios .content {
