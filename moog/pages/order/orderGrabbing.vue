@@ -150,13 +150,13 @@ export default {
 			await this.$http.post('/api/order/confirm',{orderid:this.goodsItem.orderid,status:2})
 		},
 		async LoadModal(e) {
-			this.loadModal = true;
 			const data=await this.$http.post('/api/order/mkorder');
 			if(!data.data){
 				this.loadModal = false;
 				this.modalName = 'noData';
 				this.noData=data.msg
 			}else{
+				this.loadModal = true;
 				setTimeout(() => {
 					this.loadModal = false;
 					this.modalName = 'Image';
@@ -199,7 +199,7 @@ export default {
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
-		padding: 55rpx 0 0 30rpx;
+		padding: 35rpx 0 0 30rpx;
 		color: #fff;
 		text-align: center;
 

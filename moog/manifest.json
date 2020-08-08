@@ -106,10 +106,7 @@
             "proxy" : {
                 "/api" : {
                     "target" : "http://114.116.82.30",
-                    "changeOrigin" : true,
-                    "pathRewrite" : {
-                        "^/api" : ""
-                    }
+                    "changeOrigin" : true
                 }
             }
         },

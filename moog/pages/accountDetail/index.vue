@@ -26,10 +26,13 @@
 					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
 					 refresher-background="#f5f5f5" @scroll="scroll" @scrolltolower="loadMore" :refresher-triggered="tabs[0].data.triggered"
 					 :refresher-enabled="tabs[0].data.isTop" @scrolltoupper="toupper" @refresherrefresh="onRefresh" @refresherrestore="onRestore">
-						<view style="min-height:100%;padding-top: 20rpx;" v-if="true">
-							<accountDetailList  v-for="item in tabs[0].data.list" :key="tabs[0].name+item.id" :item="item" :startAfter="start_time" :startBefore="end_time"></accountDetailList>
+						<view v-if="tabs[0].data.list.length>0">
+							<view style="min-height:100%;padding-top: 20rpx;" v-if="true">
+								<accountDetailList  v-for="item in tabs[0].data.list" :key="tabs[0].name+item.id" :item="item" :startAfter="start_time" :startBefore="end_time"></accountDetailList>
+							</view>
+							<view class="cu-load" :class="tabs[0].data.bottom?'over':'loading'"></view>
 						</view>
-						<view class="cu-load" :class="tabs[0].data.bottom?'over':'loading'"></view>
+						<nodata v-else></nodata>
 					</scroll-view>
 				</swiper-item>
 
@@ -37,10 +40,13 @@
 					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
 					 refresher-background="#f5f5f5" @scroll="scroll" @scrolltolower="loadMore" :refresher-triggered="tabs[1].data.triggered"
 					 :refresher-enabled="tabs[1].data.isTop" @scrolltoupper="toupper" @refresherrefresh="onRefresh" @refresherrestore="onRestore">
-						<view style="min-height:100%;padding-top: 20rpx" v-if="true">
-							<accountDetailList  v-for="item in tabs[1].data.list" :key="tabs[1].name+item.id" :item="item"></accountDetailList>
-						</view> 
-						<view class="cu-load" :class="tabs[1].data.bottom?'over':'loading'"></view>
+						<view v-if="tabs[1].data.list.length>0">
+							<view style="min-height:100%;padding-top: 20rpx" v-if="true">
+								<accountDetailList  v-for="item in tabs[1].data.list" :key="tabs[1].name+item.id" :item="item"></accountDetailList>
+							</view> 
+							<view class="cu-load" :class="tabs[1].data.bottom?'over':'loading'"></view>
+						</view>
+						<nodata v-else></nodata>
 					</scroll-view>
 				</swiper-item>
 
@@ -48,10 +54,13 @@
 					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
 					 refresher-background="#f5f5f5" @scroll="scroll" @scrolltolower="loadMore" :refresher-triggered="tabs[2].data.triggered"
 					 :refresher-enabled="tabs[2].data.isTop" @scrolltoupper="toupper" @refresherrefresh="onRefresh" @refresherrestore="onRestore">
-						<view style="min-height:100%;padding-top: 20rpx" v-if="true">
-							<accountDetailList v-for="item in tabs[2].data.list" :key="tabs[2].name+item.id" :item="item"></accountDetailList>
+						<view v-if="tabs[2].data.list.length>0">
+							<view style="min-height:100%;padding-top: 20rpx" v-if="true">
+								<accountDetailList v-for="item in tabs[2].data.list" :key="tabs[2].name+item.id" :item="item"></accountDetailList>
+							</view>
+							<view class="cu-load" :class="tabs[2].data.bottom?'over':'loading'"></view>
 						</view>
-						<view class="cu-load" :class="tabs[2].data.bottom?'over':'loading'"></view>
+						<nodata v-else></nodata>
 					</scroll-view>
 				</swiper-item>
 			</swiper>
@@ -105,10 +114,12 @@
 	import accountDetailList from "./components/accountDetailList.vue"
 	import dateSelect from "./components/dateSelect.vue"
 	import {throttle} from "@/common/util.js";
+	import nodata from '../index/no-data.vue'
 	export default {
 		components: {
 			accountDetailList,
-			dateSelect
+			dateSelect,
+			nodata
 		},
 		data() {
 			return {

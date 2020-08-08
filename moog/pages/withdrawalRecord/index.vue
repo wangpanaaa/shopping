@@ -20,10 +20,13 @@
 			<swiper>
 				<swiper-item>
 					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" @scrolltolower="loadMore">
-						<view style="min-height:100%;padding-top: 20rpx;" v-if="true">
-							<accountDetailList v-for="item in page.list" :key="item.id" :item="item"></accountDetailList>
+						<view v-if="page.list.length>0">
+							<view style="min-height:100%;padding-top: 20rpx;" v-if="true">
+								<accountDetailList v-for="item in page.list" :key="item.id" :item="item"></accountDetailList>
+							</view>
+							<view class="cu-load" :class="page.bottom?'over':'loading'"></view>
 						</view>
-						<view class="cu-load" :class="page.bottom?'over':'loading'"></view>
+						<nodata v-else></nodata>
 					</scroll-view>
 				</swiper-item>
 			</swiper>
@@ -79,13 +82,15 @@
 <script>
 	import accountDetailList from "./components/accountDetailList.vue"
 	import dateSelect from "./components/dateSelect.vue"
+	import nodata from '../index/no-data.vue'
 	import {
 		throttle
 	} from "@/common/util.js";
 	export default {
 		components: {
 			accountDetailList,
-			dateSelect
+			dateSelect,
+			nodata
 		},
 		data() {
 			return {

@@ -3,23 +3,30 @@
 		<cu-custom bgColor="bg-black" :isBack="true">
 			<block slot="content">Message list</block>
 		</cu-custom>
-		<view v-for="(item,index) in listData" :key="index">
-			<view class="date">{{item.create_time}}</view>
-			<view class="item" @tap="topages(item.id)">
-				<view class="title">
-					<text class="textl">{{item.title}}</text>
-					<text class="cuIcon-right" style="color: #DCDDDD;"></text>
+		<view v-if="listData.length>0">
+			<view v-for="(item,index) in listData" :key="index">
+				<view class="date">{{item.create_time}}</view>
+				<view class="item" @tap="topages(item.id)">
+					<view class="title">
+						<text class="textl">{{item.title}}</text>
+						<text class="cuIcon-right" style="color: #DCDDDD;"></text>
+					</view>
+					<view class="text-con" v-html="item.content"></view>
 				</view>
-				<view class="text-con" v-html="item.content"></view>
 			</view>
 		</view>
+		<nodata v-else></nodata>
 		
 
 	</view>
 </template>
 
 <script>
+	import nodata from '../index/no-data.vue'
 	export default {
+		components:{
+			nodata
+		},
 		data() {
 			return {
 				listData:[]
