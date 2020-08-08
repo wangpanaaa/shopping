@@ -1,41 +1,43 @@
 
 import Vue from 'vue'
-
-function setKoken(token){
-	uni.setStorageSync('token',token)
-	uni.redirectTo({
-	    url: '/pages/index/index'
-	});
-}
-
 export default {
-	register({ state, commit },userInfo){
+	register({ state, commit,dispatch },userInfo){
 		state.username=userInfo.username
 		state.password=userInfo.password
 		Vue.prototype.$http.post('/api/login/register',{...userInfo}).then(res=>{
-			setKoken(res.data.token)
-			commit("register", res.data)
+			uni.setStorageSync('token',res.data.token)
+			dispatch('getUserUpdate').then(r=>{
+				uni.redirectTo({
+				    url: '/pages/index/index'
+				});
+			})
 		})
 	},
-	loginUser({state, commit},userInfo){
+	loginUser({state, commit,dispatch},userInfo){
 		state.username=userInfo.username
 		state.password=userInfo.password
 		Vue.prototype.$http.post('/api/login/login',{...userInfo}).then(res=>{
-			setKoken(res.data.token)
-			commit("register", res.data)
+			uni.setStorageSync('token',res.data.token)
+			dispatch('getUserUpdate').then(r=>{
+				uni.redirectTo({
+				    url: '/pages/index/index'
+				});
+			})
 		})
 	},
-	getUserUpdate({ state }){
-		Vue.prototype.$http.post('/api/account/getUserInfo').then(res=>{
-			uni.setStorageSync('userInfo',JSON.stringify(res.data))
-			state.userInfo=res.data
+	getUserUpdate({ state,commit }){
+		return new Promise((resolve,reject)=>{
+			Vue.prototype.$http.post('/api/account/getUserInfo').then(res=>{
+				commit("updateUserInfo", res.data)
+					resolve( res.data)
+			})
 		})
 	},
 	loginOut(state){
 		state.userInfo=null
 	 let todayLogin = uni.getStorageSync('todayLogin') || {} 
 		uni.clearStorageSync()
-		uni.setStorageSync('todayLogin', todayLogin)
+		uni.setStorageSync('todayLogin', todayLogin)	
 		uni.reLaunch({
 			url:'/pages/login/login'
 		})

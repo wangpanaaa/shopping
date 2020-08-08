@@ -1,6 +1,7 @@
 import store from "../"
 export default {
-	register(state,data){
+	updateUserInfo(state,data){
+		uni.setStorageSync('userInfo',JSON.stringify(data))
 		state.userInfo=data
 	}
 }

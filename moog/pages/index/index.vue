@@ -242,9 +242,6 @@
 			}
 		},
 		async onLoad() {
-			
-			//更新用户信息
-			this.$store.dispatch('getUserUpdate');
 			const {...data}=await this.$http.post('/api/order/mall')
 			this.amazonList=data.data
 			const list=await this.$http.post('/api/user/membernews')
@@ -272,7 +269,6 @@
 					item.headimg=this.headimglist[Math.floor(Math.random()*15)]
 				})
 			},10000)
-		  setTimeout(()=>{
 				this.signTime(async()=>{
 					//获取公告
 					const notices=await this.$http.post('/api/config/notice',{'count':1})
@@ -281,7 +277,6 @@
 						this.NoticeFlag=true
 					}	 
 				})
-			},3000)
 		},
 		onHide() {
 			clearInterval(memSetInterval)
