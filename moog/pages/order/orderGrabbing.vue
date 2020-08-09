@@ -276,7 +276,9 @@ export default {
 .cu-load.load-modal::after {
 	display: none;
 }
-
+.cu-dialog{
+	width: 300px;
+}
 .order-details {
 	background-color: #fff;
 	image {
