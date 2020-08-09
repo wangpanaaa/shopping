@@ -5,7 +5,7 @@
 		</cu-custom>
 		<view class="login flex">
 			<view class="text">CREATE ACCOUNT</view>
-			<view class="language flex" @tap='navigateTo("/pages/index/settingLanguage")'>
+			<view class="language flex"  @tap='selectLanguage'>
 				<image src="../../static/images/britain.png" />
 				<text style="font-size:28rpx;font-family:Bahnschrift;font-weight:bold;">English</text>
 			</view>
@@ -78,6 +78,11 @@
 			};
 		},
 		methods: {
+			selectLanguage(){
+				uni.navigateTo({
+					url:"/pages/index/settingLanguage"
+				})
+			},
 			// start() {
 			// 	this.showRegister = true
 			// },

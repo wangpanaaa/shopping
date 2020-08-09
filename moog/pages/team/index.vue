@@ -17,9 +17,9 @@
 			<view class="dateSelect">
 				<view class="date">
 					<span class="iconfont icon-riqi"></span>
-					<picker id="Before" :value="start_time" @change="chooseDate" start="2020-01-01" :end="today" mode="date">{{start_time}}</picker>
+					<picker id="Before" :value="tabs[currentTabs].time.start_time" @change="chooseDate" start="2020-01-01" :end="today" mode="date">{{tabs[currentTabs].time.start_time}}</picker>
 					to
-					<picker id="After" :value="end_time" @change="chooseDate" :start="start_time" :end="today" mode="date">{{end_time}}</picker>
+					<picker id="After" :value="tabs[currentTabs].time.end_time" @change="chooseDate" :start="start_time" :end="today" mode="date">{{tabs[currentTabs].time.end_time}}</picker>
 				</view>
 			</view>
 		</view>
@@ -50,37 +50,57 @@
 				tabs: [{
 						name: 'All',
 						left: '5%',
-						type: '',
-						team: [], //返回参数
-						list: []
+						type: 0,
+						team: [], 
+						list: [],
+						time:{
+							start_time: '',
+							end_time: '',
+						}
 					},
 					{
 						name: 'TODAY',
 						left: '20%',
 						type: 1,
 						team: [], //返回参数
-						list: []
+						list: [],
+						time:{
+							start_time: '',
+							end_time: '',
+						}
 					},
 					{
 						name: 'YESTERDAY',
 						left: '45%',
 						type: 2,
 						team: [], //返回参数
-						list: []
+						list: [],
+						time:{
+							start_time: '',
+							end_time: '',
+						}
 					},
 					{
 						name: 'WEEK',
 						left: '69%',
 						type: 3,
 						team: [], //返回参数
-						list: []
+						list: [],
+						time:{
+							start_time: '',
+							end_time: '',
+						}
 					},
 					{
 						name: 'MONTH',
 						left: '88%',
 						type: 5,
 						team: [], //返回参数
-						list: []
+						list: [],
+						time:{
+							start_time: '',
+							end_time: '',
+						}
 					}
 				],
 				start_time: '', //传递参数
@@ -93,7 +113,7 @@
 		},
 
 		onLoad() {
-			this.date()
+			// this.date()
 			this.fetchList()
 		},
 		mounted() {
@@ -112,16 +132,17 @@
 			},
 			fetchList() {
 				this.tabs.forEach((v, i) => {
-					let json = {
-						type: v.type,
-						start_time: this.start_time,
-						end_time: this.end_time
-					}
-					if (!json.type) delete json.type
+					let json={
+							type: v.type
+						}
 					this.$http.post('/api/user/teamstatistics', json).then(data => {
 						// v.team = data.data.team
 						v.list = data.data.list
-						if (v.name === 'All') uni.hideLoading()
+							v.time=data.data.time
+						if (v.name === 'All'){
+						
+							 uni.hideLoading()
+						}
 					})
 				})
 			},
@@ -141,7 +162,6 @@
 						"0" + (date.getMonth() + 1) :
 						date.getMonth() + 1) +
 					"-" + '01'
-
 			},
 			chooseDate(e) {
 				console.log(e.target)
@@ -163,10 +183,16 @@
 						this.end_time = e.detail.value
 					}
 				}
-				this.fetchList()
+				let json = {
+							start_time: this.start_time,
+							end_time: this.end_time
+						}
+				this.$http.post('/api/user/teamstatistics', json).then(data => {
+						this.tabs[0].list = data.data.list
+						this.tabs[0].time=data.data.time
+						this.currentTabs=0
+				})
 			},
-
-
 			$offset(selector) {
 				// 获取组件内元素的 offset 信息
 				return new Promise(resolve =>

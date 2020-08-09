@@ -13,7 +13,7 @@
 					<span> {{item.remark}}</span>
 					<span>{{item.wmp_name}}</span>
 			</view>
-			<text style=" font-size:28rpx;font-weight:bold;">₹ 25</text>
+			<text style=" font-size:28rpx;font-weight:bold;">{{item.price}}</text>
 		</view>
 		<view class="button" :class="{Dep:item.statusattr==='Extractable'?false:true}" @click="rollOut(item)">
 			 Roll-out
