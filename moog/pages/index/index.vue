@@ -10,47 +10,47 @@
 					<span class="iconfont icon-kefu" @tap='navigateTo("/pages/customerSerice/index")'></span>
 				</view>
 				<view class="title-text padding-116 padding-50" style="padding-bottom:16rpx;">
-					The new economy
+					{{$t('index').index1}}
 				</view>
-				<view class="title-text padding-50">Invite commissions</view>
-				<button class="cu-btn" style="margin-left: 50rpx;margin-top: 34rpx;" @tap='navigateTo("/pages/payment/financialManagement")'>Start the journey of wealth</button>
+				<view class="title-text padding-50">{{$t('index').index2}}</view>
+				<button class="cu-btn" style="margin-left: 50rpx;margin-top: 34rpx;" @tap='navigateTo("/pages/payment/financialManagement")'>{{$t('index').index3}}</button>
 			</view>
 			<view class="flex box-list">
 					<view style="text-align: center;" @tap='navigateTo("/pages/payment/financialManagement")'>
 						<view>
 							<image src="../../static/images/btn_financial.png" class="list-image"></image>
 						</view>
-						<text style="font-size: 24rpx;">Financial</text>
+						<text style="font-size: 24rpx;">{{$t('index').index4}}</text>
 					</view>
 				<view style="text-align: center;" @tap='navigateTo("/pages/blance/index")'>
 					<view>
 						<image src="../../static/images/btn_top-up.png" class="list-image"></image>
 					</view>
-					<text style="font-size: 24rpx;">Top-up</text>
+					<text style="font-size: 24rpx;">{{$t('index').index5}}</text>
 				</view>
 				<view style="text-align: center;" @tap='navigateTo("/pages/cashout/index")'>
 					<view>
 						<image src="../../static/images/btn_withdrawal.png" class="list-image"></image>
 					</view>
-					<text style="font-size: 24rpx;" >Withdrawal</text>
+					<text style="font-size: 24rpx;" >{{$t('index').index6}}</text>
 				</view>
 				<view style="text-align: center;" @tap="navigateTo('/pages/index/inviteFriend')">
 					<view>
 						<image src="../../static/images/btn_invite.png" class="list-image"></image>
 					</view>
-					<text style="font-size: 24rpx;" > Invite </text>
+					<text style="font-size: 24rpx;" > {{$t('index').index7}} </text>
 				</view>
 			</view>
 
 			<view class="flex flex-direction">
 				<button class="cu-btn bg-grey lg place-order" @tap="navigateTo('/pages/order/orderGrabbing')">
 					<span class="iconfont icon-che"></span>
-					<text style="font-size: 30rpx;">Place an order </text>
+					<text style="font-size: 30rpx;">{{$t('index').index8}}</text>
 				</button>
 			</view>
 			
-			<view style="font-size: 24rpx;color: #A8A8A8;padding-top: 73rpx;padding-left: 28rpx;">Select member session </view>
-			<view style="font-size: 40rpx;color: #333;padding-top: 18rpx;padding-left: 32rpx;font-weight: bold;">MISSION Hall </view>
+			<view style="font-size: 24rpx;color: #A8A8A8;padding-top: 73rpx;padding-left: 28rpx;">{{$t('index').index9}} </view>
+			<view style="font-size: 40rpx;color: #333;padding-top: 18rpx;padding-left: 32rpx;font-weight: bold;">{{$t('index').index10}} </view>
 			<view class="etsy-list">
 				<view class="item-etsy" v-for="item of amazonList" :key='item.id' @tap="showAlert(item.lock)">
 					<image :src="item.pic" class="etsy-image"></image>
@@ -60,12 +60,11 @@
 						{{item.title}}
 					</view>
 				</view>
-				
 			</view>	
 			
 			
-			<view style="font-size: 24rpx;color: #A8A8A8;padding-top: 73rpx;padding-left: 28rpx;">Three-level proxy model </view>
-			<view style="font-size: 40rpx;color: #333;padding-left: 32rpx;font-weight: bold;">MEMBER NEWS </view>
+			<view style="font-size: 24rpx;color: #A8A8A8;padding-top: 73rpx;padding-left: 28rpx;">{{$t('index').index13}} </view>
+			<view style="font-size: 40rpx;color: #333;padding-left: 32rpx;font-weight: bold;">{{$t('index').index14}}</view>
 			<image :src="settings.ad_tiny" class="banner-image " ></image>
 			<view class="cu-list menu-avatar" style="padding: 10rpx 30rpx;height: 460rpx;" >
 				<view class="cu-item " style="border-radius: 10rpx;margin-bottom: 10rpx;"  v-for="(item,index) in memberNewArr" :key='index' >
@@ -85,34 +84,34 @@
 					</swiper-item>
 				</swiper>
 			</view>
-			<view style="font-size: 24rpx;color: #A8A8A8;padding-top: 48rpx;padding-left: 28rpx;">Professional grab order platform  </view>
-			<view style="font-size: 40rpx;color: #333;padding-top: 18rpx;padding-left: 32rpx;font-weight: bold;">ABOUT US  </view>
+			<view style="font-size: 24rpx;color: #A8A8A8;padding-top: 48rpx;padding-left: 28rpx;">{{$t('index').index20}}   </view>
+			<view style="font-size: 40rpx;color: #333;padding-top: 18rpx;padding-left: 32rpx;font-weight: bold;">{{$t('index').index21}}  </view>
 			<view class="us-list flex">
 				<view class="us-item" @tap="navigateTo('/pages/index/noticedetail?id='+settings.profile)">
 					<image src="../../static/images/company-profile.png"></image>
-					<view style="font-size: 30rpx;color: #333333;font-weight:bold;" >company profile </view>
-					<view style="font-size: 24rpx;color: #A8A8A8;width: 280rpx;margin: 20rpx auto;">Professional grab order  platform  </view>
+					<view style="font-size: 30rpx;color: #333333;font-weight:bold;" >{{$t('index').index22}}</view>
+					<view style="font-size: 24rpx;color: #A8A8A8;width: 280rpx;margin: 20rpx auto;">{{$t('index').index20}} </view>
 				</view>
 				<view class="us-item" @tap="navigateTo('/pages/index/noticedetail?id='+settings.cooperation)">
 					<image src="../../static/images/Agent-cooperation.png"></image>
-					<view style="font-size: 30rpx;color: #333333;font-weight:bold;">Agent cooperation   </view>
-					<view style="font-size: 24rpx;color: #A8A8A8;width: 230rpx;margin: 20rpx auto;">We look forward to  your joining     </view>
+					<view style="font-size: 30rpx;color: #333333;font-weight:bold;">{{$t('index').index24}}  </view>
+					<view style="font-size: 24rpx;color: #A8A8A8;width: 230rpx;margin: 20rpx auto;">{{$t('index').index25}}     </view>
 				</view>
 				<view class="us-item" @tap="navigateTo('/pages/calculator/index')">
 					<image src="../../static/images/Calculate-revenue.png"></image>
-					<view style="font-size: 30rpx;color: #333333;font-weight:bold;" >Calculate revenue   </view>
-					<view style="font-size: 24rpx;color: #A8A8A8;width: 280px;margin: 20rpx auto;">Earn commissions easily     </view>
+					<view style="font-size: 30rpx;color: #333333;font-weight:bold;" >{{$t('index').index26}}   </view>
+					<view style="font-size: 24rpx;color: #A8A8A8;width: 280rpx;margin: 20rpx auto;">{{$t('index').index27}}     </view>
 				</view>
 				<view class="us-item" @tap="navigateTo('/pages/index/noticedetail?id='+settings.rule)">
 					<image src="../../static/images/Rule-description.png"></image>
-					<view style="font-size: 30rpx;color: #333333;font-weight:bold;">Rule description    </view>
-					<view style="font-size: 24rpx;color: #A8A8A8;width: 280rpx;margin: 20rpx auto;">Keep your funds safe  </view>
+					<view style="font-size: 30rpx;color: #333333;font-weight:bold;"> {{$t('index').index28}}  </view>
+					<view style="font-size: 24rpx;color: #A8A8A8;width: 280rpx;margin: 20rpx auto;">{{$t('index').index29}}  </view>
 				</view>
 			</view>
 			<view class="bottom-text">
 				<view class="iocn-english">
 					<image src="../../static/images/britain.png"></image>
-					<text style="font-size: 28rpx;" @tap="navigateTo('./settingLanguage')">EngLish</text>
+					<text style="font-size: 28rpx;" @tap="navigateTo('./settingLanguage')">{{$t('index').index30}}</text>
 				</view>
 				<!-- <view style="font-size: 22rpx;text-align: center;margin-top: 33rpx;">Copyright © 2020. E-Nuggets All rights reserved.</view> -->
 				<view style="height: 40rpx;background-color: #222F3E;"></view>
