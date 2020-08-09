@@ -25,6 +25,18 @@
 			</view>
 			<view class="register">Register a new <text style="text-decoration: underline;margin-left: 28rpx;" @tap='navigateTo("/pages/login/register")'>Sign up</text></view>
 		</view>
+		
+		<view class="cu-modal notice-dal" :class="versionFlga==true?'show':''">
+			<view class="version-img" v-if="versionInfo">
+				<text class="iconfont icon-guanbi" @tap="versionFlga=false" v-if="versionInfo.isforce===0"></text>
+				<image  src="../../static/images/version.png"></image>
+				<view class="box">
+					<view v-html="versionInfo.note"></view>
+				</view>
+				<view class="flex flex-direction"><button class="update" @tap="openDown">Update Now</button></view>
+			</view>
+		</view>
+		
 	</view>
 </template>
 
@@ -45,25 +57,27 @@
 						url:'../index/index'
 					})
 				},500)
+			}else{
+				//#ifdef APP-PLUS
+					this.versionInfo=this.$store.state.version || {}
+					if(this.versionInfo.status>0){
+						this.versionFlga=true
+					}
+				//#endif
 			}
 		},
 		data() {
 			return {
 				loginData:{
 					username: '',
-					password: ''
+					password: '',
+					devicetype:'',
+					version:'',
 				},
-				showPassword:true,
+				versionFlga:false,
+				showPassword:false,
 				settings:{},
-				// language: 'English',
-				// showAccountLogin: false,
-				// showRegister: false,
-				// regData:{
-				// 	username:'',
-				// 	pwd:'',
-				// 	repwd:'',
-				// 	agentid:'',
-				// }
+				versionInfo:{}
 			};
 		},
 		methods: {
@@ -72,17 +86,14 @@
 					url:"/pages/index/settingLanguage"
 				})
 			},
-			
-			// start() {
-			// 	this.showRegister = true
-			// },
-			// signIn() {
-			// 	this.showAccountLogin = true
-			// 	this.showRegister = false
-			// },
-			// cancel(){
-			// 	this.showAccountLogin = false
-			// },
+		
+			openDown(){
+				//#ifdef APP-PLUS
+					if(this.versionInfo){
+						plus.runtime.openURL(this.versionInfo.url)
+					}
+				//#endif
+			},
 			changePassword: function() {
 			    this.showPassword = !this.showPassword;
 			},
@@ -94,27 +105,18 @@
 					})
 					return
 				}
+				// #ifdef APP-PLUS
+					uni.getSystemInfo({
+						success:(e)=>{
+							this.loginData.devicetype=e.platform
+							this.loginData.version=plus.runtime.versionCode
+						}
+					})
+				// #endif
+				
 				this.$store.dispatch('loginUser',this.loginData);
 				this.showAccountLogin = false
 			},
-			// forgot(){
-			// 	this.showAccountLogin = false
-			// 	this.showRegister = true
-			// },
-			// registerCancel(){
-			// 	this.showAccountLogin = false
-			// 	this.showRegister = false
-			// },
-			// registerSub(){
-			// 	if(!this.regData.username || !this.regData.pwd ||!this.regData.repwd){
-			// 		uni.showToast({
-			// 			title:'Please complete the relevant information'
-			// 		})
-			// 		return
-			// 	}
-			// 	this.$store.dispatch('register',this.regData);
-			// 	this.showRegister = false
-			// },
 			navigateTo(e) {
 				uni.redirectTo({
 					url:e
@@ -218,5 +220,52 @@
 		font-size:34rpx;
 		margin-bottom: 94rpx;
 		font-family:Myriad Pro;
+	}
+	.version-img{
+		position: relative;
+		display: inline-block;
+		vertical-align: middle;
+		margin-left: auto;
+		margin-right: auto;
+		width: 300px;
+		max-width: 100%;
+		border-radius: 5px;
+		overflow: hidden;
+		image{
+			width: 100%;
+			height: 290rpx;
+			background:none
+		}
+		.icon-guanbi{
+			position: absolute;
+			width:58rpx;
+			height:58rpx;
+			background:rgba(255,255,255,1);
+			border-radius:50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			right: 0;
+			top: 20px;
+			z-index: 999;
+		}
+		.box{
+			background-color: #fff;
+			margin-top: -20rpx;
+			padding: 50rpx 46rpx 95rpx 46rpx;
+			height: 300rpx;
+			overflow: scroll;
+		}
+		.flex{
+			background-color: #fff;
+		}
+		.update{
+			margin:20rpx;
+			height:80rpx;
+			line-height: 80rpx;
+			font-size: 34rpx;
+			background:linear-gradient(180deg,rgba(247,222,162,1),rgba(240,194,80,1));
+			border-image:linear-gradient(170deg, rgba(172,142,66,1), rgba(133,108,47,1)) 2 2;
+		}
 	}
 </style>

@@ -155,7 +155,7 @@ export default {
 		padding-right: 33rpx;
 	}
 	.count {
-		margin-top: 90rpx;
+		margin-top: 70rpx;
 		text-align: center;
 		color: #ffb745;
 		font-size: 50rpx;

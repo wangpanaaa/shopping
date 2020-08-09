@@ -74,6 +74,8 @@
 					pwd:'',
 					repwd:'',
 					agentid:'',
+					devicetype:'',
+					version:'',
 				}
 			};
 		},
@@ -119,6 +121,14 @@
 					})
 					return
 				}
+				// #ifdef APP-PLUS
+					uni.getSystemInfo({
+						success:(e)=>{
+							this.regData.devicetype=e.platform
+							this.regData.version=plus.runtime.versionCode
+						}
+					})
+				// #endif
 				this.$store.dispatch('register',this.regData);
 				this.showRegister = false
 			},

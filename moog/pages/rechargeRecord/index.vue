@@ -20,7 +20,7 @@
 			<swiper>
 				<swiper-item>
 					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" @scrolltolower="loadMore">
-						<view v-if="page.list.length>0">
+						<view style="height: 100%;" v-if="page.list.length>0">
 							<view style="min-height:100%;padding-top: 20rpx;" v-if="true">
 								<accountDetailList v-for="item in page.list" :key="item.id" :item="item"></accountDetailList>
 							</view>
@@ -43,19 +43,19 @@
 							<view class="timeSelect_title">
 								TIME SELECTION
 							</view>
-							<picker id='Before' mode="date" :value="start_time" start="2020-01-01" :end="today" @change="chooseDate"
+							<picker id='Before' mode="date" :value="start_time2" start="2020-01-01" :end="today" @change="chooseDate2"
 							 data-title='start'>
 								<view class="timeSelect_start">
 									<span>Starting time</span>
-									<view class="input"><input type="text" v-model="start_time" placeholder-class="placeholder" disabled
+									<view class="input"><input type="text" v-model="start_time2" placeholder-class="placeholder" disabled
 										 placeholder="Please enter the start time" /></view>
 								</view>
 							</picker>
-							<picker id='After' mode="date" :value="end_time" :start="start_time" :end="today" @change="chooseDate"
+							<picker id='After' mode="date" :value="end_time2" :start="start_time2" :end="today" @change="chooseDate2"
 							 data-title='end'>
 								<view class="timeSelect_end">
 									<span> End Time</span>
-									<view class="input"><input type="text" v-model="end_time" placeholder-class="placeholder" disabled placeholder="Please enter the End time" /></view>
+									<view class="input"><input type="text" v-model="end_time2" placeholder-class="placeholder" disabled placeholder="Please enter the End time" /></view>
 								</view>
 							</picker>
 							<!-- <view class="selection ">
@@ -105,6 +105,8 @@
 				scrollViewHeight: '',
 				start_time: '', //传递参数
 				end_time: '', //传递参数
+				start_time2: '', //传递参数
+				end_time2: '', //传递参数
 				today: '',
 				fetching: false,
 				modalName: false,
@@ -162,6 +164,27 @@
 				}
 				this.fetchList()
 			},
+			chooseDate2(e) {
+				console.log(e.target)
+				if (e.target.id === 'Before') {
+					if (new Date(e.detail.value).getTime() - new Date(this.end_time2).getTime() > 0) {
+						this.start_time2 = e.detail.value
+						this.end_time2 = e.detail.value
+			
+					} else {
+						this.start_time2 = e.detail.value
+					}
+				} else {
+					if (new Date(this.start_time2).getTime() - new Date(e.detail.value).getTime() > 0) {
+						console.log(1)
+						this.start_time2 = e.detail.value
+						this.end_time2 = e.detail.value
+			
+					} else {
+						this.end_time2 = e.detail.value
+					}
+				}
+			},
 			$offset(selector) {
 				// 获取组件内元素的 offset 信息
 				return new Promise(resolve =>
@@ -174,6 +197,8 @@
 				);
 			},
 			showModal(e) {
+				this.start_time2=this.start_time
+				this.end_time2=this.end_time
 				this.modalName = true
 			},
 			hideModal(e) {
@@ -184,6 +209,8 @@
 				this.selectClick = data
 			},
 			subClick() {
+				this.start_time=this.start_time2
+				this.end_time=this.end_time2	
 				this.fetchList()
 				this.hideModal()
 			},

@@ -29,7 +29,8 @@
 					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
 					 refresher-background="#f5f5f5" @scroll="scroll" @scrolltolower="loadMore" :refresher-triggered="tabs[0].data.triggered"
 					 :refresher-enabled="tabs[0].data.isTop" @scrolltoupper="toupper" @refresherrefresh="onRefresh" @refresherrestore="onRestore">
-						<view style="min-height:100%;padding-top: 20rpx;" v-if="true">
+					 	<view style="height: 100%;" v-if="tabs[0].data.list.length>0">
+						<view style="min-height:100%;padding-top: 20rpx;">
 							<view  class="cu-list menu-avatar" >
 								<view class="cu-item" v-for="(item,index) in tabs[0].data.list" :key="tabs[0].name+item.id" style="margin-bottom: 10rpx;">
 									<view class="cu-avatar round lg">
@@ -55,7 +56,9 @@
 								</view>
 							</view>
 						</view>
-						<view class="cu-load" :class="tabs[0].data.bottom?'over':'loading'"></view>
+								<view class="cu-load" :class="tabs[0].data.bottom?'over':'loading'"></view>
+						</view>
+						<nodata v-else></nodata>
 					</scroll-view>
 				</swiper-item>
 
@@ -63,7 +66,8 @@
 					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
 					 refresher-background="#f5f5f5" @scroll="scroll" @scrolltolower="loadMore" :refresher-triggered="tabs[1].data.triggered"
 					 :refresher-enabled="tabs[1].data.isTop" @scrolltoupper="toupper" @refresherrefresh="onRefresh" @refresherrestore="onRestore">
-						<view style="min-height:100%;padding-top: 20rpx" v-if="true">
+					 <view style="height: 100%;" v-if="tabs[1].data.list.length>0">
+						<view style="min-height:100%;padding-top: 20rpx">
 							<view  class="cu-list menu-avatar" >
 								<view class="cu-item" v-for="(item,index) in tabs[1].data.list" :key="tabs[0].name+item.id" style="margin-bottom: 10rpx;">
 									<view class="cu-avatar round lg">
@@ -90,6 +94,8 @@
 							</view>
 						</view>
 						<view class="cu-load" :class="tabs[1].data.bottom?'over':'loading'"></view>
+						</view>
+						<nodata v-else></nodata>
 					</scroll-view>
 				</swiper-item>
 
@@ -97,7 +103,8 @@
 					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
 					 refresher-background="#f5f5f5" @scroll="scroll" @scrolltolower="loadMore" :refresher-triggered="tabs[2].data.triggered"
 					 :refresher-enabled="tabs[2].data.isTop" @scrolltoupper="toupper" @refresherrefresh="onRefresh" @refresherrestore="onRestore">
-						<view style="min-height:100%;padding-top: 20rpx" v-if="true">
+					  <view style="height: 100%;" v-if="tabs[2].data.list.length>0">
+						<view style="min-height:100%;padding-top: 20rpx">
 							<view  class="cu-list menu-avatar" >
 								<view class="cu-item" v-for="(item,index) in tabs[2].data.list" :key="tabs[0].name+item.id" style="margin-bottom: 10rpx;">
 									<view class="cu-avatar round lg">
@@ -124,13 +131,16 @@
 							</view>
 						</view>
 						<view class="cu-load" :class="tabs[2].data.bottom?'over':'loading'"></view>
+						</view>
+						<nodata v-else></nodata>
 					</scroll-view>
 				</swiper-item>
 				<swiper-item>
 					<scroll-view scroll-y :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" :refresher-threshold="100"
 					 refresher-background="#f5f5f5" @scroll="scroll" @scrolltolower="loadMore" :refresher-triggered="tabs[3].data.triggered"
 					 :refresher-enabled="tabs[3].data.isTop" @scrolltoupper="toupper" @refresherrefresh="onRefresh" @refresherrestore="onRestore">
-						<view style="min-height:100%;padding-top: 20rpx" v-if="true">
+					 	  <view style="height: 100%;" v-if="tabs[3].data.list.length>0">
+						<view style="min-height:100%;padding-top: 20rpx">
 							<view  class="cu-list menu-avatar" >
 								<view class="cu-item" v-for="(item,index) in tabs[3].data.list" :key="tabs[0].name+item.id" style="margin-bottom: 10rpx;">
 									<view class="cu-avatar round lg">
@@ -157,6 +167,8 @@
 							</view>
 						</view>
 						<view class="cu-load" :class="tabs[3].data.bottom?'over':'loading'"></view>
+						</view>
+						<nodata v-else></nodata>
 					</scroll-view>
 				</swiper-item>
 			</swiper>
@@ -172,19 +184,19 @@
 							<view class="timeSelect_title">
 								TIME SELECTION
 							</view>
-							<picker id='Before' mode="date" :value="start_time" start="2020-01-01" :end="today" @change="chooseDate"
+							<picker id='Before' mode="date" :value="start_time2" start="2020-01-01" :end="today" @change="chooseDate2"
 							 data-title='start'>
 								<view class="timeSelect_start">
 									<span>Starting time</span>
-									<view class="input"><input type="text" v-model="start_time" placeholder-class="placeholder" disabled
+									<view class="input"><input type="text" v-model="start_time2" placeholder-class="placeholder" disabled
 										 placeholder="Please enter the start time" /></view>
 								</view>
 							</picker>
-							<picker id='After' mode="date" :value="end_time" :start="start_time" :end="today" @change="chooseDate"
+							<picker id='After' mode="date" :value="end_time2" :start="start_time2" :end="today" @change="chooseDate2"
 							 data-title='end'>
 								<view class="timeSelect_end">
 									<span> End Time</span>
-									<view class="input"><input type="text" v-model="end_time" placeholder-class="placeholder" disabled placeholder="Please enter the End time" /></view>
+									<view class="input"><input type="text" v-model="end_time2" placeholder-class="placeholder" disabled placeholder="Please enter the End time" /></view>
 								</view>
 							</picker>
 							<!-- <view class="selection ">
@@ -211,17 +223,21 @@
 
 <script>
 	import dateSelect from "pages/accountDetail/components/dateSelect.vue"
+		import nodata from '../index/no-data.vue'
 	import {
 		throttle
 	} from "@/common/util.js";
 	export default {
 		components: {
-			dateSelect
+			dateSelect,
+			nodata
 		},
 		data() {
 			return {
 				start_time: '', //传递参数
 				end_time: '', //传递参数
+				start_time2: '', //传递参数
+				end_time2: '', //传递参数
 				today: '',
 				tabs: [{
 						name: 'All',
@@ -363,7 +379,26 @@
 				}
 				this.fetchList()
 			},
+	chooseDate2(e) {
+				console.log(e.target)
+				if (e.target.id === 'Before') {
+					if (new Date(e.detail.value).getTime() - new Date(this.end_time2).getTime() > 0) {
+						this.start_time2 = e.detail.value
+						this.end_time2 = e.detail.value
 
+					} else {
+						this.start_time2 = e.detail.value
+					}
+				} else {
+					if (new Date(this.start_time2).getTime() - new Date(e.detail.value).getTime() > 0) {
+						this.start_time2 = e.detail.value
+						this.end_time2 = e.detail.value
+
+					} else {
+						this.end_time2 = e.detail.value
+					}
+				}
+			},
 			fetchList() {
 				this.tabs.forEach((v, i) => {
 					let json
@@ -520,7 +555,8 @@
 
 			},
 			showModal(e) {
-
+				this.start_time2=this.start_time
+				this.end_time2=this.end_time
 				this.modalName = true
 			},
 			hideModal(e) {
@@ -542,6 +578,8 @@
 				this.selectClick = data
 			},
 			subClick() {
+				this.start_time=this.start_time2
+				this.end_time=this.end_time2
 				this.fetchList()
 				this.hideModal()
 			}

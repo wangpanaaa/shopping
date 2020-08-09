@@ -25,7 +25,7 @@
 			</view>
 
 			<view class="withdrawal">
-				<view class="withdrawal_title">Cash withdrawal (income tax 10%)</view>
+				<view class="withdrawal_title">Cash withdrawal (income tax {{tax.withdrawal_tax}})</view>
 				<input type="number" v-model="amount" placeholder-class="placeholder" placeholder="Please enter the cash withdrawal amount" />
 			</view>
 			<view class="commit" @click="commit">
@@ -40,10 +40,12 @@
 export default {
 	data() {
 		return {
-			amount: ''
+			amount: '',
+			tax:'',
 		};
 	},
 	onLoad() {
+		this.tax=JSON.parse(uni.getStorageSync('settings'))
 		this.$store.dispatch('getUserUpdate');
 		//  console.log(res)
 	},
