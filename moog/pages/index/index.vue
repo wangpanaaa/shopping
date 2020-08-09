@@ -170,7 +170,7 @@
 				<view class="title">{{noticedetail.title}}</view>
 				<view class="conten" v-html="noticedetail.content">                 
 				</view>
-				<view class="flex flex-direction"><button class="cu-btn" @tap="onNoticeFlag">Confirm</button></view>
+				<view class="flex flex-direction"><button class="cu-btn" @tap="onNoticeFlag">{{$t('notice').index2}}</button></view>
 			</view>
 		</view>
 		

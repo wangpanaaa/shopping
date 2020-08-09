@@ -5,25 +5,27 @@
 			<block slot="right">
 				<view>
 					<!-- <span class="iconfont icon-tuandui" style="font-size: 40rpx;padding: 20rpx;" @tap='topages("/pages/team/members")'></span> -->
-			<!-- 		<span class="iconfont icon-liebiao" style='margin:0 30rpx 0 47rpx;font-size: 38rpx;'></span> -->
+					<!-- 		<span class="iconfont icon-liebiao" style='margin:0 30rpx 0 47rpx;font-size: 38rpx;'></span> -->
 				</view>
 			</block>
 		</cu-custom>
 		<view class="nav">
 			<view class="head_tabs">
-				<span :class="{tabsChecked:currentTabs==index}" v-for="(item,index) in tabs" :key="index" @click="currentTabs=index">{{item.name}}</span>
-				<view :style="{left:tabs[currentTabs].left}" class="line" v-if="tabs.length>1"></view>
+				<span :class="{tabsChecked:currentTabs==index&&!needRefreshAll}" v-for="(item,index) in tabs" :key="index" @click="changeSwiper(item,index)">{{item.name}}</span>
+				<view :style="{left:tabs[currentTabs].left}" class="line" v-if="tabs.length>1 && !needRefreshAll"></view>
 			</view>
 			<view class="dateSelect">
 				<view class="date">
 					<span class="iconfont icon-riqi"></span>
-					<picker id="Before" :value="tabs[currentTabs].time.start_time" @change="chooseDate" start="2020-01-01" :end="today" mode="date">{{tabs[currentTabs].time.start_time}}</picker>
+					<picker id="Before" :value="tabs[currentTabs].time.start_time" @change="chooseDate" start="2020-01-01" :end="today"
+					 mode="date">{{tabs[currentTabs].time.start_time}}</picker>
 					to
-					<picker id="After" :value="tabs[currentTabs].time.end_time" @change="chooseDate" :start="start_time" :end="today" mode="date">{{tabs[currentTabs].time.end_time}}</picker>
+					<picker id="After" :value="tabs[currentTabs].time.end_time" @change="chooseDate" :start="start_time" :end="today"
+					 mode="date">{{tabs[currentTabs].time.end_time}}</picker>
 				</view>
 			</view>
 		</view>
-		
+
 		<view class="swiper-area">
 			<swiper :acceleration="false" :current="currentTabs" @change="change">
 				<swiper-item :style="{ height: scrollViewHeight + 'px',background:'#f5f5f5' }" v-for="(value,index) in tabs" :key="index">
@@ -51,9 +53,9 @@
 						name: 'All',
 						left: '5%',
 						type: 0,
-						team: [], 
+						team: [],
 						list: [],
-						time:{
+						time: {
 							start_time: '',
 							end_time: '',
 						}
@@ -64,7 +66,7 @@
 						type: 1,
 						team: [], //返回参数
 						list: [],
-						time:{
+						time: {
 							start_time: '',
 							end_time: '',
 						}
@@ -75,7 +77,7 @@
 						type: 2,
 						team: [], //返回参数
 						list: [],
-						time:{
+						time: {
 							start_time: '',
 							end_time: '',
 						}
@@ -86,7 +88,7 @@
 						type: 3,
 						team: [], //返回参数
 						list: [],
-						time:{
+						time: {
 							start_time: '',
 							end_time: '',
 						}
@@ -97,7 +99,7 @@
 						type: 5,
 						team: [], //返回参数
 						list: [],
-						time:{
+						time: {
 							start_time: '',
 							end_time: '',
 						}
@@ -106,6 +108,7 @@
 				start_time: '', //传递参数
 				end_time: '', //传递参数
 				today: '',
+				needRefreshAll: false,
 				scrollViewHeight: '',
 				currentTabs: 0,
 				fetching: false,
@@ -128,20 +131,45 @@
 			change(e) {
 				// swiper index 变化时触发
 				this.currentTabs = e.detail.current;
-
+				if (this.needRefreshAll&&	this.currentTabs!==0) {
+					let json = {
+						type: this.tabs[0].type,
+					}
+					this.$http.post('/api/user/teamstatistics', json).then(data => {
+						this.tabs[0].list = data.data.list
+						this.tabs[0].time = data.data.time
+						this.needRefreshAll=false
+					})
+				}
+			},
+			changeSwiper(item, index) {
+				this.currentTabs = index
+				if (item.name == 'All' && this.needRefreshAll) {
+					let json = {
+						type: this.tabs[0].type,
+					}
+					this.tabs[0].list = []
+					this.$http.post('/api/user/teamstatistics', json).then(data => {
+						this.tabs[0].list = data.data.list
+						this.tabs[0].time = data.data.time
+						this.currentTabs = 0
+						this.needRefreshAll = false
+					})
+				}
 			},
 			fetchList() {
 				this.tabs.forEach((v, i) => {
-					let json={
-							type: v.type
-						}
+					let json = {
+						type: v.type
+					}
 					this.$http.post('/api/user/teamstatistics', json).then(data => {
 						// v.team = data.data.team
 						v.list = data.data.list
-							v.time=data.data.time
-						if (v.name === 'All'){
-						
-							 uni.hideLoading()
+						v.time = data.data.time
+						if (v.name === 'All') {
+							this.start_time = data.data.time.start_time
+							this.end_time = data.data.time.end_time
+							uni.hideLoading()
 						}
 					})
 				})
@@ -184,13 +212,15 @@
 					}
 				}
 				let json = {
-							start_time: this.start_time,
-							end_time: this.end_time
-						}
+					start_time: this.start_time,
+					end_time: this.end_time
+				}
+				this.tabs[0].list = []
+				this.currentTabs = 0
+				this.needRefreshAll = true
 				this.$http.post('/api/user/teamstatistics', json).then(data => {
-						this.tabs[0].list = data.data.list
-						this.tabs[0].time=data.data.time
-						this.currentTabs=0
+					this.tabs[0].list = data.data.list
+					this.tabs[0].time = data.data.time
 				})
 			},
 			$offset(selector) {
@@ -247,6 +277,7 @@
 		align-items: center;
 		position: relative;
 		justify-content: space-around;
+
 		span {
 			// flex: 1;
 			color: rgba(168, 168, 168, 1);

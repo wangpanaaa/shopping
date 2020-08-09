@@ -11,12 +11,9 @@
 		<view class="invitation">
 			<view style="font-size:34rpx;border-bottom:1px dashed #ccc ;margin: 0 40rpx;padding-bottom: 37rpx;">{{$t('inviteFriend').index3}}</view>
 			<view class="share">
-				<view class="share_text">
+				<view class="share_text" v-html="shareContent">
 
-					Share with friends and get more orders.
-					Your friends download and use well can also earn a high amount of brush single income. Because of your
-					recommendation, if your friend gets 100 rupees, you can also get 16%, that is, 16 rupees.
-					Make money together !
+					
 
 				</view>
 				<view style="font-size:34rpx;color: #A8A8A8;margin-top: 20rpx;">{{$t('inviteFriend').index4}}<text style="margin-left: 20rpx;color: #333;font-weight: bold;">{{userInfo.uid}}</text></view>
@@ -45,7 +42,8 @@
 		},
 		data() {
 			return {
-				invitationSrc: ''
+				invitationSrc: '',
+				shareContent:''
 			}
 		},
 		computed: {
@@ -54,7 +52,8 @@
 			}
 		},
 		mounted() {
-			this.invitationSrc = url + '/api/account/qrcode/uid/' + this.userInfo.uid
+			this.shareContent=JSON.parse(uni.getStorageSync('settings')).share_page_content
+			this.invitationSrc = this.userInfo.invite_link
 		},
 		methods: {
 			BackPage() {
@@ -166,6 +165,8 @@
 			flex-direction: column;
 			justify-content: space-between;
 			&_text{
+				max-height: 340rpx;
+				overflow: scroll;
 				text-align: center;
 				padding: 50rpx 40rpx;
 				text-indent: 1rem;

@@ -1,7 +1,7 @@
 <template>
 	<view class="accountDetailContain">
 		<cu-custom bgColor="bg-black" :isBack="true">
-			<block slot="content">Account details</block>
+			<block slot="content">{{$t('accountRecord').index1}}</block>
 			<block slot="right">
 				<span class="iconfont icon-liebiao" @click="showModal"></span>
 			</block>

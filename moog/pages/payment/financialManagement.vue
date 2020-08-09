@@ -114,6 +114,7 @@ export default {
 				uni.showToast({
 					title:'Successfully'
 				})
+				this.amount=''
 				this.$store.dispatch('getUserUpdate');
 			}
 		},
