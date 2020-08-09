@@ -27,7 +27,7 @@
 			
 			});
 			uni.getSystemInfo({
-				success: function(e) {
+				success: (e)=> {
 					// #ifndef MP
 					Vue.prototype.StatusBar = e.statusBarHeight;
 					if (e.platform == 'android') {
@@ -36,6 +36,15 @@
 						Vue.prototype.CustomBar = e.statusBarHeight + 45;
 					}
 					// #endif
+					
+					//#ifdef APP-PLUS
+						let data={
+							appid:plus.appid,
+							version:plus.runtime.versionCode,
+							devicetype:e.platform
+						}
+						this.$store.dispatch('checkupgrade',data)
+					//#endif
 
 					// #ifdef MP-WEIXIN
 					Vue.prototype.StatusBar = e.statusBarHeight;

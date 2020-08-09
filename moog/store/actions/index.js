@@ -33,6 +33,14 @@ export default {
 			})
 		})
 	},
+	checkupgrade({ state,commit },data){
+		return new Promise((resolve,reject)=>{
+			Vue.prototype.$http.post('/api/config/checkupgrade',data).then(res=>{
+				commit("updatecheckupgrade", res.data)
+				resolve(res.data)
+			})
+		})
+	},
 	loginOut(state){
 		state.userInfo=null
 	 let todayLogin = uni.getStorageSync('todayLogin') || {} 

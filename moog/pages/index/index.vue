@@ -157,6 +157,8 @@
 			</view>
 		</view>
 		
+		
+		<!-- 公告弹出 -->
 		<view class="cu-modal notice-dal" :class="NoticeFlag==true?'show':''">
 			<view class="cu-dialog">
 				<view class="bg-img">
@@ -173,6 +175,7 @@
 			</view>
 		</view>
 		
+		<!-- 昨日收益弹出 -->
 		<view class="cu-modal notice-dal" :class="incomeFlag==true?'show':''">
 			<view class="notice-img"  v-if="teamreport">
 				<text class="iconfont icon-guanbi" @tap="incomeFlag=false"></text>
@@ -196,6 +199,18 @@
 			</view>
 		</view>
 		
+		<!-- 升级弹出 -->
+		<view class="cu-modal notice-dal" :class="versionFlga==true?'show':''">
+			<view class="version-img" v-if="versionInfo">
+				<text class="iconfont icon-guanbi" @tap="versionFlga=false" v-if="versionInfo.isforce===0"></text>
+				<image  src="../../static/images/version.png"></image>
+				<view class="box">
+					<view v-html="versionInfo.note"></view>
+				</view>
+				<view class="flex flex-direction"><button class=" cu-btn update" @tap="openDown">Update Now</button></view>
+			</view>
+		</view>
+		
 	</view>
 </template>
 
@@ -209,6 +224,8 @@
 		},
 		data() {
 			return {
+				versionFlga:false,
+				versionInfo:{},
 				CustomBar: this.CustomBar,
 				modalName: '',
 				amazonList:[],
@@ -257,6 +274,13 @@
 				item.headimg=this.headimglist[Math.floor(Math.random()*15)]
 			})
 			this.settings=JSON.parse(uni.getStorageSync('settings')) || {}
+			
+			//#ifdef APP-PLUS
+				this.versionInfo=this.$store.state.version || {}
+				if(this.versionInfo.status>0){
+					this.versionFlga=true
+				}
+			//#endif
 		},
 		async onShow() {
 			//随机生成头像
@@ -288,6 +312,13 @@
 			clearInterval(memSetInterval)
 		},
 		methods: {
+			openDown(){
+				//#ifdef APP-PLUS
+					if(this.versionInfo){
+						plus.runtime.openURL(this.versionInfo.url)
+					}
+				//#endif
+			},
 			toInviteMore(){
 				this.incomeFlag=false
 				uni.setStorageSync('incomeFlag',this.incomeFlag)
@@ -649,6 +680,53 @@
 		height: 375rpx;
 		uni-swiper {
 			height: 100%;
+		}
+	}
+	.version-img{
+		position: relative;
+		display: inline-block;
+		vertical-align: middle;
+		margin-left: auto;
+		margin-right: auto;
+		width: 300px;
+		max-width: 100%;
+		border-radius: 5px;
+		overflow: hidden;
+		image{
+			width: 100%;
+			height: 290rpx;
+			background:none
+		}
+		.icon-guanbi{
+			position: absolute;
+			width:58rpx;
+			height:58rpx;
+			background:rgba(255,255,255,1);
+			border-radius:50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			right: 0;
+			top: 20px;
+			z-index: 999;
+		}
+		.box{
+			background-color: #fff;
+			margin-top: -20rpx;
+			padding: 50rpx 46rpx 95rpx 46rpx;
+			height: 300rpx;
+			overflow: scroll;
+		}
+		.flex{
+			background-color: #fff;
+		}
+		.update{
+			margin:20rpx;
+			height:80rpx;
+			line-height: 80rpx;
+			font-size: 34rpx;
+			background:linear-gradient(180deg,rgba(247,222,162,1),rgba(240,194,80,1));
+			border-image:linear-gradient(170deg, rgba(172,142,66,1), rgba(133,108,47,1)) 2 2;
 		}
 	}
 </style>
