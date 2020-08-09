@@ -4,21 +4,21 @@
 			<block slot="content">Password Management</block>
 		</cu-custom>
 		<form class="main" >
-			<view class="text">Get verification code via mobile phone</view>
+			<view class="text"></view>
 			<view class="verification">VERIFOCATION</view>
 			<view class="content">
 				<view class="iconfont icon-mima"></view>
-				<input name='pwd' v-model="passwd" placeholder-class='inputP':password="showPasswd" placeholder='Please enter your mobile phone number' />
+				<input name='pwd' v-model="passwd" placeholder-class='inputP':password="showPasswd" placeholder='please enter account password' />
 				<view class="iconfont xianshi" :class="[showPasswd ? 'icon-xianshi' : 'icon-yincang']" @tap="showPasswd=!showPasswd"></view>
 			</view>
 			<view class="content">
 				<view class="iconfont icon-mima"></view>
-				<input name='pwd' v-model="newPasswd" placeholder-class='inputP' :password="shownewPasswd" placeholder='Please enter your mobile phone number' />
+				<input name='pwd' v-model="newPasswd" placeholder-class='inputP' :password="shownewPasswd" placeholder='Please enter a new password' />
 				<view class="iconfont xianshi" :class="[shownewPasswd ? 'icon-xianshi' : 'icon-yincang']" @tap="shownewPasswd=!shownewPasswd"></view>
 			</view>
 			<view class="content">
 				<view class="iconfont icon-mima"></view>
-				<input name='pwd' v-model="reNewpwd" placeholder-class='inputP' :password="showReNewpwd" placeholder='Please enter your mobile phone number' />
+				<input name='pwd' v-model="reNewpwd" placeholder-class='inputP' :password="showReNewpwd" placeholder='Please enter the password again' />
 				<view class="iconfont xianshi" :class="[showReNewpwd ? 'icon-xianshi' : 'icon-yincang']" @tap="showReNewpwd=!showReNewpwd"></view>
 			</view>
 			<button form-type="submit" @tap="formSubmit">Confirm<view class="iconfont icon-huabanbeifen12"></view></button>

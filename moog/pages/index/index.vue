@@ -1,6 +1,6 @@
 <template>
 	<view class="index-box">
-		<view :class="modalName=='DrawerModalL'?'hidebox':''">
+		<view :class="modalName=='DrawerModalL' || versionFlga==true ||  incomeFlag==true || NoticeFlag==true ?'hidebox':''">
 			<view class="bg-img title-img">
 				<view class="title flex">
 					<view>

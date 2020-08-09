@@ -1,5 +1,5 @@
 <template>
-	<view class="box">
+	<view class="box" v-if="!token">
 		<cu-custom bgColor="bg-black title">
 			<block slot="content">WELCOME</block>
 		</cu-custom>
@@ -26,7 +26,7 @@
 			<view class="register">Register a new <text style="text-decoration: underline;margin-left: 28rpx;" @tap='navigateTo("/pages/login/register")'>Sign up</text></view>
 		</view>
 		
-		<view class="cu-modal notice-dal" :class="versionFlga==true?'show':''">
+		<!-- <view class="cu-modal notice-dal" :class="versionFlga==true?'show':''">
 			<view class="version-img" v-if="versionInfo">
 				<text class="iconfont icon-guanbi" @tap="versionFlga=false" v-if="versionInfo.isforce===0"></text>
 				<image  src="../../static/images/version.png"></image>
@@ -35,7 +35,7 @@
 				</view>
 				<view class="flex flex-direction"><button class="update" @tap="openDown">Update Now</button></view>
 			</view>
-		</view>
+		</view> -->
 		
 	</view>
 </template>
@@ -43,12 +43,14 @@
 <script>
 	export default {
 		async onLoad() {
+			const token = uni.getStorageSync('token');
+			this.token=token
 			this.loginData.username=this.$store.state.username || ''
 			this.loginData.password=this.$store.state.password || ''
 			const {...data}=await this.$http.post('/api/config/getconfig')
 			uni.setStorageSync('settings',JSON.stringify(data.data))
 			this.settings=data.data
-			const token = uni.getStorageSync('token');
+			
 			if(token){
 				uni.showLoading()
 				setTimeout(()=>{
@@ -77,7 +79,8 @@
 				versionFlga:false,
 				showPassword:false,
 				settings:{},
-				versionInfo:{}
+				versionInfo:{},
+				token:'',
 			};
 		},
 		methods: {
