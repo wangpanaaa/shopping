@@ -79,15 +79,17 @@
 
 		.text-con {
 			margin: 21rpx 28rpx 30rpx 28rpx;
-			word-break: break-all;
+			height: 150rpx;
 			text-overflow: ellipsis;
-			display: -webkit-box;
-			-webkit-box-orient: vertical;
-			-webkit-line-clamp: 2;
 			overflow: hidden;
 			font-size:24rpx;
 			font-family:Bahnschrift;
 			line-height:40rpx;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 3;
+			overflow: hidden;
+			word-break: break-all;
 		}
 	}
 </style>
