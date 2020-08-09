@@ -650,7 +650,7 @@
 			height: 240rpx;
 		}
 		.title{
-			margin: 52rpx 0 46rpx 0;
+			margin: 32rpx 0 16rpx 0;
 			font-weight:bold;
 			font-size:40rpx;
 			color: #333333;
@@ -660,7 +660,7 @@
 			line-height:40rpx;
 			font-size:24rpx;
 			text-align: justify;
-			max-height: 280rpx;
+			max-height: 320rpx;
 			overflow: scroll;
 		}
 		.flex{

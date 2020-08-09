@@ -279,9 +279,6 @@ export default {
 
 .order-details {
 	background-color: #fff;
-	width: 300px;
-	margin-left: 75rpx;
-	margin-right: 75rpx;
 	image {
 		width: 400rpx;
 		height: 400rpx;
