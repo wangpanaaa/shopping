@@ -9,7 +9,7 @@
 						<span>{{ data.create_time.split(' ')[1] }}</span>
 					</view>
 					<view class="recordHead_left_number">
-						<span>Number</span>
+						<span>{{$t('order').index7}}</span>
 						<span>{{ data.id }}</span>
 					</view>
 				</view>
@@ -25,16 +25,16 @@
 					<span>{{ data.price }}</span>
 				</view>
 				<view class="recordFoot_item">
-					<span>Commission</span>
+					<span>{{$t('order').index8}}</span>
 					<span>{{ data.commission }}</span>
 				</view>
 				<view class="recordFoot_item">
-					<span>Estimated refund</span>
+					<span>{{$t('order').index10}}</span>
 					<span style="color: #ffb44e;font-size: 16px;font-weight: bold;">{{ data.refund }}</span>
 				</view>
 				<view class="recordFoot_button" v-if="data.status == 0">
-					<button type="default" @click="cancel(data)">Cancel</button>
-					<button type="default" @click="submit(data)">Submit</button>
+					<button type="default" @click="cancel(data)">{{$t('order').index11}}</button>
+					<button type="default" @click="submit(data)">{{$t('order').index12}}</button>
 				</view>
 			</view>
 		</view>

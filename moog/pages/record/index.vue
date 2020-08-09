@@ -1,7 +1,7 @@
 <template>
 	<view class="recordCotain" :class="[orderConfirm ?'noClick':'']">
 		<cu-custom bgColor="bg-black" :isBack="true">
-			<block slot="content">Grab Order Record</block>
+			<block slot="content">{{$t('order').index1}}</block>
 			<block slot="right">
 				<span class="iconfont icon-kefu" @tap='navigateTo("/pages/customerSerice/index")'></span>
 			</block>
@@ -84,11 +84,11 @@
 					<text>{{goodsItem.price}}</text>
 				</view>
 				<view class="order-suc-item">
-					<text>Commission</text>
+					<text>{{$t('order').index8}}</text>
 					<text>{{goodsItem.commission}}</text>
 				</view>
 				<view class="order-suc-item">
-					<text>Estimated refund</text>
+					<text>{{$t('order').index10}}</text>
 					<text style="font-size: 34rpx;color: #FFB745;font-weight: bold;">{{goodsItem.refund}}</text>
 				</view>
 				<view class="flex flex-direction"><button class="cu-btn" @tap="hidwModalName">Confirm</button></view>

@@ -5,12 +5,11 @@
 			<view class="flex">
 				<text class="iconfont icon-fanhui left-icon" @tap="BackPage"></text>
 			</view>
-			<view class="title">invite friends</view>
-			<view class="info-text">Take a commission</view>
+			<view class="title">{{$t('inviteFriend').index1}}</view>
+			<view class="info-text">{{$t('inviteFriend').index2}}</view>
 		</view>
 		<view class="invitation">
-			<view style="font-size:34rpx;border-bottom:1px dashed #ccc ;margin: 0 40rpx;padding-bottom: 37rpx;">Invitation to
-				experience money</view>
+			<view style="font-size:34rpx;border-bottom:1px dashed #ccc ;margin: 0 40rpx;padding-bottom: 37rpx;">{{$t('inviteFriend').index3}}</view>
 			<view class="share">
 				<view class="share_text">
 
@@ -20,13 +19,13 @@
 					Make money together !
 
 				</view>
-				<view style="font-size:34rpx;color: #A8A8A8;margin-top: 20rpx;">Invite code: <text style="margin-left: 20rpx;color: #333;font-weight: bold;">{{userInfo.uid}}</text></view>
+				<view style="font-size:34rpx;color: #A8A8A8;margin-top: 20rpx;">{{$t('inviteFriend').index4}}<text style="margin-left: 20rpx;color: #333;font-weight: bold;">{{userInfo.uid}}</text></view>
 			</view>
 		</view>
 		<view class="padding flex flex-direction">
 			<button @tap="copyLinks" class="cu-btn lg" style="background:linear-gradient(180deg,rgba(247,222,162,1),rgba(240,194,80,1));
 		border:1px solid;height:110rpx;border: 1px solid rgb(143, 144, 144);">
-				Share links
+				{{$t('inviteFriend').index5}}
 			</button>
 		</view>
 	</view>

@@ -1,29 +1,29 @@
 <template>
 	<view class="box" v-if="!token">
 		<cu-custom bgColor="bg-black title">
-			<block slot="content">WELCOME</block>
+			<block slot="content">{{$t('login').index1}}</block>
 		</cu-custom>
 		<view class="login flex">
-			<view class="text">LOGIN</view>
+			<view class="text">{{$t('login').index2}}</view>
 			<view class="language flex" @tap='selectLanguage'>
 				<image src="../../static/images/britain.png" />
-				<text style="font-size:28rpx;font-family:Bahnschrift;font-weight:bold;">English</text>
+				<text style="font-size:28rpx;font-family:Bahnschrift;font-weight:bold;">{{$t('index').index30}}</text>
 			</view>
 		</view>
 		<view class="from">
 			<view class="phone" style="margin-top: 46rpx;">
 				<view class="iconfont icon-zhanghao"></view>
-				<input v-model="loginData.username" class="password" placeholder="Enter your username" style="height:94rpx">
+				<input v-model="loginData.username" class="password" :placeholder="$t('login').index3" style="height:94rpx">
 			</view>
 			<view class="phone" style="margin-top: 20rpx;">
 				<view class="iconfont icon-mima"></view>
-				<input v-model="loginData.password" class="password" :password="showPassword" placeholder="Entert password" style="height:94rpx" maxlength="20">
+				<input v-model="loginData.password" class="password" :password="showPassword" :placeholder="$t('login').index4" style="height:94rpx" maxlength="20">
 				<view class="iconfont xianshi" :class="[showPassword ? 'icon-xianshi' : 'icon-yincang']" @tap="changePassword"></view>
 			</view>
 			<view class="commit" @click="enter">
-				SIGN IN
+				{{$t('login').index5}}
 			</view>
-			<view class="register">Register a new <text style="text-decoration: underline;margin-left: 28rpx;" @tap='navigateTo("/pages/login/register")'>Sign up</text></view>
+			<view class="register">{{$t('login').index6}} <text style="text-decoration: underline;margin-left: 28rpx;" @tap='navigateTo("/pages/login/register")'>{{$t('login').index7}}</text></view>
 		</view>
 		
 		<!-- <view class="cu-modal notice-dal" :class="versionFlga==true?'show':''">
@@ -52,9 +52,7 @@
 			this.settings=data.data
 			
 			if(token){
-				uni.showLoading()
 				setTimeout(()=>{
-					uni.hideLoading()
 					uni.reLaunch({
 						url:'../index/index'
 					})

@@ -1,7 +1,7 @@
 <template>
 	<view class="blacnceContain">
 		<cu-custom bgColor="bg-black" :isBack="true">
-			<block slot="content">Account Balance</block>
+			<block slot="content">{{$t('pay').index1}}</block>
 			<block slot="right">
 				<span class="iconfont icon-kefu" @tap='navigateTo("/pages/customerSerice/index")'></span>
 			</block>

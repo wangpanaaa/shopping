@@ -2,7 +2,7 @@
 	<view>
 		<view class="custom_head">
 			<cu-custom :isBack="true" style="color:#ffffff;"></cu-custom>
-			<view class="head_text">Customer Service List</view>
+			<view class="head_text">{{$t('customerSerice').index1}}</view>
 		</view>
 		
 		<view class="custom_content">
@@ -17,7 +17,7 @@
 						</view>
 					</view>
 				</view>
-				<button class="item_right" @tap="toCopy(item.whatsapp)">Copy</button>
+				<button class="item_right" @tap="toCopy(item.whatsapp)">{{$t('customerSerice').index2}}</button>
 			</view>
 		</view>
 

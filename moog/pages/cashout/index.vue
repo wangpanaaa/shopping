@@ -7,17 +7,17 @@
 		<view class="content">
 			<view class="head">
 				<p>{{ userInfo.balance }}</p>
-				<p>Withdrawable cash</p>
+				<p>{{$t('cashout').index1}}</p>
 			</view>
 			<view class="bank">
 				<view class="addBank" v-if="!userInfo.bank_account" @click="account">+Bank Account</view>
 				<view class=" bankCount" v-else  @click="account">
 					<p>
-						<span>Withdraw Via</span>
+						<span>{{$t('cashout').index2}}</span>
 						{{ userInfo.bank_name }}
 					</p>
 					<p>
-						<span>My Account</span>
+						<span>{{$t('cashout').index3}}</span>
 						{{ userInfo.bank_account }}
 					</p>
 					<span class="iconfont icon-huabanbeifen12"></span>
@@ -26,10 +26,10 @@
 
 			<view class="withdrawal">
 				<view class="withdrawal_title">Cash withdrawal (income tax {{tax.withdrawal_tax}})</view>
-				<input type="number" v-model="amount" placeholder-class="placeholder" placeholder="Please enter the cash withdrawal amount" />
+				<input type="number" v-model="amount" placeholder-class="placeholder" :placeholder="$t('cashout').index5" />
 			</view>
 			<view class="commit" @click="commit">
-				Withdraw
+				{{$t('cashout').index6}}
 				<span class="iconfont icon-huabanbeifen12"></span>
 			</view>
 		</view>

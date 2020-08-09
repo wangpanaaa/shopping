@@ -1,7 +1,7 @@
 <template>
 	<view class="payCotain">
 		<view class="amountInput">
-			Recharge amount <input type="number" v-model="amount" placeholder-class="placeholder" placeholder="Please enter the recharge amount" />
+			{{$t('pay').index2}} <input type="number" v-model="amount" placeholder-class="placeholder" :placeholder="$t('pay').index1" />
 		</view>
 		<view class="cardMoney">
 			<view class="box" :class="[selectCard==index?'boxChecked':'']" v-for="(item,index) in card" :key="index" @click="select(item,index)">{{item.card_name}} <view class="xingxing"><span v-for="i in Number(item.star)" :key="i" class="iconfont icon-tuijianxingji"></span></view>
@@ -25,10 +25,10 @@
 			</view>
 		</view> -->
 		<view class="memo" style="margin-top: 20px;color:rgba(168,168,168,1)">
-			Your recharge amount is <span style="color:rgba(51,51,51,1);font-size:15px;font-weight:bold;margin-left: 13px;">₹
+			{{$t('pay').index4}}<span style="color:rgba(51,51,51,1);font-size:15px;font-weight:bold;margin-left: 13px;">₹
 				{{amount}}</span>
 		</view>
-		<button class="commit" @click="next">Next step <span class="iconfont icon-huabanbeifen12" style="font-weight: bold;font-size: 15px;"></span></button>
+		<button class="commit" @click="next">{{$t('pay').index5}}<span class="iconfont icon-huabanbeifen12" style="font-weight: bold;font-size: 15px;"></span></button>
 	</view>
 </template>
 

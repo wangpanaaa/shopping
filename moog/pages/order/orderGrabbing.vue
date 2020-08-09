@@ -2,23 +2,23 @@
 	<view class="order-box" :class="[loadModal || orderConfirm ?'noClick':'']">
 		<view class="tabber">
 			<cu-custom  :isBack="true">
-				<block slot="content">Place an order</block>
+				<block slot="content">{{$t('orderGrabbing').index1}}</block>
 			</cu-custom>
 			<view style="padding-top: 0rpx;font-size: 50rpx;color: #FFB745;">{{userInfo.balance}}</view>
 			<view style="font-size: 26rpx;padding-top:5rpx;">Remaining available assets</view>
 			<view style="color: #A8A8A8;font-size: 26rpx;padding-top: 8rpx;">
-				Yesterday's earnings
+				{{$t('financialManagement').index4}}
 				<text style="color: #FFB745;">{{userInfo.commission_yesterday}}</text>
 			</view>
 		</view>
 		<view class="order-content">
 			<view class="order-item flex">
-				<view style="font-size: 26rpx;color: #333;">Today's commission</view>
+				<view style="font-size: 26rpx;color: #333;">{{$t('orderGrabbing').index27}}</view>
 				<view style="font-size: 30rpx;color: #FAA723;">{{userInfo.commission_today}}</view>
 			</view>
 			
 			<view class="order-item flex">
-				<view style="font-size: 26rpx;color: #333;">Completed orders</view>
+				<view style="font-size: 26rpx;color: #333;">{{$t('orderGrabbing').index28}}</view>
 				<view style="font-size: 30rpx;">{{userInfo.ordernum_today}}</view>
 			</view>
 			
@@ -26,13 +26,13 @@
 				<button class="cu-btn bg-grey lg place-order" @tap="LoadModal"><text style="font-size: 30rpx;color: #111111;">Order Now</text></button>
 			</view>
 			<view class="order-description">
-				<view class="title">Order description</view>
+				<view class="title">{{$t('orderGrabbing').index7}}</view>
 				<view style="color: #A8A8A8;font-size: 24rpx;line-height:46rpx;" v-html="explainText"></view>
 			</view>
 			<view class="cu-load load-modal" v-if="loadModal" >
 				<!-- <video src="../../static/video/1596197044700795.mp4" autoplay loop muted :show-play-btn="false" :controls="false" objectFit="cover"></video> -->
 				<image src="../../static/images/Loading.gif" class="modal-image"></image>
-				<text>Matching grab orders<text class="dotting"></text></text>
+				<text>{{$t('orderGrabbing').index8}}<text class="dotting"></text></text>
 				
 			</view>
 			<view class="cu-modal" :class="modalName == 'Image' ? 'show' : ''"  @tap.stop='noClick'>
@@ -42,15 +42,15 @@
 						{{goodsItem.goods_name}}
 					</view>
 					<view class="Total" style="margin-top: 25rpx;">
-						<text>Total order amount</text>
+						<text>{{$t('orderGrabbing').index10}}</text>
 						<text>{{goodsItem.price}}</text>
 					</view>
 					<view class="Total">
-						<text>Commission</text>
+						<text>{{$t('orderGrabbing').index11}}</text>
 						<text>{{goodsItem.commission}}</text>
 					</view>
 					<view class="Total">
-						<text>Estimated refund</text>
+						<text>{{$t('orderGrabbing').index12}}</text>
 						<text style="color: #FFB745;font-size: 34rpx;">{{goodsItem.refund}}</text>
 					</view>
 					<view class="flex">
@@ -67,8 +67,8 @@
 						{{noData}}
 					</view>
 					<view class="flex" style="margin-top: 74rpx;">
-						<button class="cu-btn cancel" @tap="navigateTo('/pages/index/inviteFriend')">Invite</button>
-						<button class="cu-btn submit" @tap="navigateTo('/pages/blance/index')">top-up</button>
+						<button class="cu-btn cancel" @tap="navigateTo('/pages/index/inviteFriend')">{{$t('orderGrabbing').index25}}</button>
+						<button class="cu-btn submit" @tap="navigateTo('/pages/blance/index')">{{$t('orderGrabbing').index26}}</button>
 					</view>
 				</view>
 			</view>
@@ -82,17 +82,17 @@
 			<view class="cu-modal" :class="modalName == 'order-suc' ? 'show' : ''" @tap.stop='noClick'>
 				<view class="cu-dialog order-suc">
 					<image src="../../static/images/order-suc.png"></image>
-					<view class="completed">order Completed</view>
+					<view class="completed">{{$t('orderGrabbing').index18}}</view>
 					<view class="order-suc-item">
-						<text>Total order amount</text>
+						<text>{{$t('orderGrabbing').index19}}</text>
 						<text>{{goodsItem.price}}</text>
 					</view>
 					<view class="order-suc-item">
-						<text>Commission</text>
+						<text>{{$t('orderGrabbing').index20}}</text>
 						<text>{{goodsItem.commission}}</text>
 					</view>
 					<view class="order-suc-item">
-						<text>Estimated refund</text>
+						<text>{{$t('orderGrabbing').index21}}</text>
 						<text style="font-size: 34rpx;color: #FFB745;font-weight: bold;">{{goodsItem.refund}}</text>
 					</view>
 					<view class="flex flex-direction"><button class="cu-btn" @tap="modalName = null">Confirm</button></view>
@@ -279,7 +279,7 @@ export default {
 
 .order-details {
 	background-color: #fff;
-	width: auto;
+	width: 300px;
 	margin-left: 75rpx;
 	margin-right: 75rpx;
 	image {

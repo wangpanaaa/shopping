@@ -1,25 +1,25 @@
 <template>
 	<view class="paymentContain">
 		<view class="head">
-			<p>Payment Information</p>
-			<p>Dokypay, Pay ₹600</p>
+			<p>{{$t('pay').index6}}</p>
+			<p>Dokypay, {{$t('pay').index7}} ₹600</p>
 			<span class="iconfont icon-fanhui1" @click="back"></span>
 		</view>
 		<view class="content">
 			<view class="list">
-				<p>User Name</p>
+				<p>{{$t('pay').index8}}</p>
 				<input type="text" v-model="name" placeholder-class="placeholder" placeholder="Input User Name" />
 			</view>
 			<view class="list">
-				<p>Phone Number</p>
+				<p>{{$t('pay').index9}}</p>
 				<input type="number" v-model="phone" placeholder-class="placeholder" placeholder="Input Phone Number" />
 			</view>
 			<view class="list">
-				<p>Email Address</p>
+				<p>{{$t('pay').index10}}</p>
 				<input type="text" v-model="email" placeholder-class="placeholder" placeholder="Input Email Address" />
 			</view>
 			<view class="list">
-				<p>UPI ID</p>
+				<p>{{$t('pay').index11}}</p>
 				<input type="text" v-model="account" placeholder-class="placeholder" placeholder="Input UPI ID" />
 			</view>
 		</view>
@@ -27,10 +27,10 @@
 		<view class="select">
 			<checkbox-group @change="select = !select">
 				<checkbox class="selectBox yellow" :class="select ? 'checked' : ''" :checked="select"></checkbox>
-				Purchase terms
+				{{$t('pay').index12}}
 			</checkbox-group>
 		</view>
-		<view class="commit" @click="commit">Okay</view>
+		<view class="commit" @click="commit">{{$t('pay').index13}}</view>
 	</view>
 </template>
 

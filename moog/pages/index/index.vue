@@ -122,35 +122,35 @@
 			<view class="cu-dialog basis-xl" @tap.stop="" >
 				<view class="flex" @tap='navigateTo("/pages/personal/information")'>
 					<image :src="randomImg"></image>
-					<text class="basis-name">Hello, {{userInfo.username}}</text>
+					<text class="basis-name">{{$t('drawer').index1}}, {{userInfo.username}}</text>
 				</view>
 				<view class="basis-list basis-border">
 					<!-- <view class="basis-item animation-reverse" :class="[animation=='scale-ups'?'animation-scale-up':'']" @tap='navigateTo("../blance/index")'>Home</view> -->
-					<view class="basis-item"  @tap='navigateTo("/pages/blance/index")'>Account 
+					<view class="basis-item"  @tap='navigateTo("/pages/blance/index")'>{{$t('drawer').index2}} 
 						<text class="lg text-gray cuIcon-moreandroid" style="color: #FAA723;margin: 0 10rpx;"></text>
 						<text style="font-family:Arial;font-size:34rpx;color: #FAA723;"> {{userInfo.balance}}</text>
 					</view>
-					<view class="basis-item "  @tap='navigateTo("/pages/record/index")'>Orders</view>
-					<view class="basis-item "  @tap='navigateTo("/pages/cashout/index")'>Cash Out</view>
-					<view class="basis-item "  @tap='navigateTo("/pages/customerSerice/index")'>Customer Service</view>
-					<view class="basis-item "  @tap="navigateTo('/pages/index/inviteFriend')">Invite Friends</view>
+					<view class="basis-item "  @tap='navigateTo("/pages/record/index")'>{{$t('drawer').index3}}</view>
+					<view class="basis-item "  @tap='navigateTo("/pages/cashout/index")'>{{$t('drawer').index4}}</view>
+					<view class="basis-item "  @tap='navigateTo("/pages/customerSerice/index")'>{{$t('drawer').index5}}</view>
+					<view class="basis-item "  @tap="navigateTo('/pages/index/inviteFriend')">{{$t('drawer').index6}}</view>
 				</view>
 				<view class="basis-list basis-border">
-					<view class="basis-item noActive" style="font-weight: bold;">Explore</view>
-					<view class="basis-item " @tap='navigateTo("/pages/message/list")'>Notice</view>
-					<view class="basis-item " @click="navigateTo('/pages/accountDetail/index')">Account Details</view> 
-					<view class="basis-item " @click="navigateTo('/pages/rechargeRecord/index')">Recharge Record</view>
-					<view class="basis-item " @click="navigateTo('/pages/withdrawalRecord/index')">Withdrawal Record</view>
-					<view class="basis-item " @click="navigateTo('/pages/team/index')">Team Report</view>
+					<view class="basis-item noActive" style="font-weight: bold;">{{$t('drawer').index7}}</view>
+					<view class="basis-item " @tap='navigateTo("/pages/message/list")'>{{$t('drawer').index8}}</view>
+					<view class="basis-item " @click="navigateTo('/pages/accountDetail/index')">{{$t('drawer').index9}}</view> 
+					<view class="basis-item " @click="navigateTo('/pages/rechargeRecord/index')">{{$t('drawer').index10}}</view>
+					<view class="basis-item " @click="navigateTo('/pages/withdrawalRecord/index')">{{$t('drawer').index11}}</view>
+					<view class="basis-item " @click="navigateTo('/pages/team/index')">{{$t('drawer').index12}}</view>
 				</view>
 				<view class="basis-list basis-border">
-					<view class="basis-item" style="font-weight: bold;">Settings</view>
+					<view class="basis-item" style="font-weight: bold;">{{$t('drawer').index13}}</view>
 					<view class="basis-item "  @tap='navigateTo("./settingLanguage")'>
 						<image src="../../static/images/britain.png"></image>
-						English
+						{{$t('index').index30}}
 					</view>
-					<view class="basis-item "  @tap='navigateTo("/pages/personal/information")'>Personal information</view>
-					<view class="basis-item" @tap='resetLogin'>Sign Out</view>
+					<view class="basis-item "  @tap='navigateTo("/pages/personal/information")'>{{$t('drawer').index14}}</view>
+					<view class="basis-item" @tap='resetLogin'>{{$t('drawer').index15}}</view>
 					<view class="basis-item" ></view>
 				</view>
 			</view>

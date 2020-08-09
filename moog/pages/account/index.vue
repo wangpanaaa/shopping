@@ -1,37 +1,37 @@
 <template>
 	<view class="paymentContain">
 		<view class="head">
-			<p>Account Information</p>
-			<p>Please make sure your Account Number is correct,we do not take any responsibility caused by incorrect input.</p>
+			<p>{{$t('cashout').index8}}</p>
+			<p>{{$t('cashout').index9}}</p>
 			<span class="iconfont icon-fanhui1" @click="back"></span>
 		</view>
 		<view class="content">
 			<view class="list">
-				<p>Account Number</p>
-				<input type="number" v-model="bank_account" placeholder-class="placeholder" placeholder="Input Account Number" />
+				<p>{{$t('cashout').index10}}</p>
+				<input type="number" v-model="bank_account" placeholder-class="placeholder" :placeholder="$t('cashout').index11" />
 			</view>
 			<view class="listDouble">
 				<view class="list">
-					<p>User Name</p>
-					<input type="text" v-model="cardholder_name" placeholder-class="placeholder" placeholder="Input Bank User Name" />
+					<p>{{$t('cashout').index12}}</p>
+					<input type="text" v-model="cardholder_name" placeholder-class="placeholder" :placeholder="$t('cashout').index13" />
 				</view>
 				<view class="list">
-					<p>IFSC Code</p>
-					<input type="text" v-model="ifsc_code" placeholder-class="placeholder" placeholder="Input IFSC Code" />
+					<p>{{$t('cashout').index14}}</p>
+					<input type="text" v-model="ifsc_code" placeholder-class="placeholder" :placeholder="$t('cashout').index15" />
 				</view>
 			</view>
 
 			<view class="list">
-				<p>Bank Name</p>
-				<input type="text" v-model="bank_name" placeholder-class="placeholder" placeholder="Input Bank Name | Input Branch Bank Name" />
+				<p>{{$t('cashout').index16}}</p>
+				<input type="text" v-model="bank_name" placeholder-class="placeholder" :placeholder="$t('cashout').index17" />
 			</view>
 			<view class="list">
-				<p>Phone Number</p>
-				<input type="number" v-model="tel" placeholder-class="placeholder" placeholder="Input Phone Number" />
+				<p>{{$t('cashout').index19}}</p>
+				<input type="number" v-model="tel" placeholder-class="placeholder" :placeholder="$t('cashout').index20" />
 			</view>
 			<view class="list">
-				<p>Email</p>
-				<input type="text" v-model="email" placeholder-class="placeholder" placeholder="Input Email Address" />
+				<p>{{$t('cashout').index21}}</p>
+				<input type="text" v-model="email" placeholder-class="placeholder" :placeholder="$t('cashout').index22" />
 			</view>
 		</view>
 

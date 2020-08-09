@@ -9,7 +9,7 @@
 				<span class="iconfont icon-tixian1 r-icon" @tap="navigateTo('/pages/financialRecords/index')"></span>
 			</view> --> 
 			<cu-custom :isBack="true">
-				<block slot="content">Financial management</block>
+				<block slot="content">{{$t('financialManagement').index1}}</block>
 				<block slot="right">
 					<view>
 				<span class="iconfont icon-tixian1 r-icon" @tap="navigateTo('/pages/financialRecords/index')"></span>
@@ -17,23 +17,23 @@
 				</block>
 			</cu-custom>
 			<view class="count">{{ userInfo.wmp_balance }}</view>
-			<view class="info-text">Financial amount</view>
+			<view class="info-text">{{$t('financialManagement').index18}}</view>
 		</view>
 		<view class="total-list">
 			<view class="item flex">
-				<text>Total assets</text>
+				<text>{{$t('financialManagement').index2}}</text>
 				<text style="font-size:30rpx;color: #FAA723;">{{ userInfo.balance }}</text>
 			</view>
 			<view class="item flex">
-				<text>Total revenue</text>
+				<text>{{$t('financialManagement').index3}}</text>
 				<text style="font-size:30rpx;color: #12AC3D;">{{ userInfo.wmp_total }}</text>
 			</view>
 			<view class="item flex">
-				<text>Yesterday's earnings</text>
+				<text>{{$t('financialManagement').index4}}</text>
 				<text style="font-size:30rpx;color: #12AC3D;">{{ userInfo.wmp_yesterday }}</text>
 			</view>
 		</view>
-		<view style="margin: 63rpx 0 36rpx 32rpx;font-size:30rpx;font-weight: bold;">Income standard</view>
+		<view style="margin: 63rpx 0 36rpx 32rpx;font-size:30rpx;font-weight: bold;">{{$t('financialManagement').index5}}</view>
 		<radio-group class="days-list" @change="radioChange">
 			<view class="flex" v-for="(item, index) in IncomeList" :key="item.id" :class="[currentId == item.id?'opacitys':'']" @click="currentId=item.id">
 				<view style="position: relative;top: -3rpx;"> 
@@ -43,11 +43,11 @@
 				<radio class="red margin-left-sm" color="#222F3E" :checked="currentId === item.id" :value="item.id.toString()"></radio>
 			</view>
 		</radio-group>
-		<view style="margin: 20rpx 0 26rpx 32rpx;font-size:30rpx;" >Balance transfer</view>
+		<view style="margin: 20rpx 0 26rpx 32rpx;font-size:30rpx;" >{{$t('financialManagement').index7}}</view>
 		<input
 			style="height:100rpx;margin: 0 30rpx;background-color: #fff;border-radius:10rpx;padding-left: 30rpx;"
 			class="uni-input"
-			placeholder="Please enter the transfer amount"
+			:placeholder="$t('financialManagement').index8"
 			v-model="amount"
 			type="number"
 		/>
@@ -58,7 +58,7 @@
 				style="background:linear-gradient(180deg,rgba(247,222,162,1),rgba(240,194,80,1));
 				border:2px solid;height:110rpx;border: 1px solid rgb(143, 144, 144);"
 			>
-				Transfer Into
+				{{$t('financialManagement').index9}}
 			</button>
 		</view>
 	</view>

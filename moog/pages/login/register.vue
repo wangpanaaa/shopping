@@ -1,28 +1,28 @@
 <template>
 	<view class="box">
 		<cu-custom bgColor="bg-black" :isBack="true" backRoute="/pages/login/login">
-			<block slot="content">CREATE ACCOUNT</block>
+			<block slot="content">{{$t('login').index8}} </block>
 		</cu-custom>
 		<view class="login flex">
-			<view class="text">CREATE ACCOUNT</view>
+			<view class="text">{{$t('login').index8}} </view>
 			<view class="language flex"  @tap='selectLanguage'>
 				<image src="../../static/images/britain.png" />
-				<text style="font-size:28rpx;font-family:Bahnschrift;font-weight:bold;">English</text>
+				<text style="font-size:28rpx;font-family:Bahnschrift;font-weight:bold;">{{$t('index').index30}} </text>
 			</view>
 		</view>
 		<view class="from">
 			<view class="phone" style="margin-top: 46rpx;">
 				<view class="iconfont icon-zhanghao"></view>
-				<input v-model="regData.username" class="password" placeholder="Enter your username" style="height:94rpx">
+				<input v-model="regData.username" class="password" :placeholder="$t('login').index3 " style="height:94rpx">
 			</view>
 			<view class="phone" style="margin-top: 20rpx;">
 				<view class="iconfont icon-mima"></view>
-				<input v-model="regData.pwd" class="password" :password="showPassword" placeholder="Set password" style="height:94rpx" maxlength="20">
+				<input v-model="regData.pwd" class="password" :password="showPassword" :placeholder="$t('login').index8" style="height:94rpx" maxlength="20">
 				<view class="iconfont xianshi" :class="[showPassword ? 'icon-xianshi' : 'icon-yincang']" @tap="changePassword"></view>
 			</view>
 			<view class="phone" style="margin-top: 20rpx;">
 				<view class="iconfont icon-mima"></view>
-				<input v-model="regData.repwd" class="password" :password="showRepwd" placeholder="Enter the password again" style="height:94rpx" maxlength="20">
+				<input v-model="regData.repwd" class="password" :password="showRepwd" :placeholder="$t('login').index10" style="height:94rpx" maxlength="20">
 				<view class="iconfont xianshi" :class="[showRepwd ? 'icon-xianshi' : 'icon-yincang']" @tap="changeRepwd"></view>
 			</view>
 			<view class="phone" style="margin-top: 20rpx;">
@@ -31,9 +31,9 @@
 			</view>
 			
 			<view class="commit" @click="registerSub">
-				SIGN UP
+				{{$t('login').index7}}
 			</view>
-			<view class="register">Alredy have an account? <text style="text-decoration: underline;margin-left: 28rpx;" @tap='navigateTo("/pages/login/login")'>Sign in</text></view>
+			<view class="register">{{$t('login').index11}}<text style="text-decoration: underline;margin-left: 28rpx;" @tap='navigateTo("/pages/login/login")'>{{$t('login').index5}}</text></view>
 		</view>
 	</view>
 </template>
