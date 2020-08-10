@@ -25,6 +25,7 @@
 </template>
 
 <script>
+	import Api from "../../common/api.js"
 	export default {
 		data() {
 			return {
@@ -32,7 +33,7 @@
 			}
 		},
 		async onShow() {
-			const data=await this.$http.post('/api/user/address')
+			const data=await Api.address()
 			this.listData=data.data
 		},
 		methods: {

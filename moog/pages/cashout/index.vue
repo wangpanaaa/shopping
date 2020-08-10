@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import Api from "../../common/api.js"
 export default {
 	data() {
 		return {
@@ -62,9 +63,9 @@ export default {
 				return;
 			}
 			uni.showLoading();
-			const res = await this.$http.post('/api/account/withdrawal', {
+			const res = await Api.withdrawal({
 				amount: this.amount
-			});
+			})
 			uni.showToast({
 				icon: 'none',
 				title: res.msg

@@ -28,6 +28,7 @@
 
 <script>
 	import pay from "./components/pay.vue"
+	import Api from "../../common/api.js"
 	export default {
 		components: {
 			pay,
@@ -42,7 +43,7 @@
 		},
 		onLoad() {
 			uni.showLoading()
-			this.$http.post('/api/user_recharge/card').then(data => {
+			Api.rechargeCard().then(data => {
 				data.data.forEach((v,i)=>{
 				this.tabs.push({
 					name:v.group_name,

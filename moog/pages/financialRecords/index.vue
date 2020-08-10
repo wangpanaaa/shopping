@@ -103,6 +103,7 @@
 	import extractRecords from "./components/extractRecords.vue"
 	import dateSelect from "./components/dateSelect.vue"
 	import nodata from '../index/no-data.vue'
+	import Api from "../../common/api.js"
 	import {
 		throttle
 	} from "@/common/util.js";
@@ -171,7 +172,7 @@
 		async	commit(e){
 				let json={id:e.id}
 		  		uni.showLoading()
-				await	this.$http.post('/api/wmp_order/cashout', json)
+				await	Api.orderCashout(json)
 				uni.showToast()
 				e.statusattr='Depositing'
 			},

@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import Api from "../../common/api.js"
 export default {
 	data() {
 		return {
@@ -70,7 +71,7 @@ export default {
 		},
 		async deleteAddress(){
 			uni.showLoading()
-			const res=await this.$http.post('/api/user/delAddress',{id:this.fromData.id})
+			const res=await Api.delAddress({id:this.fromData.id})
 			uni.navigateBack();
 			setTimeout(() => {
 				uni.showToast({
@@ -88,7 +89,7 @@ export default {
 				return
 			}
 			uni.showLoading()
-			const res=await this.$http.post('/api/user/addAddress',this.fromData)
+			const res=await  Api.addAddress(this.fromData)
 			uni.navigateBack();
 			setTimeout(() => {
 				uni.showToast({

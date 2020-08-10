@@ -41,6 +41,7 @@
 
 <script>
 import istatus from '../../colorui/components/istatus.vue';
+import Api from "../../common/api.js"
 export default {
 	components: {
 		istatus
@@ -86,7 +87,7 @@ export default {
 				tel: this.tel
 			};
 			uni.showLoading();
-			const res = await this.$http.post('/api/account/bind_bank_account', json);
+			const res = await Api.bindBank(json);
 			this.$store.dispatch('getUserUpdate');
 			uni.navigateBack();
 			setTimeout(() => {

@@ -25,6 +25,7 @@
 </template>
 
 <script>
+	import Api from "../../common/api.js"
 	export default {
 		data() {
 			return {
@@ -32,7 +33,7 @@
 			};
 		},
 		async mounted() {
-			const list = await this.$http.post('/api/kefu/getKefuList')
+			const list = await Api.getKefuList()
 			this.list = list.data
 		},
 		methods: {
