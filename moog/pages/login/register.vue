@@ -39,11 +39,12 @@
 </template>
 
 <script>
+	import Api from "../../common/api.js"
 	export default {
 		async onLoad() {
 			// this.loginData.username=this.$store.state.username || ''
 			// this.loginData.password=this.$store.state.password || ''
-			const {...data}=await this.$http.post('/api/config/getconfig')
+			const {...data}=await Api.getconfig()
 			uni.setStorageSync('settings',JSON.stringify(data.data))
 			this.settings=data.data
 			const token = uni.getStorageSync('token');

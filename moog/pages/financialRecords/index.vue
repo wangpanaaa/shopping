@@ -247,7 +247,7 @@
 						end_time: this.end_time
 					}
 
-					this.$http.post('/api/wmp_order/log', json).then(data => {
+					Api.orderLog(json).then(data => {
 						v.data.list = data.data
 						if (data.data.length < v.data.count) v.data.bottom = true
 						if (v.name === 'All') uni.hideLoading()
@@ -316,7 +316,7 @@
 					end_time: this.end_time
 				}
 
-				this.$http.post('/api/wmp_order/log', json).then(data => {
+				Api.orderLog(json).then(data => {
 					this.fetching = false;
 					console.log(this.fetching)
 					this.tabs[this.currentTabs].data.list = this.tabs[this.currentTabs].data.list.concat(data.data)
@@ -341,7 +341,7 @@
 				}
 				this.fetching = true;
 				let beginTime = new Date().getTime()
-				this.$http.post('/api/wmp_order/log', json).then(data => {
+				Api.orderLog(json).then(data => {
 					this.tabs[this.currentTabs].data.list = data.data
 					if (data.data.length < this.tabs[this.currentTabs].data.count) this.tabs[this.currentTabs].data.bottom = true
 					if (this.tabs[this.currentTabs].name === 'All') uni.hideLoading()

@@ -84,6 +84,7 @@
 	import accountDetailList from "./components/accountDetailList.vue"
 	import dateSelect from "./components/dateSelect.vue"
 	import nodata from '../index/no-data.vue'
+	import Api from "../../common/api.js"
 	import {
 		throttle
 	} from "@/common/util.js";
@@ -222,7 +223,7 @@
 					start_time: this.start_time,
 					end_time: this.end_time
 				}
-				this.$http.post('/api/user_recharge/log', json).then(data => {
+				Api.rechargeLog(json).then(data => {
 					console.log(data.data)
 					this.page.list = data.data
 					if (data.data.length < this.page.count) this.page.bottom = true
@@ -248,7 +249,7 @@
 					start_time: this.start_time,
 					end_time: this.end_time
 				}
-				this.$http.post('/api/account/detail', json).then(data => {
+				Api.rechargeLog(json).then(data => {
 					this.fetching = false;
 					this.page.list = this.page.list.concat(data.data)
 					if (data.data.length <this.page.count) this.page.bottom = true

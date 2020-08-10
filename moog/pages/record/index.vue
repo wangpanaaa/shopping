@@ -104,6 +104,7 @@
 	import completed from "./components/completed.vue"
 	import cancelled from "./components/cancelled.vue"
 	import {throttle} from "@/common/util.js";
+	import Api from "../../common/api.js"
 	export default {
 		components: {
 			all,
@@ -195,7 +196,7 @@
 						status: v.data.status
 					}
 				}
-				this.$http.post('/api/order/log', json).then(data => {
+		  	Api.orderLog(json).then(data => {
 					v.data.list = data.data
 					if (data.data.length < v.data.count) v.data.bottom = true
 					if (v.name === 'All') uni.hideLoading()
@@ -203,7 +204,7 @@
 			})
 			uni.$on('onCancels',data=>{
 				uni.showLoading()
-				this.$http.post('/api/order/confirm', { orderid: data.data.id, status: 2 }).then(res => {
+			Api.orderConfirm({ orderid: data.data.id, status: 2 }).then(res => {
 					uni.hideLoading()
 					if (res.code === 0) {
 						uni.showToast({
@@ -226,7 +227,7 @@
 						this.orderConfirm = false;
 						this.modalName = 'order-suc';
 						clearInterval(times)
-						this.$http.post('/api/order/confirm',{orderid:data.data.id,status:1}).then(res=>{
+						Api.orderConfirm({orderid:data.data.id,status:1}).then(res=>{
 							if (res.code == 0) {
 								uni.showToast({
 									icon: 'none',
@@ -318,7 +319,7 @@
 					}
 				}
 				
-				this.$http.post('/api/order/log', json).then(data => {
+			  Api.orderLog(json).then(data => {
 					this.fetching = false;
 					this.tabs[this.currentTabs].data.list = this.tabs[this.currentTabs].data.list.concat(data.data)
 					if (data.data.length <this.tabs[this.currentTabs].data.count) this.tabs[this.currentTabs].data.bottom = true
@@ -347,7 +348,7 @@
 				}
 				this.fetching = true;
 				let beginTime = new Date().getTime()
-				this.$http.post('/api/order/log', json).then(data => {
+				Api.orderLog(json).then(data => {
 					this.tabs[this.currentTabs].data.list = data.data
 					if (data.data.length <this.tabs[this.currentTabs].data.count) this.tabs[this.currentTabs].data.bottom = true
 					if (this.tabs[this.currentTabs].name === 'All') uni.hideLoading()

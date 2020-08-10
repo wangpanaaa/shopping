@@ -80,6 +80,7 @@
 </template>
 
 <script>
+	import Api from "../../common/api.js"
 	import accountDetailList from "./components/accountDetailList.vue"
 	import dateSelect from "./components/dateSelect.vue"
 	import nodata from '../index/no-data.vue'
@@ -203,7 +204,7 @@
 					start_time: this.start_time,
 					end_time: this.end_time
 				}
-				this.$http.post('/api/account/withdrawal_list', json).then(data => {
+				Api.withdrawalList(json).then(data => {
 					this.page.list = data.data
 					if (data.data.length <this.page.count) this.page.bottom = true
 					uni.hideLoading()
@@ -245,7 +246,7 @@
 					start_time: this.start_time,
 					end_time: this.end_time
 				}
-				this.$http.post('/api/account/detail', json).then(data => {
+					Api.withdrawalList(json).then(data => {
 					this.fetching = false;
 					this.page.list = this.page.list.concat(data.data)
 					if (data.data.length == 0) this.page.bottom = true

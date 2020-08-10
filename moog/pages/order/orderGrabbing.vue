@@ -104,6 +104,7 @@
 
 <script>
 // import { mapState } from 'vuex'
+	import Api from "../../common/api.js"
 export default {
 	data() {
 		return {
@@ -124,7 +125,7 @@ export default {
 		}
 	},
 	async onLoad() {
-		const data=await this.$http.post('/api/order/orderdescription')
+		const data=await Api.orderdescription()
 		this.explainText=data.data
 	},
 	methods: {
@@ -143,10 +144,10 @@ export default {
 		},
 		async goodsCancal(){
 			this.modalName = null
-			await this.$http.post('/api/order/confirm',{orderid:this.goodsItem.orderid,status:2})
+			await Api.orderConfirm({orderid:this.goodsItem.orderid,status:2}) 
 		},
 		async LoadModal(e) {
-			const data=await this.$http.post('/api/order/mkorder');
+			const data=await Api.orderMkorder();
 			if(!data.data){
 				this.loadModal = false;
 				this.modalName = 'noData';
@@ -172,7 +173,7 @@ export default {
 					this.orderConfirm = false;
 					this.modalName = 'order-suc';
 					clearInterval(times)
-					this.$http.post('/api/order/confirm',{orderid:this.goodsItem.orderid,status:1}).then(()=>{
+			 	 Api.orderConfirm({orderid:this.goodsItem.orderid,status:1}).then(()=>{
 						this.$store.dispatch('getUserUpdate');
 					})
 				}

@@ -27,6 +27,7 @@
 </template>
 
 <script>
+		import Api from "../../common/api.js"
 	export default {
 		data() {
 			return {
@@ -52,7 +53,7 @@
 					repwd:this.reNewpwd,
 					oldpwd:this.passwd
 				}
-				this.$http.post('/api/login/resetPwd',json).then(res=>{
+			Api.loginResetPwd(json).then(res=>{
 					uni.setStorageSync('token',res.data.token)
 					uni.navigateBack({
 						delta:1

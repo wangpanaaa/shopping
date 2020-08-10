@@ -22,6 +22,7 @@
 </template>
 
 <script>
+	import Api from "../../common/api.js"
 	import nodata from '../index/no-data.vue'
 	export default {
 		components:{
@@ -33,7 +34,7 @@
 			}
 		},
 		onLoad() {
-			this.$http.post('/api/config/notice').then(res=>{
+			Api.notice().then(res=>{
 				this.listData=res.data
 			})
 		},

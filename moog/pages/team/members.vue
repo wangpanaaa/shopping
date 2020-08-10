@@ -222,6 +222,7 @@
 </template>
 
 <script>
+	import Api from "../../common/api.js"
 	import dateSelect from "pages/accountDetail/components/dateSelect.vue"
 		import nodata from '../index/no-data.vue'
 	import {
@@ -420,7 +421,7 @@
 							end_time: this.end_time
 						}
 					}
-					this.$http.post('/api/user/team', json).then(data => {
+					Api.userTeam(json).then(data => {
 						v.data.list = data.data
 						if (data.data.length < v.data.count) v.data.bottom = true
 						if (v.name === 'All') uni.hideLoading()
@@ -498,7 +499,7 @@
 					}
 				}
 
-				this.$http.post('/api/user/team', json).then(data => {
+				Api.userTeam(json).then(data => {
 					this.fetching = false;
 					console.log(this.fetching)
 					this.tabs[this.currentTabs].data.list = this.tabs[this.currentTabs].data.list.concat(data.data)
@@ -533,7 +534,7 @@
 				}
 				this.fetching = true;
 				let beginTime = new Date().getTime()
-				this.$http.post('/api/user/team', json).then(data => {
+				Api.userTeam(json).then(data => {
 					this.tabs[this.currentTabs].data.list = data.data
 					if (data.data.length < this.tabs[this.currentTabs].data.count) this.tabs[this.currentTabs].data.bottom = true
 					if (this.tabs[this.currentTabs].name === 'All') uni.hideLoading()

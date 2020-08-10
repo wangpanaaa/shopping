@@ -14,28 +14,38 @@
             "android" : {
                 /* android打包配置 */
                 "permissions" : [
-                    "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>", //通过WiFi或移动基站的方式获取用户错略的经纬度信息，定位精度大概误差在30~1500米
-                    "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>", //允许一个程序访问精良位置(如GPS)
-                    "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>", //获取网络信息状态，如当前的网络连接是否有效
-                    "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>", //获取当前WiFi接入的状态以及WLAN热点的信息
-                    "<uses-permission android:name=\"android.permission.CAMERA\"/>", //请求访问使用照相设备
-                    "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>", //改变网络状态如是否能联网
-                    "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>", //允许程序改变Wi-Fi连接状态
-                    "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>", //允许访问闪光灯
-                    "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>", //访问GMail账户列表
-                    "<uses-permission android:name=\"android.permission.INSTALL_PACKAGES\"/>", //允许一个程序安装packages
-                    "<uses-permission android:name=\"android.permission.INTERNET\"/>", //允许程序打开网络套接字
-                    "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>", //允许程序修改全局音频设置
-                    "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>", //允许挂载和反挂载文件系统可移动存储
-                    "<uses-permission android:name=\"android.permission.READ_LOGS\"/>", //允许程序读取底层系统日志文件
-                    "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>", //读取电话状态
-                    "<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>", //录制声音通过手机或耳机的麦克
-                    "<uses-permission android:name=\"android.permission.VIBRATE\"/>", //允许振动
-                    "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>", //允许程序在手机屏幕关闭后后台进程仍然运行
-                    "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>", //写入联系人，但不可读取
-                    "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>" //允许读写系统设置项
+                    "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>"
+                    // "<uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\"/>",
+                    // "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>", //允许访问闪光灯
+                    // "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>", //访问GMail账户列表
+                    // "<uses-permission android:name=\"android.permission.INSTALL_PACKAGES\"/>", //允许一个程序安装packages
+                    // "<uses-permission android:name=\"android.permission.INTERNET\"/>", //允许程序打开网络套接字
+                    // "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>", //允许程序修改全局音频设置
+                    // "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>", //允许挂载和反挂载文件系统可移动存储
+                    // "<uses-permission android:name=\"android.permission.READ_LOGS\"/>", //允许程序读取底层系统日志文件
+                    // "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>", //读取电话状态
+                    // "<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>", //录制声音通过手机或耳机的麦克
+                    // "<uses-permission	 android:name=\"android.permission.VIBRATE\"/>", //允许振动
+                    // "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>", //允许程序在手机屏幕关闭后后台进程仍然运行
+                    // "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>", //写入联系人，但不可读取
+                    // "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>" //允许读写系统设置项
                 ],
-                "autoSdkPermissions" : false
+                "autoSdkPermissions" : false,
+                "permissionPhoneState" : {
+                    "request" : "none"
+                },
+                "permissionExternalStorage" : {
+                    "request" : "none"
+                },
+                "permissionReadExternalStorage" : {
+                    "request" : "none"
+                },
+                "permissionWriteExternalStorage" : {
+                    "request" : "none"
+                },
+                "permissionWriteExternalStorageMessage" : {
+                    "request" : "none"
+                }
             },
             "ios" : {},
             /* ios打包配置 */

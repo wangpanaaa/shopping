@@ -217,6 +217,7 @@
 	let memSetInterval=null;
 	// import { mapState } from 'vuex'
 	import status from "../../colorui/components/istatus.vue"
+	import Api from "../../common/api.js"
 	export default {
 		components:{
 			status
@@ -264,9 +265,9 @@
 			}
 		},
 		async onLoad() {
-			const {...data}=await this.$http.post('/api/order/mall')
+			const {...data}=await Api.orderMall()
 			this.amazonList=data.data
-			const list=await this.$http.post('/api/user/membernews')
+			const list=await Api.membernews()
 			this.memberNew=list.data
 			this.memberNewArr=this.memberNew.slice(0,3)
 			this.memberNewArr.forEach(item=>{
@@ -292,7 +293,7 @@
 			
 			memSetInterval=setInterval(async ()=>{
 				this.memberNewArr=[]
-				const list=await this.$http.post('/api/user/membernews')
+				const list=await Api.membernews()
 				this.memberNewArr=list.data.slice(0,3)
 				this.memberNewArr.forEach(item=>{
 					item.headimg=this.headimglist[Math.floor(Math.random()*15)]
@@ -300,7 +301,7 @@
 			},10000)
 				this.signTime(async()=>{
 					//获取公告
-					const notices=await this.$http.post('/api/config/notice',{'count':1})
+					const notices=await Api.notice({'count':1}) 
 					if(notices.data.length>0){
 						this.noticedetail=notices.data[0]
 						this.NoticeFlag=true
@@ -328,7 +329,7 @@
 			onNoticeFlag(){
 				this.NoticeFlag = false
 				this.incomeFlag=true
-				this.$http.post('/api/user/teamreport',{type:2}).then(res=>{
+				Api.teamreport({type:2}).then(res=>{
 					this.teamreport=res.data
 				})
 						

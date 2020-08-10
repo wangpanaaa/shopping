@@ -1,10 +1,10 @@
-
+import Api from "../../common/api.js"
 import Vue from 'vue'
 export default {
 	register({ state, commit,dispatch },userInfo){
 		state.username=userInfo.username
 		state.password=userInfo.password
-		Vue.prototype.$http.post('/api/login/register',{...userInfo}).then(res=>{
+	  Api.register({...userInfo}).then(res=>{
 			uni.setStorageSync('token',res.data.token)
 			dispatch('getUserUpdate').then(r=>{
 				uni.redirectTo({
@@ -16,7 +16,7 @@ export default {
 	loginUser({state, commit,dispatch},userInfo){
 		state.username=userInfo.username
 		state.password=userInfo.password
-		Vue.prototype.$http.post('/api/login/login',{...userInfo}).then(res=>{
+		 Api.login({...userInfo}).then(res=>{
 			uni.setStorageSync('token',res.data.token)
 			dispatch('getUserUpdate').then(r=>{
 				uni.redirectTo({
@@ -27,7 +27,7 @@ export default {
 	},
 	getUserUpdate({ state,commit }){
 		return new Promise((resolve,reject)=>{
-			Vue.prototype.$http.post('/api/account/getUserInfo').then(res=>{
+		  Api.getUserInfo().then(res=>{
 				commit("updateUserInfo", res.data)
 					resolve( res.data)
 			})
@@ -35,7 +35,7 @@ export default {
 	},
 	checkupgrade({ state,commit },data){
 		return new Promise((resolve,reject)=>{
-			Vue.prototype.$http.post('/api/config/checkupgrade',data).then(res=>{
+		 Api.checkupgrade(data).then(res=>{
 				commit("updatecheckupgrade", res.data)
 				resolve(res.data)
 			})

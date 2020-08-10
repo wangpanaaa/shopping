@@ -43,6 +43,7 @@
 
 <script>
 	import teamList from "./compoments/teamList.vue"
+	import Api from "../../common/api.js"
 	export default {
 		components: {
 			teamList
@@ -135,7 +136,7 @@
 					let json = {
 						type: this.tabs[0].type,
 					}
-					this.$http.post('/api/user/teamstatistics', json).then(data => {
+					Api.teamstatistics(json).then(data => {
 						this.tabs[0].list = data.data.list
 						this.tabs[0].time = data.data.time
 						this.needRefreshAll=false
@@ -149,7 +150,7 @@
 						type: this.tabs[0].type,
 					}
 					this.tabs[0].list = []
-					this.$http.post('/api/user/teamstatistics', json).then(data => {
+						Api.teamstatistics(json).then(data => {
 						this.tabs[0].list = data.data.list
 						this.tabs[0].time = data.data.time
 						this.currentTabs = 0
@@ -162,7 +163,7 @@
 					let json = {
 						type: v.type
 					}
-					this.$http.post('/api/user/teamstatistics', json).then(data => {
+						Api.teamstatistics(json).then(data => {
 						// v.team = data.data.team
 						v.list = data.data.list
 						v.time = data.data.time
@@ -218,7 +219,7 @@
 				this.tabs[0].list = []
 				this.currentTabs = 0
 				this.needRefreshAll = true
-				this.$http.post('/api/user/teamstatistics', json).then(data => {
+				Api.teamstatistics(json).then(data => {
 					this.tabs[0].list = data.data.list
 					this.tabs[0].time = data.data.time
 				})

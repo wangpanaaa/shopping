@@ -65,6 +65,7 @@
 </template>
 
 <script>
+import Api from "../../common/api.js"
 import status from '../../colorui/components/istatus.vue';
 // import { mapState } from 'vuex';
 export default {
@@ -94,7 +95,7 @@ export default {
 			});
 		},
 		async getWmpinfo() {
-			const { ...data } = await this.$http.post('/api/wmp_order/wmpinfo');
+			const { ...data } = await Api.wmpinfo();
 			this.IncomeList = data.data;
 			this.currentId=this.IncomeList[0].id
 		},
@@ -109,7 +110,7 @@ export default {
 				})
 				return 
 			}
-			const { ...data } = await this.$http.post('/api/wmp_order/transinto',{wmp_id:this.currentId,amount:this.amount});
+			const { ...data } = await Api.transinto({wmp_id:this.currentId,amount:this.amount})
 			if(data.code===0){
 				uni.showToast({
 					title:'Successfully'

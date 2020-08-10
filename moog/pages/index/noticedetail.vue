@@ -21,7 +21,7 @@
 		async onLoad(option) {
 			uni.showLoading()
 			const {id}=option
-			const {data}=await this.$http.post('/api/config/noticedetail',{id})
+			const {data}=await Api.noticedetail({id})
 			uni.hideLoading()
 			this.content=data.content
 			this.title=data.title
