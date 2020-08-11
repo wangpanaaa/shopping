@@ -17,7 +17,7 @@
 			</view>
 			<view class="phone" style="margin-top: 20rpx;">
 				<view class="iconfont icon-mima"></view>
-				<input v-model="loginData.password" class="password" :password="showPassword" :placeholder="$t('login').index4" style="height:94rpx" maxlength="20">
+				<input v-model="loginData.password" class="password" :password="!showPassword" :placeholder="$t('login').index4" style="height:94rpx" maxlength="20">
 				<view class="iconfont xianshi" :class="[showPassword ? 'icon-xianshi' : 'icon-yincang']" @tap="changePassword"></view>
 			</view>
 			<view class="commit" @click="enter">

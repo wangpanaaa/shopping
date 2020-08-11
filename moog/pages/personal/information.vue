@@ -3,9 +3,9 @@
 		<view class="personal">
 			<cu-custom bgColor="bg-black" :isBack="true"><block slot="content">Personal information</block></cu-custom>
 			<view class="info">
-				<view class="img">
-					<image :src="userImg" @click="previewImg(userImg)"></image>
-					<image class="xiugai" src="../../static/images/xiugai.png" mode="aspectFill"  @click="portrait = true"></image>
+				<view class="img"  @click="portrait = true">
+					<image :src="userImg" ></image>
+					<image class="xiugai" src="../../static/images/xiugai.png" mode="aspectFill" ></image>
 				</view>
 				<text class="username">{{ userInfo.username }}</text>
 				<text class="code">Invitation code: {{ userInfo.uid }}</text>
@@ -46,7 +46,12 @@
 		</view>
 		<view class="portrait" v-if="portrait"></view>
 		<view class="content" v-if="portrait">
-			<image v-for="(item, index) in urlList" :src="item.img" :key="item.id" :class="index == clickData.id - 1 ? 'click' : ''" @tap="handClick(item)"></image>
+			<view v-for="(item, index) in urlList" class="image-box" :key='index'>
+				<text class="image-icon cuIcon-roundcheckfill " v-if="index == clickData.id - 1"></text>
+				<image :src="item.img" :key="item.id" :class="index == clickData.id - 1 ? 'click' : ''" @tap="handClick(item)"></image>
+			</view>
+			
+			
 			<view class="footer">
 				<button class="cancel" @click="portrait = false">Cancel</button>
 				<button class="confirm" @click="confirm">Confirm</button>
@@ -163,7 +168,6 @@ export default {
 		},
 		handClick(e) {
 			this.clickData = e;
-			this.previewImg(e.img)
 		}
 	}
 };
@@ -300,7 +304,7 @@ export default {
 			margin: 10rpx 15rpx;
 		}
 		.click {
-			border: 2px solid;
+			border: 1px solid;
 		}
 		.footer {
 			display: flex;
@@ -324,6 +328,16 @@ export default {
 				background: rgba(250, 167, 35, 1);
 				border-radius: 5rpx;
 			}
+		}
+	}
+	.image-box{
+		position: relative;
+		.image-icon{
+			position: absolute;
+			font-size: 24px;
+			z-index: 999;
+			color: #faa723;
+			right: 5rpx;
 		}
 	}
 }

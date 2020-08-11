@@ -93,12 +93,7 @@ export default {
 			};
 			uni.setStorageSync('payData',JSON.stringify(json))
 			let openUrl=url + `/api/user_recharge/cz?id=${this.id}&name=${this.name}&phone=${this.phone}&email=${this.email}&account=${this.account}&channel_id=${this.channel_id}&amount=${this.amount}&language=${json.language}&token=${json.token}`;
-			uni.connectSocket({
-			  url: socketUrl,
-			  header: {
-				'language':'en-us'
-			  }
-			});
+			
 			
 			//#ifdef APP-PLUS
 				plus.runtime.openURL(openUrl)
@@ -112,9 +107,11 @@ export default {
 				  type: 'login',
 				  token:uni.getStorageSync('token')
 			  }
-			  uni.sendSocketMessage({
-			      data:JSON.stringify(json)
-			  });
+			  setInterval(()=>{
+				  uni.sendSocketMessage({
+				      data:JSON.stringify(json)
+				  });
+			  },10000)
 			});
 			
 			uni.onSocketMessage(function (res) {

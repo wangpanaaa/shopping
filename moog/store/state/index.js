@@ -3,5 +3,6 @@ export default {
 	username:null,//输入账号
 	password:null,//输入的密码
 	isNet:true, //网络正常
-	version:null//版本更新
+	version:null,//版本更新
+	setWebSocket:null,//定时器创建Socket
 }

@@ -188,7 +188,9 @@
 				this.scrollViewHeight = res.height;
 			});
 		},
-
+		computed:{
+			
+		},
 		methods: {
 			date() {
 				var date = new Date();
